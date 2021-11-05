@@ -8,24 +8,20 @@ package com.example.jjpeajar.proyecto_3a_josejulio;
 // --------------------------------------------------------------
 
 public class LogicaFake {
-    private String ip = "http://10.236.14.213/";
+    private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
-    LogicaFake(){
+    public LogicaFake(){
 
     }
 
-    public void publicarMecicion(MedicionC02 medicionC02){
-
+    public void publicarMedicion(MedicionC02 medicionCO2){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-
-        peticionarioRest.realizarPeticion("POST", ip+"GTI-3A-Backend-JoseJulio/mi-proyecto-laravel/public/api/lecturas",
-                medicionC02.toJSON(),
-                new PeticionarioRest.RespuestaREST () {
-                    @Override
-                    public void callback(int codigo, String cuerpo) {
-                       // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
-                    }
-                });
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/medicion/create", medicionCO2.toJSON(), new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+            }
+        });
     }
 }

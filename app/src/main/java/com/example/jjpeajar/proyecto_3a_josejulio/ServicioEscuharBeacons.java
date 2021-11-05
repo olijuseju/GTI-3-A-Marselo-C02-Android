@@ -230,7 +230,7 @@ public class ServicioEscuharBeacons  extends IntentService {
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tramaIBeacon = new TramaIBeacon(bytes);
                 MedicionC02 medicionC02 = new MedicionC02();
-                medicionC02.SensorId="2";
+                medicionC02.SensorId="1";
                 medicionC02.longitud=30;
                 medicionC02.latitud=30;
                 int data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
@@ -241,7 +241,7 @@ public class ServicioEscuharBeacons  extends IntentService {
                 if(medicionC02s.size()==20){
                     Log.d("clienterestandroid", "llamamos a la logica");
 
-                    logicaNegocio.publicarMecicion(medicionC02s.get(1));
+                    logicaNegocio.publicarMedicion(medicionC02s.get(1));
                     medicionC02s.clear();
                 }
             }
