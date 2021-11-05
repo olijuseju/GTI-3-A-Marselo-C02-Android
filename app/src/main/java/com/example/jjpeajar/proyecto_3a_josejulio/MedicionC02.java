@@ -12,21 +12,21 @@ import java.io.Serializable;
 
 public class MedicionC02 implements Serializable {
     public String SensorId;
-    public int data;
+    public double data;
     public double latitud;
     public double longitud;
 
     public MedicionC02() {
     }
 
-    public MedicionC02(String sensorId, int data, double latitud, double longitud) {
+    public MedicionC02(String sensorId, double data, double latitud, double longitud) {
         SensorId = sensorId;
         this.data = data;
         this.latitud = latitud;
         this.longitud = longitud;
     }
 
-    public String toJSON(){
+/*    public String toJSON(){
         return "{\"data\": \"" +
                 Integer.toString(this.data)  +
                 "\", \"id_sensor\": \"" +
@@ -36,6 +36,11 @@ public class MedicionC02 implements Serializable {
                 "\", \"latitud\": \"" +
                 this.latitud +""+
                 "\" }";
+    }*/
+
+    public String toJSON(){
+        //return "{\"data\": "+this.data+"\", \"read_date\": "+this.read_date+"\", \"device_id\": "+this.deviceId+"\"}";
+        return "data="+this.data+"&read_date="+"2020-10-22"+"&device_id="+this.SensorId;
     }
 
 
