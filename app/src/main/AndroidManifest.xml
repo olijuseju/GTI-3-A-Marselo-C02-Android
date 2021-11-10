@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Proyecto_3A_JoseJulio">
         <activity
-            android:name=".src.MainActivity"
+            android:name=".src.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
         <activity android:name=".src.logica.LogicaFake"></activity>
 
-        <service android:name=".src.ServicioEscuharBeacons" />
+        <service android:name=".src.main.ServicioEscuharBeacons" />
     </application>
 
 </manifest>

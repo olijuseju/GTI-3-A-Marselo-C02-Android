@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.pojos;
 
 import java.io.Serializable;
 

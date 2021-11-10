@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.main;
 
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.pojos.MedicionC02;
 
 import java.util.ArrayList;
 import java.util.List;

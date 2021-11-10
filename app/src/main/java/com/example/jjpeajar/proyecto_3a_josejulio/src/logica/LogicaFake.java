@@ -2,8 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 // --------------------------------------------------------------
 
-import com.example.jjpeajar.proyecto_3a_josejulio.src.MedicionC02;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.PeticionarioRest;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.pojos.MedicionC02;
 
 /**
  * @author Jose Julio Peñaranda
