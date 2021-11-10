@@ -11,6 +11,8 @@ import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
+
 import java.util.ArrayList;
 import java.util.List;
 

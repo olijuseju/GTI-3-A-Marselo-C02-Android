@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".src.LogicaFake"></activity>
+        <activity android:name=".src.logica.LogicaFake"></activity>
 
         <service android:name=".src.ServicioEscuharBeacons" />
     </application>

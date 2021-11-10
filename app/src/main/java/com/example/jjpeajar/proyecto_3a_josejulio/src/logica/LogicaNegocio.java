@@ -1,6 +1,10 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 // --------------------------------------------------------------
+
+import com.example.jjpeajar.proyecto_3a_josejulio.src.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.PeticionarioRest;
+
 /**
  * @author Jose Julio Peñaranda
  * 2021-10-14
