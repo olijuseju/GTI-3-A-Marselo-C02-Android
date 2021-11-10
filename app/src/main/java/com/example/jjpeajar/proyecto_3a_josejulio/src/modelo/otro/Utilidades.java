@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.UUID;

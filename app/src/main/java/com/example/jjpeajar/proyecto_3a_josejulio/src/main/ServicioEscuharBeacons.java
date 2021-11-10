@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.main;
 
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
@@ -10,6 +10,11 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.util.Log;
+
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
 
 import java.util.ArrayList;
 import java.util.List;

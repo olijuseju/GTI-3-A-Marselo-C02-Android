@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.main;
 
 // ------------------------------------------------------------------
 // ------------------------------------------------------------------
@@ -7,18 +7,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanResult;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.View;
 
@@ -26,9 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
+import com.example.jjpeajar.proyecto_3a_josejulio.R;
 
 // --------------------------------------------------------------
 /**

@@ -1,6 +1,9 @@
-package com.example.jjpeajar.proyecto_3a_josejulio;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 // --------------------------------------------------------------
+
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
+
 /**
  * @author Jose Julio Peñaranda
  * 2021-10-14
