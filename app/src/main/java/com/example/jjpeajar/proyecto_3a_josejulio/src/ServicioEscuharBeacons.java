@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio;
+package com.example.jjpeajar.proyecto_3a_josejulio.src;
 
 import android.app.IntentService;
 import android.bluetooth.BluetoothAdapter;
