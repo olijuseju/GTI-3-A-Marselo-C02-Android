@@ -12,7 +12,9 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.pojos.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
 
 import java.util.ArrayList;
 import java.util.List;
