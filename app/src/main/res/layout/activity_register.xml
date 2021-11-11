@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/fondo_degradado_main"
     android:layout_height="match_parent"
     tools:context=".src.main.RegisterActivity">
 
@@ -62,7 +63,7 @@
                     android:id="@+id/username_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textPersonName" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +99,7 @@
                     android:id="@+id/mail_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,6 +127,7 @@
                 android:hint="*************"
                 app:boxStrokeColor="@color/black"
                 app:hintTextColor="@color/black"
+                app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtView_registerpas">
@@ -134,7 +136,7 @@
                     android:id="@+id/password_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,19 +160,19 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                app:endIconMode="dropdown_menu"
                 android:hint="Seleccione su municipio"
                 app:boxStrokeColor="@color/black"
+                app:endIconMode="dropdown_menu"
                 app:hintTextColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtView_registertown">
 
                 <AutoCompleteTextView
-                    android:id="@+id/town_register"
+                    android:id="@+id/dropDown_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
+                    android:enabled="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
