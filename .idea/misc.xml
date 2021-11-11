@@ -6,14 +6,16 @@
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1 semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1 semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1 semestre/proyecto/Proyecto_Personal/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_login.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_profile_fragment.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/layout/activity_main.xml" value="0.4" />
-        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_login.xml" value="0.264" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
