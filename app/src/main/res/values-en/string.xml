@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Proyecto_3A_JoseJulio</string>
+
+    <!-- login -->
+    <string name="login_title">Login</string>
+    <string name="login_txt_mail">E-mail</string>
+</resources>

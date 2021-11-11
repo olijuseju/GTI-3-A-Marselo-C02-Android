@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Proyecto_3A_JoseJulio</string>
+
+    <!-- login -->
+    <string name="login_title">Iniciar sesión</string>
+    <string name="login_txt_mail">Correo electrónico</string>
 </resources>
