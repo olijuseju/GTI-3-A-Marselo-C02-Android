@@ -4,4 +4,13 @@
     <!-- login -->
     <string name="login_title">Iniciar sesión</string>
     <string name="login_txt_mail">Correo electrónico</string>
+
+    <!-- registro -->
+    <string name="register_title">Registro</string>
+    <string name="register_username">Nombre de usuario</string>
+    <string name="register_txt_mail">Correo electrónico</string>
+    <string name="register_password">Contraseña</string>
+    <string name="register_town">Municipio</string>
+    <string name="register_txtfinal">¿Ya te has registrado?</string>
+    <string name="register_txtbutton_final">Iniciar sesión</string>
 </resources>

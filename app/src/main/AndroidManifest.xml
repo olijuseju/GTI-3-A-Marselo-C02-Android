@@ -19,16 +19,9 @@
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".src.main.ProfileFragment"
-            android:exported="true" />
-        <activity
             android:name=".src.main.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" >
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".src.main.MainActivity"
@@ -36,6 +29,17 @@
         <activity android:name=".src.logica.LogicaFake" />
 
         <service android:name=".src.main.ServicioEscuharBeacons" />
+
+        <activity
+            android:name=".src.main.RegisterActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

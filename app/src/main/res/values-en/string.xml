@@ -5,4 +5,13 @@
     <!-- login -->
     <string name="login_title">Login</string>
     <string name="login_txt_mail">E-mail</string>
+
+    <!-- registro -->
+    <string name="register_title">Register</string>
+    <string name="register_username">User name</string>
+    <string name="register_txt_mail">E-mail</string>
+    <string name="register_password">Password</string>
+    <string name="register_town">Town</string>
+    <string name="register_txtfinal">You have already registered?</string>
+    <string name="register_txtbutton_final">Login</string>
 </resources>
