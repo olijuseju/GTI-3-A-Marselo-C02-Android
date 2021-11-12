@@ -13,4 +13,16 @@
     <string name="register_town">Municipio</string>
     <string name="register_txtfinal">¿Ya te has registrado?</string>
     <string name="register_txtbutton_final">Iniciar sesión</string>
+
+    <!--perfil-->
+    <string name="profile_recorrido">Recorrido</string>
+    <string name="profile_info">Información</string>
+    <string name="profile_link_device">Vincular dispositivo</string>
+    <string name="profile_config">Configuracion</string>
+    <string name="profile_logout">Cerrar sesión</string>
+
+    <string name="profile_name">Nombre</string>
+    <string name="profile_lastname">Apellido</string>
+
+
 </resources>

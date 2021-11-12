@@ -14,4 +14,16 @@
     <string name="register_town">Town</string>
     <string name="register_txtfinal">You have already registered?</string>
     <string name="register_txtbutton_final">Login</string>
+
+    <!--perfil-->
+    <string name="profile_recorrido">Route</string>
+    <string name="profile_info">Info</string>
+    <string name="profile_link_device">Link device</string>
+    <string name="profile_config">Settings</string>
+    <string name="profile_logout">Log out</string>
+
+    <string name="profile_name">Name</string>
+    <string name="profile_lastname">Lastname</string>
+
+
 </resources>
