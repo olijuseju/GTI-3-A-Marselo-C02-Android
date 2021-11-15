@@ -21,10 +21,10 @@
                 android:id="@+id/circleImageView"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="48dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/p"
+                android:src="@drawable/jose_sanches"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,13 +53,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
-                android:clickable="true"
-
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="32dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +73,7 @@
                     android:text="@string/profile_recorrido"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -86,6 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/ic_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -94,8 +95,8 @@
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,8 +109,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/ic_profile_pasos_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -117,15 +119,15 @@
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:tint="@color/naranja_borde"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icons_settings" />
+                        app:srcCompat="@drawable/ic_pies"
+                        app:tint="@color/naranja_borde" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -134,19 +136,19 @@
                 android:id="@+id/c5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/ic_profile_info_bg"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -154,15 +156,15 @@
 
                     <ImageView
                         android:id="@+id/imageView6"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:tint="@color/azul_borde"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icons_info" />
+                        app:srcCompat="@drawable/icons_info"
+                        app:tint="@color/azul_borde" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -174,6 +176,7 @@
                     android:text="@string/profile_info"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout10"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
@@ -185,6 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/ic_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -193,8 +197,8 @@
 
                     <ImageView
                         android:id="@+id/imageButton"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -211,12 +215,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout6"
                 android:layout_width="0dp"
-                android:clickable="true"
-
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -227,6 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/ic_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -235,8 +239,8 @@
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="18dp"
-                        android:layout_height="0dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
@@ -251,24 +255,25 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/ic_profile_info_bg"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/ic_profile_qr_db"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/imageView7"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:tint="@color/morado_borde"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icons_qr_code" />
+                        app:srcCompat="@drawable/icons_qr_code"
+                        app:tint="@color/morado_borde" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -280,6 +285,7 @@
                     android:text="@string/profile_link_device"
                     android:textAlignment="textStart"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
@@ -291,10 +297,10 @@
                 android:id="@+id/constraintLayout7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -305,6 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/ic_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -313,8 +320,8 @@
 
                     <ImageView
                         android:id="@+id/imageView9"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
@@ -329,8 +336,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@id/constraintLayout5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/ic_profile_ajustes_bc"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -338,15 +346,15 @@
 
                     <ImageView
                         android:id="@+id/imageView10"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:tint="@color/gris_borde"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icons_gear" />
+                        app:srcCompat="@drawable/icons_gear"
+                        app:tint="@color/gris_borde" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -357,6 +365,7 @@
                     android:fontFamily="@font/montserrat"
                     android:text="@string/profile_config"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout12"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
@@ -367,10 +376,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:clickable="true"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -378,8 +387,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout9"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
                     android:background="@drawable/ic_profile_logout_bc"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -387,14 +397,14 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        app:tint="@color/rojo_borde"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/icons_log_out" />
+                        app:srcCompat="@drawable/icons_log_out"
+                        app:tint="@color/rojo_borde" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -405,6 +415,7 @@
                     android:fontFamily="@font/montserrat"
                     android:text="@string/profile_logout"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/constraintLayout8"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout9"
@@ -415,6 +426,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/ic_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -423,8 +435,8 @@
 
                     <ImageView
                         android:id="@+id/imageView11"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"

@@ -8,27 +8,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue_background">#F5F7FD</color>
+    <color name="blue_background">#F6F8FE</color>
 
 
 
 <!--    FRAGMENT PERFIL-->
 
-    <color name="gris_dentro">#DADADA</color>
-    <color name="gris_borde">#444444</color>
+    <color name="gris_dentro">#D9D9D9</color>
+    <color name="gris_borde">#464646</color>
 
-    <color name="naranja_dentro">#FFEED1</color>
+    <color name="naranja_dentro">#FAEDD1</color>
     <color name="naranja_borde">#F1CA7E</color>
 
 
-    <color name="rojo_dentro">#FFD7D7</color>
-    <color name="rojo_borde">#FE4747</color>
-
+    <color name="rojo_dentro">#F4D6D6</color>
+    <color name="rojo_borde">#DE4A4A</color>
 
 
     <color name="morado_dentro">#F5E4FE</color>
     <color name="morado_borde">#A47ABA</color>
 
-    <color name="azul_dentro">#DEE9FD</color>
-    <color name="azul_borde">#3981BB</color>
+    <color name="azul_dentro">#E0E8FC</color>
+    <color name="azul_borde">#5680B9</color>
+
+
 </resources>
