@@ -92,9 +92,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/login_txt_register"
-                android:textColor="@color/black"
+                android:textColor="@color/color_principal"
                 android:textSize="16sp"
-                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
