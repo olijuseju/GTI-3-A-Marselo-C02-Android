@@ -21,7 +21,9 @@
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.21557971014492755" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_profile_fragment.xml" value="0.16256830601092895" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.2404040404040404" />
+        <entry key="app/src/main/res/layout/activity_user_information.xml" value="0.24318119820792045" />
       </map>
     </option>
   </component>

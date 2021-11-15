@@ -11,9 +11,9 @@
     <string name="register_username">User name</string>
     <string name="register_txt_mail">E-mail</string>
     <string name="register_password">Password</string>
-    <string name="register_town">Town</string>
+    <string name="register_town">Select your town</string>
     <string name="register_txtfinal">You have already registered?</string>
-    <string name="register_txtbutton_final">Login</string>
+    <string name="register_txtbutton_final">Register</string>
 
     <!--perfil-->
     <string name="profile_recorrido">Route</string>
@@ -24,6 +24,16 @@
 
     <string name="profile_name">Name</string>
     <string name="profile_lastname">Lastname</string>
+
+
+    <!--informacion usuario-->
+    <string name="userinfo_button_edit">Edit</string>
+    <string name="userinfo_name">Name</string>
+    <string name="userinfo_role">Worker in </string>
+    <string name="userinfo_mail_txt">E-mail</string>
+    <string name="userinfo_mail">yourmail@gmail.com</string>
+    <string name="userinfo_town_txt">Town</string>
+    <string name="userinfo_town">Teulada</string>
 
 
 </resources>

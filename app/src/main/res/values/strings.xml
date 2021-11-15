@@ -10,9 +10,9 @@
     <string name="register_username">Nombre de usuario</string>
     <string name="register_txt_mail">Correo electrónico</string>
     <string name="register_password">Contraseña</string>
-    <string name="register_town">Municipio</string>
+    <string name="register_town">Seleccione su municipio</string>
     <string name="register_txtfinal">¿Ya te has registrado?</string>
-    <string name="register_txtbutton_final">Iniciar sesión</string>
+    <string name="register_txtbutton_final">Registrarse</string>
 
     <!--perfil-->
     <string name="profile_recorrido">Recorrido</string>
@@ -23,6 +23,15 @@
 
     <string name="profile_name">Nombre</string>
     <string name="profile_lastname">Apellido</string>
+
+    <!--informacion usuario-->
+    <string name="userinfo_button_edit">Editar</string>
+    <string name="userinfo_name">Nombre</string>
+    <string name="userinfo_role">Trabajador de </string>
+    <string name="userinfo_mail_txt">Correo electrónico</string>
+    <string name="userinfo_mail">tucorreo@gmail.com</string>
+    <string name="userinfo_town_txt">Municipio</string>
+    <string name="userinfo_town">Teulada</string>
 
 
 </resources>
