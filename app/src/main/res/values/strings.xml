@@ -44,6 +44,8 @@
     <string name="edituser_password">Contraseña</string>
     <string name="edituser_town">Seleccione su municipio</string>
 
+    <!--guia de gases-->
+    <string name="gasguide_tittle">Guía de gases</string>
 
 
 </resources>

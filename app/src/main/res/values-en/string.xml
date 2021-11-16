@@ -46,5 +46,7 @@
     <string name="edituser_password">Password</string>
     <string name="edituser_town">Select your town</string>
 
+    <!--guia de gases-->
+    <string name="gasguide_tittle">Gas guide</string>
 
 </resources>
