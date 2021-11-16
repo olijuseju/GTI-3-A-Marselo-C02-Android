@@ -38,5 +38,13 @@
     <string name="userinfo_town_txt">Town</string>
     <string name="userinfo_town">Teulada</string>
 
+    <!--editar usuario-->
+    <string name="edituser_tittle">Edit profile</string>
+    <string name="edituser_changephoto">Change photo</string>
+    <string name="edituser_username">User name</string>
+    <string name="edituser_mail">E-Mail</string>
+    <string name="edituser_password">Password</string>
+    <string name="edituser_town">Select your town</string>
+
 
 </resources>

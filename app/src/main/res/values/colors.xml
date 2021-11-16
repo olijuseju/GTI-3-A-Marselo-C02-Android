@@ -28,8 +28,10 @@
     <color name="morado_dentro">#F5E4FE</color>
     <color name="morado_borde">#A47ABA</color>
 
-    <color name="azul_dentro">#E0E8FC</color>
-    <color name="azul_borde">#5680B9</color>
+    <color name="azul_dentro">#DEE9FD</color>
+    <color name="azul_borde">#3981BB</color>
 
+    <!--    ACTIVITY edit user-->
 
+    <color name="check_verde">#4D8B2A</color>
 </resources>

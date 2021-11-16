@@ -36,5 +36,14 @@
     <string name="userinfo_town_txt">Municipio</string>
     <string name="userinfo_town">Teulada</string>
 
+    <!--editar usuario-->
+    <string name="edituser_tittle">Editar perfil</string>
+    <string name="edituser_changephoto">Cambiar foto</string>
+    <string name="edituser_username">Nombre de usuario</string>
+    <string name="edituser_mail">Correo electrónico</string>
+    <string name="edituser_password">Contraseña</string>
+    <string name="edituser_town">Seleccione su municipio</string>
+
+
 
 </resources>
