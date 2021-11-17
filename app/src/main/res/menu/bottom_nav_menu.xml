@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/myHome"
+        android:title="Inicio"
+        android:icon="@drawable/icons_hause"/>
+
+    <item android:id="@+id/myGraphics"
+        android:title="Gráficas"
+        android:icon="@drawable/icons_chart"/>
+
+    <item android:id="@+id/placeholder"
+        android:title=""/>
+
+    <item android:id="@+id/myNotifications"
+        android:title="Notifícaciones"
+        android:icon="@drawable/icons_bell"/>
+
+    <item android:id="@+id/myProfile"
+        android:title="Perfíl"
+        android:icon="@drawable/icons_gear"/>
+</menu>
