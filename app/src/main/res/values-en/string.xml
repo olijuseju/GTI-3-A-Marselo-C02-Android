@@ -48,5 +48,12 @@
 
     <!--guia de gases-->
     <string name="gasguide_tittle">Gas guide</string>
+    <string name="gasguide_particulas">PM Particles</string>
+    <string name="gasguide_ozone">Ozone</string>
+    <string name="gasguide_no2">Nitrogen dioxide</string>
+    <string name="gasguide_so2">Sulfur dioxide</string>
+    <string name="gasguide_pb">Lead</string>
+    <string name="gasguide_cd">Cadmium</string>
+    <string name="gasguide_clickmore">Click to see more</string>
 
 </resources>

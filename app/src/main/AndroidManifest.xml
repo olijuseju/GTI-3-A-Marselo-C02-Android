@@ -28,13 +28,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".src.main.GasGuideActivity"
+            android:name=".src.main.GasInformationActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.EditUserActivity"
+            android:name=".src.main.GasGuideActivity"
             android:exported="true">
 
         </activity>
+        <activity
+            android:name=".src.main.EditUserActivity"
+            android:exported="true" />
         <activity
             android:name=".src.main.UserInformationActivity"
             android:exported="true" />

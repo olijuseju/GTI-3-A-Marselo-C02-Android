@@ -46,6 +46,13 @@
 
     <!--guia de gases-->
     <string name="gasguide_tittle">Guía de gases</string>
+    <string name="gasguide_particulas">Partículas PM</string>
+    <string name="gasguide_ozone">Ozono</string>
+    <string name="gasguide_no2">Dióxido de nitrógeno</string>
+    <string name="gasguide_so2">Dióxido de azufre</string>
+    <string name="gasguide_pb">Plomo</string>
+    <string name="gasguide_cd">Cadmio</string>
+    <string name="gasguide_clickmore">Pulse para ver más</string>
 
 
 
