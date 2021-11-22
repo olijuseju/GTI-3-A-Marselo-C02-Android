@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/fondo_degradado_main"
     android:layout_height="match_parent"
-    tools:context=".src.main.RegisterActivity">
+    tools:context=".src.main.login.RegisterActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

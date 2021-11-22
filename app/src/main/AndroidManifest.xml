@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".src.main.MenuMainActivity"
+            android:name=".src.main.menu.MenuMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,23 +37,23 @@
 
         </activity>
         <activity
-            android:name=".src.main.EditUserActivity"
+            android:name=".src.main.profile.EditUserActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.UserInformationActivity"
+            android:name=".src.main.profile.UserInformationActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.RegisterActivity"
+            android:name=".src.main.login.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.LoginActivity"
+            android:name=".src.main.login.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".src.main.MainActivity"
             android:exported="true" />
         <activity android:name=".src.logica.LogicaFake" />
 
-        <service android:name=".src.main.ServicioEscuharBeacons" />
+        <service android:name=".src.main.service.ServicioEscuharBeacons" />
 
         <meta-data
             android:name="preloaded_fonts"
