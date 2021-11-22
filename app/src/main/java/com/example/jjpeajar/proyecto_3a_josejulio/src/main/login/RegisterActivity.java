@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.google.android.material.textfield.TextInputLayout;
@@ -36,10 +37,17 @@ public class RegisterActivity extends AppCompatActivity {
     private String town;
 
 
+    // Logica
+    private LogicaNegocioUsarios logicaNegocioUsarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // logica negocio
+
+        logicaNegocioUsarios = new LogicaNegocioUsarios();
 
         // FindViewById
         txtInputLayout = findViewById(R.id.register_input_town);
@@ -119,6 +127,11 @@ public class RegisterActivity extends AppCompatActivity {
                 // SI en los dos inputs hay datos
 
                 if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty()){
+
+                    logicaNegocioUsarios.guardarUsuario(username,correo,password,1, getApplicationContext());
+
+
+
                     Intent intent = new Intent(RegisterActivity.this, MenuMainActivity.class);
                     startActivity(intent);
                 }

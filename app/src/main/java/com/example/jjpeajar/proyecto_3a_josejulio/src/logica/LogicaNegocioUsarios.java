@@ -11,8 +11,10 @@ public class LogicaNegocioUsarios {
 
     public LogicaNegocioUsarios(){ }
 
-    public void guardarUsuario(User user , Context context){
+    public void guardarUsuario(String username, String mail, String password, int town, Context context){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        User user = new User(username,mail,password, town);
 
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/create", user.toJSON(), new PeticionarioRest.RespuestaREST() {
             @Override
