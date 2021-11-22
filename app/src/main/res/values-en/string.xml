@@ -19,6 +19,8 @@
     <string name="register_town">Select your town</string>
     <string name="register_txtfinal">You have already registered?</string>
     <string name="register_txtbutton_final">Register</string>
+    <string name="register_introduce_username">Please, introduce your username</string>
+    <string name="register_introduce_town">Select a town</string>
 
     <!--perfil-->
     <string name="profile_recorrido">Route</string>
@@ -71,6 +73,8 @@
 
     <!--notificaciones-->
     <string name="notification_tittle">Notifications</string>
+    <string name="notification_filter">Filter</string>
+    <string name="notification_flush">Flush</string>
 
 
 
