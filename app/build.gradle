@@ -38,5 +38,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     //Cicle Image View
     implementation'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.jjoe64:graphview:4.2.2'
 
 }
