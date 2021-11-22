@@ -2,6 +2,8 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,10 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     private String correo;
     private String password;
 
+    //Logica
+    private LogicaNegocioUsarios logicaNegocioUsarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //logica negocia
+        logicaNegocioUsarios= new LogicaNegocioUsarios();
 
         //findById
         layout_correo=findViewById(R.id.login_input_correo);
@@ -73,13 +82,30 @@ public class LoginActivity extends AppCompatActivity {
 
                 //si en los dos inputs hay data
                 if(!correo.isEmpty() && !password.isEmpty()) {
-                    Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
-                    startActivity(intent);
-                }
 
+
+                    /*logicaNegocioUsarios.guardarUsuario();
+
+                    String pepe= getIntent().getStringExtra();
+
+                    Intent i = new Intent();
+                    i.setAction("Iniciar_GET_Mediciones");
+                    getApplicationContext().sendBroadcast(i);
+
+                    Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
+                    startActivity(intent);*/
+                }
             }
         });
+    }
 
+    private class ReceptorGetMedicion extends BroadcastReceiver {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String recibido = intent.getStringExtra("Mediciones");
+
+        }
     }
 }

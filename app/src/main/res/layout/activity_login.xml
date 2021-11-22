@@ -47,7 +47,7 @@
                     android:id="@+id/login_editText_mail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,6 +62,7 @@
                 android:layout_marginEnd="16dp"
                 android:hint="@string/register_password"
                 app:boxStrokeColor="@color/black"
+                app:endIconMode="password_toggle"
                 app:hintTextColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +72,7 @@
                     android:id="@+id/login_editText_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

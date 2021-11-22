@@ -29,7 +29,7 @@ public class LogicaNegocioUsarios {
         });
     }
 
-    public void obtenerUsario(int idUser, Context context){
+    public int obtenerUsario(int idUser, Context context){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/user/"+idUser, null , new PeticionarioRest.RespuestaREST() {
@@ -43,5 +43,7 @@ public class LogicaNegocioUsarios {
 
             }
         });
+
+        return 1;
     }
 }
