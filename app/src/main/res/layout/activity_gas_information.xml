@@ -11,8 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/gasinfo_descrip"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -24,6 +25,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/gasinfo_txtdescript"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView37" />
@@ -88,8 +92,8 @@
 
             <ImageView
                 android:id="@+id/imageView15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
@@ -109,18 +113,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/gasinfo_values"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gas_item" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_primary"
+        android:backgroundTint="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/textView16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/textView16"
+        app:layout_constraintVertical_bias="0.555" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_primary"
+        android:backgroundTint="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/textView37"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView37"
+        app:layout_constraintTop_toTopOf="@+id/textView37" />
 
     <ImageView
         android:id="@+id/imageView17"
         android:layout_width="48dp"
         android:layout_height="45dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         app:srcCompat="@drawable/icons_values" />
 
@@ -129,53 +162,65 @@
         android:layout_width="123dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+        app:layout_constraintEnd_toEndOf="@+id/textView27"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
         app:layout_constraintTop_toTopOf="@+id/imageView17"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/icons_info_blue"
-        tools:layout_editor_absoluteX="129dp" />
+        app:srcCompat="@drawable/icons_info_blue" />
 
     <ImageView
         android:id="@+id/imageView19"
         android:layout_width="90dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView29"
+        app:layout_constraintStart_toStartOf="@+id/textView29"
         app:layout_constraintTop_toTopOf="@+id/imageView18"
         app:srcCompat="@drawable/icons_alert" />
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="95dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="94dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtvalues"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageView17"
-        app:layout_constraintStart_toStartOf="@+id/imageView17"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textView27"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
     <TextView
         android:id="@+id/textView27"
-        android:layout_width="106dp"
-        android:layout_height="53dp"
+        android:layout_width="107dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtinfo"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageView18"
-        app:layout_constraintStart_toStartOf="@+id/imageView18"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textView29"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <TextView
         android:id="@+id/textView29"
-        android:layout_width="106dp"
-        android:layout_height="53dp"
+        android:layout_width="94dp"
+        android:layout_height="40dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/gasinfo_txtalert"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/imageView19"
-        app:layout_constraintStart_toStartOf="@+id/imageView19"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/imageView19" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
