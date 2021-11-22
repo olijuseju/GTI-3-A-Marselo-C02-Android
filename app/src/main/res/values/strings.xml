@@ -54,6 +54,17 @@
     <string name="gasguide_cd">Cadmio</string>
     <string name="gasguide_clickmore">Pulse para ver más</string>
 
+    <!--informacion de gases-->
+    <string name="gasinfo_tittle">Ozono (O3)</string>
+    <string name="gasinfo_values">Valores</string>
+    <string name="gasinfo_descrip">Descripcion</string>
+    <string name="gasinfo_txtvalues">120 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtinfo">180 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtalert">240 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtdescript">El ozono es uno de los principales componentes de la niebla tóxica. Éste se forma por la reacción con la luz solar (fotoquímica) de contaminantes como los óxidos de nitrógeno procedentes de las emisiones de vehículos o la industria y los compuestos orgánicos volátiles emitidos por los vehículos, los disolventes y la industria. Los niveles de ozono más elevados se registran durante los períodos de tiempo soleado. El exceso de ozono en el aire puede producir efectos adversos de consideración en la salud humana. Puede causar problemas respiratorios, provocar asma, reducir la función pulmonar y causar graves enfermedades. </string>
+
+
+
 
 
 </resources>
