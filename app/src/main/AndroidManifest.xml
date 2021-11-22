@@ -15,6 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
@@ -58,9 +59,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".src.main.ProfileFragment"
-            android:exported="true" />
     </application>
 
 </manifest>
