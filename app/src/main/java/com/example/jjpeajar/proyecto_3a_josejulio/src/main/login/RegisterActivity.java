@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String password;
     private String town;
 
+
     // Logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
 

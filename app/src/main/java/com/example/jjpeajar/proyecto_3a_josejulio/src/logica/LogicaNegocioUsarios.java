@@ -2,8 +2,13 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.JsonReader;
+import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class LogicaNegocioUsarios {
 
@@ -14,16 +19,14 @@ public class LogicaNegocioUsarios {
     public void guardarUsuario(String username, String mail, String password, int town, Context context){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-        User user = new User(username,mail,password, town);
+        //ser user = new User(username,mail,password, town);
 
-        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/create", user.toJSON(), new PeticionarioRest.RespuestaREST() {
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/create", "user.toJSON()", new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
 
-                Intent i = new Intent();
-                i.putExtra("respuestaCrearUsario", cuerpo);
-                context.sendBroadcast(i);
+                Log.d("pepe", "  Codigo -----> "+codigo);
 
             }
         });
@@ -37,13 +40,43 @@ public class LogicaNegocioUsarios {
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
 
-                Intent i = new Intent();
-                i.putExtra("obtenerUsario", cuerpo);
-                context.sendBroadcast(i);
+
 
             }
         });
-
         return 1;
+    }
+
+    public void login(String mail, String password, Context context){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        User user = new User(mail);
+        String res= user.toJsonWithPassword(password);
+
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/login", res , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                try {
+                    Gson gson= new Gson();
+                    UserController userController= gson.fromJson(cuerpo, UserController.class);
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + userController.getSuccess()+"");
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    float success= userController.getSuccess();
+                    if(success == 1.0){
+                        Log.d("pepe", "  CUERPO -> gucci");
+                    }else if(success == 0.0){
+                        Log.d("pepe", "  CUERPO -> no gucci");
+                    }
+                }catch (Exception e){
+                    Log.d("Error", " Error");
+                }
+
+
+
+            }
+        });
     }
 }

@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -88,20 +89,29 @@ public class LoginActivity extends AppCompatActivity {
                 //si en los dos inputs hay data
                 if(!correo.isEmpty() && !password.isEmpty()) {
 
-
-                    /*logicaNegocioUsarios.guardarUsuario();
-
-                    String pepe= getIntent().getStringExtra();
+                    Log.d("pepe",isValidEmail(correo)+"");
+                    if(isValidEmail(correo)){
+                        logicaNegocioUsarios.login(correo, password , getApplicationContext());
+                        layout_correo.setErrorEnabled(false);
+                    }else{
+                        layout_correo.setErrorEnabled(true);
+                        layout_correo.setError(getText(R.string.login_introduce_correo_ok));
+                    }
+                    /*String pepe= getIntent().getStringExtra();
 
                     Intent i = new Intent();
                     i.setAction("Iniciar_GET_Mediciones");
-                    getApplicationContext().sendBroadcast(i);
+                    getApplicationContext().sendBroadcast(i);*/
 
-                    Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
+                    /*Intent intent = new Intent(LoginActivity.this, MenuMainActivity.class);
                     startActivity(intent);*/
                 }
             }
         });
+    }
+
+    public static boolean isValidEmail(String emailAddress) {
+        return !emailAddress.contains(" ") && emailAddress.matches(".+@.+\\.[a-z]+");
     }
 
     private class ReceptorGetMedicion extends BroadcastReceiver {
