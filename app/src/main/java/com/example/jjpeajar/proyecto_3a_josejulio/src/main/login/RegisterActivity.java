@@ -1,5 +1,10 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 
+/**
+ * @author Belén Grande López
+ * 2021-11-11
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -36,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity {
     private String password;
     private String town;
 
-
     // Logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
 
@@ -46,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // logica negocio
-
         logicaNegocioUsarios = new LogicaNegocioUsarios();
 
         // FindViewById
@@ -62,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         login_txt = findViewById(R.id.button_go_login);
 
 
+        // Array de strings de items para el desplegable
         String[] items = new String[]{
                "Teulada",
                 "Albaida",
@@ -69,16 +73,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         };
 
+        // Adapter para el array con el layout de los items suelos y el array de los items que contiene el desplegable
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 RegisterActivity.this,
                 R.layout.dropdown_item,
                 items
         );
 
+        // Le asocio al input el adapter
         dropdowntxt.setAdapter(adapter);
 
-        // Onclick
 
+        // Onclick boton que lleva al login
         login_txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,15 +93,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+
+        // Onclick boton registro
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                // Obtengo los datos que hay en el edit text y los almaceno
                 correo = editText_correo.getText().toString();
                 username = editText_username.getText().toString();
                 password = editText_password.getText().toString();
                 town = dropdowntxt.getText().toString();
 
+                // Compruebo si los campos están vacíos para que si lo están lance un mensaje de error
+                // Campo correo
                 if(correo.isEmpty()){
                     layout_correo.setErrorEnabled(true);
                     layout_correo.setError(getText(R.string.login_introduce_correo_ok));
@@ -103,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_correo.setErrorEnabled(false);
                 }
 
+                // Campo nombre de usuario
                 if(username.isEmpty()){
                     layout_nombreusuario.setErrorEnabled(true);
                     layout_nombreusuario.setError(getText(R.string.register_introduce_username));
@@ -110,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_nombreusuario.setErrorEnabled(false);
                 }
 
+                // Campo contraseña
                 if(password.isEmpty()){
                     layout_password.setErrorEnabled(true);
                     layout_password.setError(getText(R.string.login_introduce_contra));
@@ -117,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_password.setErrorEnabled(false);
                 }
 
+                // Campo municipio
                 if(town.isEmpty()){
                     txtInputLayout.setErrorEnabled(true);
                     txtInputLayout.setError(getText(R.string.register_introduce_town));
@@ -125,23 +139,17 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 // SI en los dos inputs hay datos
-
                 if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty()){
 
                     logicaNegocioUsarios.guardarUsuario(username,correo,password,1, getApplicationContext());
-
 
 
                     Intent intent = new Intent(RegisterActivity.this, MenuMainActivity.class);
                     startActivity(intent);
                 }
 
-
             }
         });
-
-
-
 
     }
 }

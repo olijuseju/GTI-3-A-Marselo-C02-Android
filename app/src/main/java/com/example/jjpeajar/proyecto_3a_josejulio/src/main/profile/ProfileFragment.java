@@ -1,5 +1,10 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile;
 
+/**
+ * @author Jose Julio Peñaranda
+ * 2021-11-12
+ */
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

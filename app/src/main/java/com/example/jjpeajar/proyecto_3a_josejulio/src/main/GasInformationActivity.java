@@ -1,5 +1,10 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main;
 
+/**
+ * @author Belén Grande López
+ * 2021-11-22
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;

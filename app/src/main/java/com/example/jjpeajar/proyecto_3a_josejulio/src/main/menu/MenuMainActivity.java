@@ -1,5 +1,10 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu;
 
+/**
+ * @author Andrey Kuzmin
+ * 2021-11-17
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
