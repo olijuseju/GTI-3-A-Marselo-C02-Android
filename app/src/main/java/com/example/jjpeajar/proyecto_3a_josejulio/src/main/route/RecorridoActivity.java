@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionController;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.jjoe64.graphview.GraphView;
@@ -23,12 +27,48 @@ public class RecorridoActivity extends AppCompatActivity {
     private static final String[] WEEK_DAYS = {"", "Mon", "Tue", "Wed",  "Thu", "Fri", "Sat", "Sun" ,""};
     private static final String[] WEEKS_MONTH = {"","Sem 1", "Sem 2", "Sem 3",  "Sem 4", "Sem 5",""};
     private static final String[] MONTHS_YEAR = {"","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",""};
-
+    public int distancia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorrido);
+
+        LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
+        distancia=0;
+        logicaNegocioMediciones.obtenerMediciones(new LogicaNegocioMediciones.MedicionesCallback() {
+            @Override
+            public void onCompletedObtenerMediciones(MedicionController medicionController) {
+                for (int i = 0 ; i< medicionController.getMediciones().size() - 1 ;i++) {
+                    Location locationA = new Location("punto A");
+
+                    locationA.setLatitude(medicionController.getMediciones().get(i).getLatitude());
+                    locationA.setLongitude(medicionController.getMediciones().get(i).getLongitude());
+
+                    Location locationB = new Location("punto B");
+
+                    locationB.setLatitude(medicionController.getMediciones().get(i+1).getLatitude());
+                    locationB.setLongitude(medicionController.getMediciones().get(i+1).getLongitude());
+
+                    distancia += locationA.distanceTo(locationB);
+
+
+                    int pasos = (int) (distancia/0.71777203560149);
+                    int kcalorias = (int) (40*distancia)/1000;
+                    TextView numDistancia = findViewById(R.id.numDistancia);
+                    numDistancia.setText(String.valueOf(distancia/1000));
+                    TextView numCal = findViewById(R.id.numCal);
+                    numCal.setText(String.valueOf(kcalorias));
+                    TextView numPasos = findViewById(R.id.numPasos);
+                    numPasos.setText(String.valueOf(pasos));
+                }
+            }
+
+            @Override
+            public void onFailedObtenerMediciones(boolean res) {
+
+            }
+        });
 
         MaterialCardView cardView1 = findViewById(R.id.cardV1);
         MaterialCardView cardView2 = findViewById(R.id.cardV2);
@@ -253,6 +293,5 @@ public class RecorridoActivity extends AppCompatActivity {
         graphViewBs.getViewport().setMinY(0);
         graphViewBs.getViewport().setMaxY(18);
         graphViewBs.addSeries(series);
-
     }
 }

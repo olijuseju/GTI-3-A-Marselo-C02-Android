@@ -71,12 +71,51 @@
     <string name="gasinfo_txtalert">240 μg/m3 de media en 8h</string>
     <string name="gasinfo_txtdescript">Ozone is one of the main components of smog. This is formed by the reaction with sunlight (photochemical) of pollutants such as nitrogen oxides from vehicle or industrial emissions and volatile organic compounds emitted by vehicles, solvents and industry. The highest ozone levels are recorded during periods of sunny weather. Excess ozone in the air can have serious adverse effects on human health. It can cause breathing problems, cause asthma, reduce lung function, and cause serious illness. </string>
 
+    <!--dias de la semana-->
+    <string name="lun">mon</string>
+    <string name="mar">tue</string>
+    <string name="mie">wed</string>
+    <string name="jue">thu</string>
+    <string name="vie">fri</string>
+    <string name="sab">sat</string>
+    <string name="dom">sun</string>
+
 
     <!--notificaciones-->
     <string name="notification_tittle">Notifications</string>
     <string name="notification_filter">Filter</string>
     <string name="notification_flush">Flush</string>
 
+    <!--semanas-->
+    <string name="sem">Week</string>
 
 
+    <string name="sem1">week1</string>
+    <string name="sem2">week2</string>
+    <string name="sem3">week3</string>
+    <string name="sem4">week4</string>
+    <string name="sem5">week5</string>
+
+
+    <!--dias de la semana-->
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="march">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dic">Dec</string>
+
+
+    <string name="distancia">Distance</string>
+    <string name="camino">Path</string>
+    <string name="calor_as">Calories</string>
+    <string name="pasos">Steps</string>
+    <string name="mes">Month</string>
+    <string name="a_o">Year</string>
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".src.main.route.RecorridoActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -39,11 +40,11 @@
                 android:id="@+id/bt_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:selectableItemBackground">
+                android:foreground="?android:selectableItemBackground"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView17"
@@ -68,14 +69,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTitulo"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground">
+                app:layout_constraintTop_toBottomOf="@+id/textTitulo">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -93,7 +94,7 @@
                         app:srcCompat="@drawable/icons_distancia" />
 
                     <TextView
-                        android:id="@+id/textView27"
+                        android:id="@+id/numDistancia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -114,7 +115,7 @@
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView37"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView27"
+                        app:layout_constraintTop_toTopOf="@+id/numDistancia"
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
@@ -122,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Km"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView27"
+                        app:layout_constraintBottom_toBottomOf="@+id/numDistancia"
                         app:layout_constraintStart_toStartOf="@+id/textView29"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -165,14 +166,14 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardV1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground">
+                app:layout_constraintTop_toBottomOf="@+id/cardV1">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -194,7 +195,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
                     <TextView
-                        android:id="@+id/textView38"
+                        android:id="@+id/numPasos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -225,14 +226,14 @@
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView40"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView38" />
+                        app:layout_constraintTop_toTopOf="@+id/numPasos" />
 
                     <TextView
                         android:id="@+id/textView40"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pasos"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView38"
+                        app:layout_constraintBottom_toBottomOf="@+id/numPasos"
                         app:layout_constraintStart_toStartOf="@+id/textView39"
                         app:layout_constraintTop_toBottomOf="@+id/textView39" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -272,7 +273,7 @@
                         app:srcCompat="@drawable/icons_fire" />
 
                     <TextView
-                        android:id="@+id/textView41"
+                        android:id="@+id/numCal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -294,7 +295,7 @@
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView43"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView41" />
+                        app:layout_constraintTop_toTopOf="@+id/numCal" />
 
                     <TextView
                         android:id="@+id/textView43"
@@ -303,7 +304,7 @@
                         android:text="kcal"
                         android:textColor="@color/black"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView41"
+                        app:layout_constraintBottom_toBottomOf="@+id/numCal"
                         app:layout_constraintStart_toStartOf="@+id/textView42"
                         app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
