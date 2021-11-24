@@ -134,7 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_password.setErrorEnabled(true);
                     layout_password.setError(getText(R.string.login_introduce_contra));
                 }else{
-                    layout_password.setErrorEnabled(false);
+                    if(!password.equals(repeatpassword)){
+                        layout_password.setErrorEnabled(true);
+                        layout_password.setError(getText(R.string.register_repeatpassF));
+                    }else{
+                        layout_password.setErrorEnabled(false);
+                    }
                 }
 
                 // Campo municipio
@@ -143,13 +148,6 @@ public class RegisterActivity extends AppCompatActivity {
                     txtInputLayout.setError(getText(R.string.register_introduce_town));
                 }else{
                     txtInputLayout.setErrorEnabled(false);
-                }
-
-                if(password != repeatpassword){
-                    layout_password.setErrorEnabled(true);
-                    layout_password.setError(getText(R.string.register_repeatpassF));
-                }else{
-                    layout_password.setErrorEnabled(false);
                 }
 
                 // SI en los dos inputs hay datos
