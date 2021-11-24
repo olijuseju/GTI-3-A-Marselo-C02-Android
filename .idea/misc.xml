@@ -19,7 +19,8 @@
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_login.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_profile_fragment.xml" value="0.264" />
-        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_recorrido.xml" value="0.2016" />
+        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_recorrido.xml" value="0.1814595660749507" />
+        <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_recorrido_bottomsheet.xml" value="0.35335195530726254" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_register.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_user_information.xml" value="0.22010869565217392" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/MarseloC02/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_home.xml" value="0.22418478260869565" />
@@ -32,7 +33,6 @@
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_profile_fragment.xml" value="0.4742468415937804" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_register.xml" value="0.2391304347826087" />
-        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_edit_user.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_gas_guide.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_gas_information.xml" value="0.3101123595505618" />

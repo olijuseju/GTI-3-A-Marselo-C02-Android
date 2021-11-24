@@ -5,8 +5,10 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile;
  * 2021-11-12
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
+
+import java.lang.invoke.ConstantCallSite;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +71,17 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        ConstraintLayout clRecorrido = v.findViewById(R.id.constraintLayout3);
+        clRecorrido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), RecorridoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        return v;
     }
 }

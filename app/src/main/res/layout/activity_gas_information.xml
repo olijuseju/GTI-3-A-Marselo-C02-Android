@@ -15,7 +15,7 @@
         android:text="@string/gasinfo_descrip"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
 
     <TextView
         android:id="@+id/textView38"
@@ -152,8 +152,8 @@
         android:layout_width="48dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView19"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintEnd_toEndOf="@+id/textTitulo"
+        app:layout_constraintStart_toStartOf="@+id/textTitulo"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         app:srcCompat="@drawable/icons_values" />
 
@@ -179,7 +179,7 @@
         app:srcCompat="@drawable/icons_alert" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/textTitulo"
         android:layout_width="94dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -205,7 +205,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textView29"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toEndOf="@+id/textTitulo"
         app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <TextView

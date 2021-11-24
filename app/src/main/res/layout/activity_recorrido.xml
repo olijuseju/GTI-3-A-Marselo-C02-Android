@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/textTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -36,10 +36,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/bt_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground">
 
                 <ImageView
                     android:id="@+id/imageView17"
@@ -58,7 +62,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
+                android:id="@+id/cardV1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -68,7 +72,10 @@
                 app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView19">
+                app:layout_constraintTop_toBottomOf="@+id/textTitulo"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -102,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="Distancia"
+                        android:text="@string/distancia"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView37"
@@ -114,7 +121,7 @@
                         android:id="@+id/textView37"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="Km"
                         app:layout_constraintBottom_toBottomOf="@+id/textView27"
                         app:layout_constraintStart_toStartOf="@+id/textView29"
                         app:layout_constraintTop_toBottomOf="@+id/textView29" />
@@ -152,7 +159,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView2"
+                android:id="@+id/cardV2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -162,7 +169,10 @@
                 app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+                app:layout_constraintTop_toBottomOf="@+id/cardV1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -210,7 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="TextView"
+                        android:text="@string/camino"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView40"
@@ -221,7 +231,7 @@
                         android:id="@+id/textView40"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/pasos"
                         app:layout_constraintBottom_toBottomOf="@+id/textView38"
                         app:layout_constraintStart_toStartOf="@+id/textView39"
                         app:layout_constraintTop_toBottomOf="@+id/textView39" />
@@ -230,16 +240,20 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardV3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+                app:layout_constraintTop_toBottomOf="@+id/cardV2">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -275,7 +289,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="TextView"
+                        android:text="@string/calor_as"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView43"
@@ -286,7 +300,7 @@
                         android:id="@+id/textView43"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="kcal"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView41"
