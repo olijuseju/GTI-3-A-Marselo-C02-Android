@@ -22,6 +22,8 @@
     <string name="register_txtbutton_final">Register</string>
     <string name="register_introduce_username">Please, introduce your username</string>
     <string name="register_introduce_town">Select a town</string>
+    <string name="register_repeatpass">Confirm your password</string>
+    <string name="register_repeatpassF">Make sure that the passwords are the same</string>
 
     <!--perfil-->
     <string name="profile_recorrido">Route</string>

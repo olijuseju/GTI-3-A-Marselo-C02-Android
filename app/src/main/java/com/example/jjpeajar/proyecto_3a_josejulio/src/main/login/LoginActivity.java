@@ -2,6 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 
 /**
  * @author Andrey Kuzmin
+ * LoginActivity
  * 2021-11-11
  */
 

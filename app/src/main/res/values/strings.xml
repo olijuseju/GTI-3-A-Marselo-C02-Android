@@ -21,6 +21,9 @@
     <string name="register_txtbutton_final">Registrarse</string>
     <string name="register_introduce_username">Introduce un usuario válido</string>
     <string name="register_introduce_town">Seleccione un municipio</string>
+    <string name="register_repeatpass">Confirme su contraseña</string>
+    <string name="register_repeatpassF">Asegúrese de que las contraseñas coincidan</string>
+
 
     <!--perfil-->
     <string name="profile_recorrido">Recorrido</string>

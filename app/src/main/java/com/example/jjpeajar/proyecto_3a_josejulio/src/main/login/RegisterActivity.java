@@ -2,6 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 
 /**
  * @author Belén Grande López
+ * RegisterActivity
  * 2021-11-11
  */
 
@@ -25,21 +26,23 @@ import com.google.android.material.textfield.TextInputLayout;
 public class RegisterActivity extends AppCompatActivity {
 
     // Atributos
-
     private TextInputLayout txtInputLayout;
     private AutoCompleteTextView dropdowntxt;
     private TextInputLayout layout_nombreusuario;
     private TextInputLayout layout_correo;
     private TextInputLayout layout_password;
+    private TextInputLayout layout_repeatpassword;
     private EditText editText_username;
     private EditText editText_correo;
     private EditText editText_password;
+    private EditText editText_repeatpassword;
     private Button button_register;
     private TextView login_txt;
     private String username;
     private String correo;
     private String password;
     private String town;
+    private String repeatpassword;
 
 
     // Logica
@@ -64,6 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
         editText_password = findViewById(R.id.password_register);
         button_register = findViewById(R.id.button_register);
         login_txt = findViewById(R.id.button_go_login);
+        layout_repeatpassword = findViewById(R.id.input_repeatpassword);
+        editText_repeatpassword = findViewById(R.id.password_repeatregister);
 
 
         // Array de strings de items para el desplegable
@@ -105,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                 username = editText_username.getText().toString();
                 password = editText_password.getText().toString();
                 town = dropdowntxt.getText().toString();
+                repeatpassword = editText_repeatpassword.getText().toString();
 
                 // Compruebo si los campos están vacíos para que si lo están lance un mensaje de error
                 // Campo correo
@@ -139,8 +145,15 @@ public class RegisterActivity extends AppCompatActivity {
                     txtInputLayout.setErrorEnabled(false);
                 }
 
+                if(password != repeatpassword){
+                    layout_password.setErrorEnabled(true);
+                    layout_password.setError(getText(R.string.register_repeatpassF));
+                }else{
+                    layout_password.setErrorEnabled(false);
+                }
+
                 // SI en los dos inputs hay datos
-                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty()){
+                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty()){
 
                     logicaNegocioUsarios.guardarUsuario(username,correo,password,1, getApplicationContext());
 

@@ -2,6 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile;
 
 /**
  * @author Jose Julio Peñaranda
+ * ProfileFragment
  * 2021-11-12
  */
 

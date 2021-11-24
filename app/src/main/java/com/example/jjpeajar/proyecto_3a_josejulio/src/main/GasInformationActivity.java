@@ -2,6 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main;
 
 /**
  * @author Belén Grande López
+ * GasInformationActivity
  * 2021-11-22
  */
 
