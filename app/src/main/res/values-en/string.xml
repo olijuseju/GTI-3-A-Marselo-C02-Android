@@ -10,6 +10,7 @@
     <string name="login_txt_register">Register here ></string>
     <string name = "login_introduce_correo_ok"> Please, enter a valid email</string>
     <string name="login_introduce_contra">Please, introduce your password</string>
+    <string name="login_datos_incorrectos">"The entered data is not correct."</string>
 
     <!-- registro -->
     <string name="register_title">Register</string>

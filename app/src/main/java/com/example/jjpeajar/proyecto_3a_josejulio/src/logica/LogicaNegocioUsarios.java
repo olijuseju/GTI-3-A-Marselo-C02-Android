@@ -16,6 +16,13 @@ public class LogicaNegocioUsarios {
 
     public LogicaNegocioUsarios(){ }
 
+    //user interface
+    public interface UsariosCallback{
+        void onCompletedIniciarSesion(UserController userController);
+        void onFailedIniciarSesion(boolean res);
+
+    }
+
     public void guardarUsuario(String username, String mail, String password, int town, Context context){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
@@ -47,7 +54,7 @@ public class LogicaNegocioUsarios {
         return 1;
     }
 
-    public void login(String mail, String password, Context context){
+    public void login(String mail, String password, UsariosCallback usariosCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         User user = new User(mail);
@@ -60,21 +67,20 @@ public class LogicaNegocioUsarios {
                 try {
                     Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
+
                     Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                     Log.d("pepe", "  CUERPO ->" + userController.getSuccess()+"");
 
                     //comprobamos si esta registrado en nuestra bbdd o no
                     float success= userController.getSuccess();
                     if(success == 1.0){
-                        Log.d("pepe", "  CUERPO -> gucci");
+                        usariosCallback.onCompletedIniciarSesion(userController);
                     }else if(success == 0.0){
-                        Log.d("pepe", "  CUERPO -> no gucci");
+                        usariosCallback.onFailedIniciarSesion(true);
                     }
                 }catch (Exception e){
-                    Log.d("Error", " Error");
+                    Log.d("Error", "Error");
                 }
-
-
 
             }
         });

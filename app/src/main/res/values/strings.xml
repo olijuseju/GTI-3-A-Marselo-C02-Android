@@ -9,6 +9,7 @@
     <string name="login_txt_register">Regístrate aquí  ></string>
     <string name="login_introduce_contra">Introduce una contraseña válida</string>
     <string name="login_introduce_correo_ok">Introduce un correo válido</string>
+    <string name="login_datos_incorrectos">"Los datos introducidos no son correctos."</string>
 
     <!-- registro -->
     <string name="register_title">Registro</string>
