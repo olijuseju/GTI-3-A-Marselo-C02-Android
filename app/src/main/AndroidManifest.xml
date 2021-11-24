@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".src.main.profile.vincular.VincularDispositivoActivity"
+            android:exported="true" />
+        <activity
             android:name=".src.main.menu.MenuMainActivity"
             android:exported="true" />
         <activity
@@ -27,16 +30,13 @@
             android:exported="true" />
         <activity
             android:name=".src.main.MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".src.main.GasInformationActivity"
-            android:exported="true" >
-
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".src.main.GasGuideActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".src.main.profile.EditUserActivity"
             android:exported="true" />
@@ -45,14 +45,13 @@
             android:exported="true" />
         <activity
             android:name=".src.main.login.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".src.main.login.RegisterActivity"
             android:exported="true" />

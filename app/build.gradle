@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jjpeajar.proyecto_3a_josejulio"
-        minSdk 19
+        minSdk 21
         targetSdk 30
         versionCode 1
         versionName "1.0"
@@ -40,5 +40,7 @@ dependencies {
     implementation'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.google.code.gson:gson:2.8.7'
+    //QR scan library
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
 
 }

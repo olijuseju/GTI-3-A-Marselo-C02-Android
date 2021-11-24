@@ -34,4 +34,10 @@
     <!--    ACTIVITY edit user-->
 
     <color name="check_verde">#4D8B2A</color>
+
+
+    <!-- Vincular dispositivo -->
+    <color name="efecto_pulsado_gris">#FFFFFFFF</color>
+
+
 </resources>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
 
 import java.lang.invoke.ConstantCallSite;
@@ -67,13 +68,28 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    //atributos
+    private ConstraintLayout btn_vincular;
+    private ConstraintLayout clRecorrido;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ConstraintLayout clRecorrido = v.findViewById(R.id.constraintLayout3);
+        clRecorrido = v.findViewById(R.id.constraintLayout3);
+        btn_vincular = v.findViewById(R.id.profile_btn_vincular);
+
+        //onclicks
+        btn_vincular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), VincularDispositivoActivity.class);
+                startActivity(i);
+            }
+        });
+
         clRecorrido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -115,4 +115,29 @@
     <string name="pasos">Pasos</string>
     <string name="mes">Mes</string>
     <string name="a_o">Año</string>
+
+
+    <!-- Vincular dispositivo -->
+    <string name="tittle_newDevice">Vincular dispositivo</string>
+    <string name="subtittle_newDevice">Pasos para vincular un nuevo dispositivo</string>
+    <string name="body_newDevice">Necesitamos verificar su información del dispositivo.</string>
+    <string name="body2_newDevice">Por favor siga los pasos de abajo para procesar su dispositivo.</string>
+    <string name="step1_newDevice">Paso 1</string>
+    <string name="step2_newDevice">Paso 2</string>
+    <string name="step3_newDevice">Paso 3</string>
+    <string name="step3_modelText_newDevice">Modelo:</string>
+    <string name="step1Text_newDevice">Escanear código QR</string>
+    <string name="step2Text_newDevice">Añadir información</string>
+    <string name="step3Text_newDevice">Comprobar datos</string>
+    <string name="step1Text_newDeviceQR">Escanear código QR</string>
+    <string name="snack_qr_error">El QR no es de MarseloO2.</string>
+    <!--    activity Vincular dispositivo: step3 bottom sheet-->
+    <string name="step3tittle_bottom_sheet">Verificación de los datos</string>
+    <string name="step3image_state">Estado</string>
+    <string name="step3_empty">Paso no completado</string>
+    <string name="step3_favorite">Favoritos</string>
+    <string name="step3_favorite_yes">Si</string>
+    <string name="step3_favorite_no">No</string>
+    <string name="snack_steps_remain">Faltan pasos por hacer.</string>
+
 </resources>
