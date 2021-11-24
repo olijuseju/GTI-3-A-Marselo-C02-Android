@@ -135,6 +135,15 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d("pepe","el correo no existe en la base de datos");
                                     setSnackbar((String) getText(R.string.login_datos_incorrectos));
                                 }
+
+                                @Override
+                                public void onCompletedRegistrarUsario(int success) {
+
+                                }
+                                @Override
+                                public void onFailedRegistrarUsario(int success) {
+
+                                }
                             });
                             layout_correo.setErrorEnabled(false);
                         }else{

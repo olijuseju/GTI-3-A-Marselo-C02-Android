@@ -16,6 +16,13 @@ public class User {
         this.email = email;
     }
 
+    //constructor para registrarse
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
 
     // Getter Methods
 
@@ -64,5 +71,15 @@ public class User {
     public String toJsonWithPassword(String password){
         String mail= getEmail();
         return "email="+mail+"&password="+password;
+    }
+
+    public String toJsonToRegister(String password , String confirmPassword , int role_id , int town_id){
+        String mail= getEmail();
+        return  "name="+getName()
+                +"&email="+getEmail()
+                +"&password="+password
+                +"&password_confirmation="+confirmPassword
+                +"&role_id="+role_id
+                +"&town_id="+town_id;
     }
 }

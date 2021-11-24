@@ -20,6 +20,8 @@ public class LogicaNegocioUsarios {
     public interface UsariosCallback{
         void onCompletedIniciarSesion(UserController userController);
         void onFailedIniciarSesion(boolean res);
+        void onCompletedRegistrarUsario(int success);
+        void onFailedRegistrarUsario(int success);
 
     }
 
@@ -78,6 +80,36 @@ public class LogicaNegocioUsarios {
                     }else if(success == 0.0){
                         usariosCallback.onFailedIniciarSesion(true);
                     }
+                }catch (Exception e){
+                    Log.d("Error", "Error");
+                }
+
+            }
+        });
+    }
+
+    public void registrarUsario(String username, String correo , String password , String confirm_password , int town , int role , UsariosCallback usariosCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        User user = new User(username , correo);
+        String res= user.toJsonToRegister(password, confirm_password , role , town );
+
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/registroapp", res , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                try {
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+                    /*Gson gson= new Gson();
+                    UserController userController= gson.fromJson(cuerpo, UserController.class);
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    float success= userController.getSuccess();
+                    if(success == 1.0){
+                        usariosCallback.onCompletedIniciarSesion(userController);
+                    }else if(success == 0.0){
+                        usariosCallback.onFailedIniciarSesion(true);
+                    }*/
                 }catch (Exception e){
                     Log.d("Error", "Error");
                 }
