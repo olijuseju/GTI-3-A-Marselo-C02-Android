@@ -8,8 +8,6 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -110,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         if(isValidEmail(correo)){
-                            logicaNegocioUsarios.login(correo, password, new LogicaNegocioUsarios.UsariosCallback() {
+                            logicaNegocioUsarios.login(correo, password, new LogicaNegocioUsarios.IniciarSesionCallback() {
                                 @Override
                                 public void onCompletedIniciarSesion(UserController userController) {
                                     Log.d("pepe",userController.getSuccess()+"");
@@ -137,14 +135,6 @@ public class LoginActivity extends AppCompatActivity {
                                     setSnackbar((String) getText(R.string.login_datos_incorrectos));
                                 }
 
-                                @Override
-                                public void onCompletedRegistrarUsario(int success) {
-
-                                }
-                                @Override
-                                public void onFailedRegistrarUsario(int success) {
-
-                                }
                             });
                             layout_correo.setErrorEnabled(false);
                         }else{

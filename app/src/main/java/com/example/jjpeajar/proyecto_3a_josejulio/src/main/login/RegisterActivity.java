@@ -9,7 +9,9 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,6 +23,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -134,11 +137,16 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_password.setErrorEnabled(true);
                     layout_password.setError(getText(R.string.login_introduce_contra));
                 }else{
-                    if(!password.equals(repeatpassword)){
-                        layout_password.setErrorEnabled(true);
-                        layout_password.setError(getText(R.string.register_repeatpassF));
+                    if(password.length()>=6){
+                        if(!password.equals(repeatpassword)){
+                            layout_password.setErrorEnabled(true);
+                            layout_password.setError(getText(R.string.register_repeatpassF));
+                        }else{
+                            layout_password.setErrorEnabled(false);
+                        }
                     }else{
-                        layout_password.setErrorEnabled(false);
+                        layout_password.setErrorEnabled(true);
+                        layout_password.setError("La contra no tiene más de 6");
                     }
                 }
 
@@ -151,17 +159,56 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 // SI en los dos inputs hay datos
-                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty()){
+                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty() && password.length()>=6){
 
-                    logicaNegocioUsarios.guardarUsuario(username,correo,password,1, getApplicationContext());
+                    if(isValidEmail(correo)){
+
+                        Log.d("pepe", "  CUERPO ->" + "mail verificado");
 
 
-                    Intent intent = new Intent(RegisterActivity.this, MenuMainActivity.class);
-                    startActivity(intent);
+                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, 7, 5, new LogicaNegocioUsarios.RegistroCallback() {
+                            @Override
+                            public void onCompletedRegistrarUsario(int success) {
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailedRegistrarUsario(boolean resultado) {
+
+                            }
+                        });
+                    }
                 }
 
             }
         });
 
     }
+
+    public static boolean isValidEmail(String emailAddress) {
+        return !emailAddress.contains(" ") && emailAddress.matches(".+@.+\\.[a-z]+");
+    }
+
+    /**
+     * La descripción de setSnackbar. Funcion que muestra en pantalla un mensaje que acción.
+     *
+     * @param snackBarText String con el mensaje que queremos mostrar en pantalla.
+     *
+     */
+    public void setSnackbar(String snackBarText){
+        //creamos snackbar
+        Snackbar snackBar = Snackbar.make( findViewById(R.id.layout_activity_register), snackBarText,Snackbar.LENGTH_LONG);
+        //color boton snackbar
+        snackBar.setActionTextColor(Color.CYAN);
+        //boton cerrar snackbar
+        snackBar.setAction("Cerrar", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackBar.dismiss();
+            }
+        });
+        //mostrar
+        snackBar.show();
+    } // ()
 }

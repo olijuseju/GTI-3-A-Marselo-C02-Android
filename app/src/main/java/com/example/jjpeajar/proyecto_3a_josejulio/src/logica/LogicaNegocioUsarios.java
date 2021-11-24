@@ -1,14 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.JsonReader;
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 public class LogicaNegocioUsarios {
 
@@ -17,12 +14,15 @@ public class LogicaNegocioUsarios {
     public LogicaNegocioUsarios(){ }
 
     //user interface
-    public interface UsariosCallback{
+    public interface IniciarSesionCallback {
         void onCompletedIniciarSesion(UserController userController);
         void onFailedIniciarSesion(boolean res);
-        void onCompletedRegistrarUsario(int success);
-        void onFailedRegistrarUsario(int success);
 
+    }
+
+    public interface RegistroCallback{
+        void onCompletedRegistrarUsario(int success);
+        void onFailedRegistrarUsario(boolean resultado);
     }
 
     public void guardarUsuario(String username, String mail, String password, int town, Context context){
@@ -56,7 +56,7 @@ public class LogicaNegocioUsarios {
         return 1;
     }
 
-    public void login(String mail, String password, UsariosCallback usariosCallback){
+    public void login(String mail, String password, IniciarSesionCallback iniciarSesionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         User user = new User(mail);
@@ -76,9 +76,9 @@ public class LogicaNegocioUsarios {
                     //comprobamos si esta registrado en nuestra bbdd o no
                     float success= userController.getSuccess();
                     if(success == 1.0){
-                        usariosCallback.onCompletedIniciarSesion(userController);
+                        iniciarSesionCallback.onCompletedIniciarSesion(userController);
                     }else if(success == 0.0){
-                        usariosCallback.onFailedIniciarSesion(true);
+                        iniciarSesionCallback.onFailedIniciarSesion(true);
                     }
                 }catch (Exception e){
                     Log.d("Error", "Error");
@@ -88,7 +88,7 @@ public class LogicaNegocioUsarios {
         });
     }
 
-    public void registrarUsario(String username, String correo , String password , String confirm_password , int town , int role , UsariosCallback usariosCallback){
+    public void registrarUsario(String username, String correo , String password , String confirm_password , int town , int role , RegistroCallback registroCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         User user = new User(username , correo);
@@ -101,15 +101,17 @@ public class LogicaNegocioUsarios {
                 try {
                     Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                     Log.d("pepe", "  CUERPO ->" + cuerpo+"");
-                    /*Gson gson= new Gson();
+                    Log.d("pepe", "  nnnjnk ->" + codigo+"");
+                    Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
                     //comprobamos si esta registrado en nuestra bbdd o no
                     float success= userController.getSuccess();
+
                     if(success == 1.0){
-                        usariosCallback.onCompletedIniciarSesion(userController);
-                    }else if(success == 0.0){
-                        usariosCallback.onFailedIniciarSesion(true);
-                    }*/
+                        registroCallback.onCompletedRegistrarUsario((int) success);
+                    }else{
+                        registroCallback.onFailedRegistrarUsario(true);
+                    }
                 }catch (Exception e){
                     Log.d("Error", "Error");
                 }
