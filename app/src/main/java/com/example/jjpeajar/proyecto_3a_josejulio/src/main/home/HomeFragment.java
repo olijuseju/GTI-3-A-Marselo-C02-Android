@@ -6,15 +6,26 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.home;
  * 2021-11-19
  */
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,10 +74,26 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    //atributtes
+    private TextView conect;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+            View v= inflater.inflate(R.layout.fragment_home, container, false);
+
+            //findById
+            conect=v.findViewById(R.id.fragment_home_btn_conect);
+
+            //onclick
+            conect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
+                }
+            });
+
+            return v;
     }
 }

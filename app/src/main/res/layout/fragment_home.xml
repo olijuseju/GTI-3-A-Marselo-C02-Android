@@ -225,7 +225,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textView22"
+                            android:id="@+id/fragment_home_btn_conect"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
@@ -253,7 +253,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/textView22"
+                            app:layout_constraintStart_toEndOf="@+id/fragment_home_btn_conect"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
