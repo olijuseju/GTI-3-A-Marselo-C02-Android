@@ -143,4 +143,10 @@
     <string name="step3_favorite_no">No</string>
     <string name="snack_steps_remain">Faltan pasos por hacer.</string>
 
+
+    <!-- cerrar sesion alert -->
+    <string name="deleteText_dialog">¿Seguro que quieres salir de tu cuenta de MarseloO2?</string>
+    <string name="cancelButton_dialog">Cancelar</string>
+    <string name="deleteConfirmButton_dialog">Eliminar</string>
+
 </resources>

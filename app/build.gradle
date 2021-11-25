@@ -42,5 +42,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     //QR scan library
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
+    //libreria para reiniciar la aplicacion
+    implementation 'com.jakewharton:process-phoenix:2.1.2'
 
 }

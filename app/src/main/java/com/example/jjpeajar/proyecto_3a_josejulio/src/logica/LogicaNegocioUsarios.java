@@ -9,6 +9,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TownController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformation;
@@ -54,6 +55,13 @@ public class LogicaNegocioUsarios {
 
         void onCompletedVinculateDevice(String serial);
         void onFailedVinculateDevice(boolean resultado);
+    }
+
+    //cerrar sesion interface
+    public interface CerrarSesionCallback {
+
+        void onCompletedCerrarSesion(String message);
+        void onFailedCerrarSesion(boolean resultado);
     }
 
 
@@ -289,9 +297,35 @@ public class LogicaNegocioUsarios {
         });
     }
 
+    /**
+     * La descripción de CerrarSesion. Funcion que cierra sesion del user , cambiando el access_token
+     * la base de datos
+     *
+     * @param access_token String , es el access token que tiene el user que utilizamos para saber si ha iniciado sesion
+     * @param cerrarSesionCallback CerrarSesionCallback para almacenar lo que devuelve el callback de la consulta
+     */
+    public void CerrarSesion(String access_token, CerrarSesionCallback cerrarSesionCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
 
+        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/logout", null, access_token , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
 
+                try {
+                    Gson gson= new Gson();
+                    UserController userController= gson.fromJson(cuerpo, UserController.class);
 
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + userController.getMessage());
+                    //guardar respuesta en el interface
+                    cerrarSesionCallback.onCompletedCerrarSesion(userController.getMessage());
 
-
+                }catch (Exception e){
+                    Log.d("Error", "Error");
+                    //error
+                    cerrarSesionCallback.onFailedCerrarSesion(true);
+                }
+            }
+        });
+    }
 }

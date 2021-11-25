@@ -36,7 +36,7 @@ public class LogicaNegocioNotification {
     public void obtenerNotificacionesByIdUser(String access_token , ObtenerNotificacionesByIdUserCallback obtenerNotificacionesByIdUserCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/notificaciones", null , access_token , new PeticionarioRest.RespuestaREST() {
+        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);

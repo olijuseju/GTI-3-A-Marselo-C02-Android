@@ -49,15 +49,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         String typeNotification= notificationItem.getType();
         if( typeNotification.equals("Warnning") ){
-            holder.icon_back.setBackground( context.getDrawable(R.drawable.ic_profile_pasos_bg) );
+            holder.icon_back.setBackground( context.getDrawable(R.drawable.yellow_rectangle) );
             holder.icon.setImageDrawable(context.getDrawable(R.drawable.icons_exclamation));
+            holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.naranja_borde));
             holder.icon.setRotation(180);
         }else if( typeNotification.equals("Information") ){
-            holder.icon_back.setBackground( context.getDrawable(R.drawable.ic_profile_info_bg) );
+            holder.icon_back.setBackground( context.getDrawable(R.drawable.blue_rectangle) );
             holder.icon.setImageDrawable(context.getDrawable(R.drawable.icons_info));
+            holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.azul_borde));
         }else if( typeNotification.equals("Danger") ){
-            holder.icon_back.setBackground( context.getDrawable(R.drawable.ic_profile_logout_bc) );
+            holder.icon_back.setBackground( context.getDrawable(R.drawable.red_rectangle) );
             holder.icon.setImageDrawable(context.getDrawable(R.drawable.icons_exclamation));
+            holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.rojo_borde));
 
         }
     }
