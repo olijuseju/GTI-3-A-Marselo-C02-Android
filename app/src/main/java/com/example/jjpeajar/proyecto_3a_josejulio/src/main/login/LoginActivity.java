@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             // creamos la activity
             setContentView(R.layout.activity_login);
 
-            //logica negocia
+            //logica negocio
             logicaNegocioUsarios= new LogicaNegocioUsarios();
 
             //findById
@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("user_name", userController.getUser().getName());
                                     editor.putString("user_email", userController.getUser().getEmail());
                                     editor.putString("access_token", userController.getAccess_token());
+                                    editor.putInt("town_id", userController.getUserInformation().getTown_id());
                                     editor.putString("user_id", String.valueOf( (int) userController.getUser().getId() ));
                                     editor.commit();
 

@@ -23,6 +23,13 @@ public class User {
         this.email = email;
     }
 
+    public User(float id, String name, String email, String created_at, String updated_at) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 
     // Getter Methods
 
@@ -80,6 +87,14 @@ public class User {
                 +"&password="+password
                 +"&password_confirmation="+confirmPassword
                 +"&role_id="+role_id
+                +"&town_id="+town_id;
+    }
+
+    public String toJsonToUpdate(String password , int town_id){
+        String mail= getEmail();
+        return  "name="+getName()
+                +"&email="+mail
+                +"&password="+password
                 +"&town_id="+town_id;
     }
 }

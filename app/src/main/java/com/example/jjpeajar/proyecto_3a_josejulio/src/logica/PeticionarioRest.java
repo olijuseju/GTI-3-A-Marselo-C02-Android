@@ -34,6 +34,7 @@ public class PeticionarioRest extends AsyncTask<Void, Void, Boolean> {
     private String urlDestino;
     private String elCuerpo = null;
     private RespuestaREST laRespuesta;
+    private String token;
 
     private int codigoRespuesta;
     private String cuerpoRespuesta = "";
@@ -48,11 +49,34 @@ public class PeticionarioRest extends AsyncTask<Void, Void, Boolean> {
      * @param cuerpo Cuerpo de la peticion, el metodo a utilizar
      * @param laRespuesta Respuesta rest de la petición a la API
      */
-    public void realizarPeticion (String metodo, String urlDestino, String cuerpo, RespuestaREST  laRespuesta) {
+    public void realizarPeticion (String metodo, String urlDestino, String cuerpo, RespuestaREST laRespuesta) {
         this.elMetodo = metodo;
         this.urlDestino = urlDestino;
         this.elCuerpo = cuerpo;
         this.laRespuesta = laRespuesta;
+        this.token = "no_token";
+
+        try{
+            this.execute(); // otro thread ejecutará doInBackground()
+
+        }catch (Exception ex){
+
+        }
+    }
+
+    /**
+     *
+     * @param metodo Metodo a utilizar en la trama (POST, GET...)
+     * @param urlDestino Url destino de la petición
+     * @param cuerpo Cuerpo de la peticion, el metodo a utilizar
+     * @param laRespuesta Respuesta rest de la petición a la API
+     */
+    public void realizarPeticion (String metodo, String urlDestino, String cuerpo, String token, RespuestaREST laRespuesta) {
+        this.elMetodo = metodo;
+        this.urlDestino = urlDestino;
+        this.elCuerpo = cuerpo;
+        this.laRespuesta = laRespuesta;
+        this.token = token;
 
         try{
             this.execute(); // otro thread ejecutará doInBackground()
@@ -99,6 +123,11 @@ public class PeticionarioRest extends AsyncTask<Void, Void, Boolean> {
             /*connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("X-Requested-With", "XMLHttpRequest");*/
             connection.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded; charset-utf-8" );
+            if (!token.equals("no_token")){
+                Log.d("clienterestandroid", token);
+
+                connection.setRequestProperty( "Authorization","Bearer "+ token );
+            }
             connection.setRequestMethod(this.elMetodo);
             // connection.setRequestProperty("Accept", "*/*);
 

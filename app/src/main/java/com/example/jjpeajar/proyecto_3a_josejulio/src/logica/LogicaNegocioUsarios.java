@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformation;
 import com.google.gson.Gson;
 
 public class LogicaNegocioUsarios {
@@ -20,9 +21,22 @@ public class LogicaNegocioUsarios {
 
     }
 
+    //user interface
+    public interface GetUsuariosCallback {
+        void onCompletedGetUsuario(UserController userController);
+        void onFailedGetUsuario(boolean res);
+
+    }
+
     public interface RegistroCallback{
         void onCompletedRegistrarUsario(int success);
         void onFailedRegistrarUsario(boolean resultado);
+    }
+
+    public interface UpdateCallback{
+
+        void onCompletedUpdateUsuario(UserController userController);
+        void onFailedUpdateUsuario(boolean resultado);
     }
 
     public void guardarUsuario(String username, String mail, String password, int town, Context context){
@@ -41,14 +55,28 @@ public class LogicaNegocioUsarios {
         });
     }
 
-    public int obtenerUsario(int idUser, Context context){
+    public int obtenerUsario(int idUser, String token, GetUsuariosCallback getUsuariosCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/user/"+idUser, null , new PeticionarioRest.RespuestaREST() {
+        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/user/"+idUser, null , token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
-                //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
 
+                Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
+                Log.d("pepeupdate", "  CUERPO ->" + cuerpo+"");
+
+                //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                Gson gson= new Gson();
+                UserController userController= gson.fromJson(cuerpo, UserController.class);
+
+
+                //comprobamos si esta registrado en nuestra bbdd o no
+                float success= userController.getSuccess();
+                if(success == 1.0){
+                    getUsuariosCallback.onCompletedGetUsuario(userController);
+                }else if(success == 0.0){
+                    getUsuariosCallback.onFailedGetUsuario(true);
+                }
 
 
             }
@@ -112,6 +140,42 @@ public class LogicaNegocioUsarios {
                         registroCallback.onFailedRegistrarUsario(true);
                     }
                 }catch (Exception e){
+                    Log.d("Error", "Error");
+                }
+
+            }
+        });
+    }
+
+
+    public void actualizarUsuario(int id, String token, String username, String correo , String password ,int town ,UpdateCallback usariosCallback) {
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        User user = new User(username, correo);
+        UserInformation userInformation = new UserInformation(id, town);
+        String res = user.toJsonToUpdate(password, town);
+
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/update/" + id, res,token, new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                try {
+
+                    Gson gson= new Gson();
+                    UserController userController= gson.fromJson(cuerpo, UserController.class);
+
+                    Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
+                    Log.d("pepeupdate", "  CUERPO ->" + userController.getSuccess()+"");
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    float success= userController.getSuccess();
+                    if(success == 1.0){
+                        usariosCallback.onCompletedUpdateUsuario(userController);
+                    }else if(success == 0.0){
+                        usariosCallback.onFailedUpdateUsuario(true);
+                    }
+
+                } catch (Exception e) {
                     Log.d("Error", "Error");
                 }
 

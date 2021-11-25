@@ -5,7 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_background"
-    tools:context=".src.main.profile.UserInformationActivity">
+    tools:context=".src.main.profile.editar.UserInformationActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout16"
@@ -54,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout15"
+        android:id="@+id/bt_back_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -80,7 +89,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout13"
+        android:id="@+id/bt_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -113,10 +122,10 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout13"
-        app:layout_constraintEnd_toStartOf="@+id/constraintLayout13"
-        app:layout_constraintStart_toEndOf="@+id/constraintLayout15"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout13" />
+        app:layout_constraintBottom_toBottomOf="@+id/bt_ok"
+        app:layout_constraintEnd_toStartOf="@+id/bt_ok"
+        app:layout_constraintStart_toEndOf="@+id/bt_back_edit"
+        app:layout_constraintTop_toTopOf="@+id/bt_ok" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_username_edituser"
@@ -242,6 +251,11 @@
             android:enabled="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

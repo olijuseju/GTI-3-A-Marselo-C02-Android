@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
 
@@ -72,6 +73,7 @@ public class ProfileFragment extends Fragment {
     //atributos
     private ConstraintLayout btn_vincular;
     private ConstraintLayout clRecorrido;
+    private ConstraintLayout clInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +82,8 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         clRecorrido = v.findViewById(R.id.constraintLayout3);
+        clInfo = v.findViewById(R.id.c5);
+
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
 
         //onclicks
@@ -95,6 +99,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), RecorridoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        clInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), EditUserActivity.class);
                 startActivity(i);
             }
         });
