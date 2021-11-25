@@ -189,12 +189,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     if(isValidEmail(correo)){
 
-
                         int pos = adapter.getPosition(town);
-
                         int idTown = Towns.get(pos).getId();
-
-
                         logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, idTown , 5, new LogicaNegocioUsarios.RegistroCallback() {
                             @Override
                             public void onCompletedRegistrarUsario(int success) {
@@ -204,7 +200,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailedRegistrarUsario(boolean resultado) {
-
+                                Log.d("pepe","el corre ya exite");
+                                setSnackbar(" ya existe ");
                             }
                         });
                     }

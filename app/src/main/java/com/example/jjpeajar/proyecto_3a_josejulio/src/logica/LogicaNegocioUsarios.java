@@ -97,7 +97,7 @@ public class LogicaNegocioUsarios {
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/registroapp", res , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
-
+                try {
                     Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                     Log.d("pepe", "  CUERPO ->" + cuerpo+"");
                     Log.d("pepe", "  nnnjnk ->" + codigo+"");
@@ -111,6 +111,9 @@ public class LogicaNegocioUsarios {
                     }else{
                         registroCallback.onFailedRegistrarUsario(true);
                     }
+                }catch (Exception e){
+                    Log.d("Error", "Error");
+                }
 
             }
         });
