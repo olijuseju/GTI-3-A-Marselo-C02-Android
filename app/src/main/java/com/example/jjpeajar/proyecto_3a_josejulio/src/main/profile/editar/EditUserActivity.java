@@ -47,6 +47,7 @@ public class EditUserActivity extends AppCompatActivity {
     private List<Town> ListTowns = new ArrayList<Town>();
     private ArrayAdapter<String> adapter;
     private String townName;
+    private int Town_id;
 
     private LogicaNegocioTowns logicaNegocioTowns;
 
@@ -77,12 +78,44 @@ public class EditUserActivity extends AppCompatActivity {
         txtInputLayout = findViewById(R.id.input_town);
         dropdowntxt = findViewById(R.id.dropDown_txt);
 
-        int Town_id = shared.getInt("town_id", -1);
         townName = dropdowntxt.getText().toString();
 
         //Logica negocio
         logicaNegocioUsarios=new LogicaNegocioUsarios();
         logicaNegocioTowns=new LogicaNegocioTowns();
+
+
+
+        logicaNegocioUsarios.obtenerUsario(Integer.parseInt(shared.getString("user_id", null)), access_token , new LogicaNegocioUsarios.GetUsuariosCallback() {
+            @Override
+            public void onCompletedGetUsuario(UserController userController) {
+
+                SharedPreferences.Editor editor = getSharedPreferences("com.example.jjpeajar.proyecto_3a_josejulio", MODE_PRIVATE).edit();
+                editor.putString("user_name", userController.getUser().getName());
+                editor.putString("user_email", userController.getUser().getEmail());
+                editor.putInt("town_id", userController.getUserInformation().getTown_id());
+                editor.putString("user_id", String.valueOf( (int) userController.getUser().getId() ));
+                editor.apply();
+
+
+
+                username_edituser.setText(shared.getString("user_name", null));
+                mail_edituser.setText(shared.getString("user_email", null));
+                password_edituser.setText("123456789");
+                repeatpassword_edituser.setText("123456789");
+
+                Town_id = shared.getInt("town_id", -1);
+
+
+            }
+
+            @Override
+            public void onFailedGetUsuario(boolean res) {
+
+            }
+        });
+
+
 
         logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
             @Override
@@ -116,32 +149,6 @@ public class EditUserActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        logicaNegocioUsarios.obtenerUsario(Integer.parseInt(shared.getString("user_id", null)), access_token , new LogicaNegocioUsarios.GetUsuariosCallback() {
-            @Override
-            public void onCompletedGetUsuario(UserController userController) {
-
-                SharedPreferences.Editor editor = getSharedPreferences("com.example.jjpeajar.proyecto_3a_josejulio", MODE_PRIVATE).edit();
-                editor.putString("user_name", userController.getUser().getName());
-                editor.putString("user_email", userController.getUser().getEmail());
-                editor.putInt("town_id", userController.getUserInformation().getTown_id());
-                editor.putString("user_id", String.valueOf( (int) userController.getUser().getId() ));
-                editor.apply();
-            }
-
-            @Override
-            public void onFailedGetUsuario(boolean res) {
-
-            }
-        });
-
-        username_edituser.setText(shared.getString("user_name", null));
-        mail_edituser.setText(shared.getString("user_email", null));
-        password_edituser.setText("123456789");
-        repeatpassword_edituser.setText("123456789");
 
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
