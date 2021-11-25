@@ -1,5 +1,12 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+/**
+ * @author Andrey Kuzmin
+ * Notification
+ * 2021-11-24
+ */
+
+
 public class Notification {
     private Integer id;
     private Integer userId;

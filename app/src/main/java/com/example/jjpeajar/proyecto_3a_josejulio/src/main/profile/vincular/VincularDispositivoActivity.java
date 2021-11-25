@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular;
 
+/**
+ * @author Andrey Kuzmin
+ * VincularDispositivoActivity
+ * 2021-11-24
+ */
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -291,7 +297,12 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         verificationBottomSheet.show();
     }
 
-    //set snackbar method
+    /**
+     * La descripción de setSnackbar. Funcion que muestra en pantalla un mensaje que acción.
+     *
+     * @param snackBarText String con el mensaje que queremos mostrar en pantalla.
+     *
+     */
     public void setSnackbar(View actualActivity, String snackBarText){
         Snackbar snackBar = Snackbar.make(actualActivity, snackBarText,Snackbar.LENGTH_LONG);
         snackBar.setActionTextColor(Color.CYAN);

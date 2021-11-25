@@ -159,6 +159,15 @@ public class MenuMainActivity extends AppCompatActivity {
     // --------------------------------------------------------------
     // --------------------------------------------------------------
 
+    /**
+     * La descripción de solicitarPermiso. Funcion que solicita permiso.
+     *
+     * @param permiso String con el permiso
+     * @param justificacion String con la justificacion.
+     * @param requestCode Int con el request code
+     * @param actividad Activity con la actividad
+     *
+     */
     public static void solicitarPermiso(final String permiso, String
             justificacion, final int requestCode, final Activity actividad) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,

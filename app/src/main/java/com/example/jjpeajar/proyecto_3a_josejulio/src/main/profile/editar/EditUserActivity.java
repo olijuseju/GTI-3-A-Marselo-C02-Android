@@ -179,7 +179,6 @@ public class EditUserActivity extends AppCompatActivity {
      * @param id
      * @param token
      */
-
     private void editarUsuario(String id, String token){
 
         townName = dropdowntxt.getText().toString();

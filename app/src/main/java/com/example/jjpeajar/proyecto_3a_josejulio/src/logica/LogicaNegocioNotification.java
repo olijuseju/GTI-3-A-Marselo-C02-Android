@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
+/**
+ * @author Andrey Kuzmin
+ * LogicaFake
+ * 2021-10-24
+ */
+
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Notification;
@@ -11,13 +17,22 @@ import java.util.List;
 
 public class LogicaNegocioNotification {
 
+    // URL
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
+    // ObtenerNotificaciones interface
     public interface ObtenerNotificacionesByIdUserCallback {
         void onCompletedObtenerNotificacionesByIdUserCallback(List<Notification> notifications);
         void onFailedObtenerNotificacionesByIdUserCallback(boolean res);
     }
 
+    /**
+     * La descripción de obtenerNotificacionesByIdUser. Funcion que obtiene las notificaciones de la bbdd.
+     *
+     * @param access_token String con el token del usuario
+     * @param obtenerNotificacionesByIdUserCallback Objeto ObtenerNotificacionesByIdUserCallback para poder devolver el cuerpo.
+     *
+     */
     public void obtenerNotificacionesByIdUser(String access_token , ObtenerNotificacionesByIdUserCallback obtenerNotificacionesByIdUserCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
