@@ -20,11 +20,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioTowns;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Town;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -46,10 +51,15 @@ public class RegisterActivity extends AppCompatActivity {
     private String password;
     private String town;
     private String repeatpassword;
+    private List<String> nameTowns = new ArrayList<String>();
+    private List<Town> Towns = new ArrayList<Town>();
+
+
 
 
     // Logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
+    private LogicaNegocioTowns logicaNegocioTowns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // logica negocio
         logicaNegocioUsarios = new LogicaNegocioUsarios();
+        logicaNegocioTowns = new LogicaNegocioTowns();
 
         // FindViewById
         txtInputLayout = findViewById(R.id.register_input_town);
@@ -74,23 +85,36 @@ public class RegisterActivity extends AppCompatActivity {
         editText_repeatpassword = findViewById(R.id.password_repeatregister);
 
 
-        // Array de strings de items para el desplegable
-        String[] items = new String[]{
-               "Teulada",
-                "Albaida",
-                "Valencia"
 
-        };
+
+        logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
+            @Override
+            public void onCompletedObtenerTowns(List<Town> towns) {
+                Towns=towns;
+
+                for (Town cadatown: Towns){
+                    nameTowns.add(cadatown.getName());
+                }
+            }
+
+            @Override
+            public void onFailedObtenerTowns(boolean res) {
+
+            }
+        });
+
+
 
         // Adapter para el array con el layout de los items suelos y el array de los items que contiene el desplegable
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 RegisterActivity.this,
                 R.layout.dropdown_item,
-                items
+                nameTowns
         );
 
         // Le asocio al input el adapter
         dropdowntxt.setAdapter(adapter);
+
 
 
         // Onclick boton que lleva al login
@@ -158,15 +182,20 @@ public class RegisterActivity extends AppCompatActivity {
                     txtInputLayout.setErrorEnabled(false);
                 }
 
+
+
                 // SI en los dos inputs hay datos
                 if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty() && password.length()>=6){
 
                     if(isValidEmail(correo)){
 
-                        Log.d("pepe", "  CUERPO ->" + "mail verificado");
+
+                        int pos = adapter.getPosition(town);
+
+                        int idTown = Towns.get(pos).getId();
 
 
-                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, 7, 5, new LogicaNegocioUsarios.RegistroCallback() {
+                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, idTown , 5, new LogicaNegocioUsarios.RegistroCallback() {
                             @Override
                             public void onCompletedRegistrarUsario(int success) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
