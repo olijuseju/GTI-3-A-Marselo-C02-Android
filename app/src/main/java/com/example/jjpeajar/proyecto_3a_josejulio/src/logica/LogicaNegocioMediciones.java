@@ -9,9 +9,12 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController
 import com.google.gson.Gson;
 
 public class LogicaNegocioMediciones {
+
+    // URL
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
 
+    // Mediciones interface
     public interface MedicionesCallback{
         void onCompletedObtenerMediciones(MedicionController medicionController);
         void onFailedObtenerMediciones(boolean res);
@@ -21,6 +24,12 @@ public class LogicaNegocioMediciones {
 
     }
 
+    /**
+     * La descripción de obtenerMediciones. Funcion que obtiene las mediciones de la bbdd.
+     *
+     * @param medicionesCallback Objeto MedicionesCallback para poder devolver el cuerpo.
+     *
+     */
     public void obtenerMediciones(MedicionesCallback medicionesCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 

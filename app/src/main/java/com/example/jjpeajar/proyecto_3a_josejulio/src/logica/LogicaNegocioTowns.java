@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
+/**
+ * @author Belén Grande López
+ * RegisterActivity
+ * 2021-11-24
+ */
+
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Town;
@@ -11,13 +17,21 @@ import java.util.List;
 
 public class LogicaNegocioTowns {
 
+    // URL
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
+    // town interface
     public interface ObtenerTownsCallback {
         void onCompletedObtenerTowns(List<Town> towns);
         void onFailedObtenerTowns(boolean res);
     }
 
+    /**
+     * La descripción de obtenerTown. Funcion que obtiene los municipios de la bbdd.
+     *
+     * @param obtenerTownsCallback Objeto ObtenerTownsCallback para poder devolver el cuerpo.
+     *
+     */
     public void obtenerTown(ObtenerTownsCallback obtenerTownsCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 

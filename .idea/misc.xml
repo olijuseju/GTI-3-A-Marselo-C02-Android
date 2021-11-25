@@ -57,6 +57,7 @@
         <entry key="app/src/main/res/layout/activity_user_information.xml" value="0.24318119820792045" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.16325136612021857" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_notification_rv_item.xml" value="0.15778688524590165" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
       </map>
     </option>

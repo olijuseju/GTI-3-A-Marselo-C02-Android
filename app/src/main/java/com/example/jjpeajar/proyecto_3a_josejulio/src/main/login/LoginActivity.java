@@ -147,6 +147,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * La descripción de isValidEmail. Funcion que permite verificar si un correo es realmente un correo mediante sentencia regex.
+     *
+     * @param emailAddress String con el mail del edit text
+     *
+     */
     public static boolean isValidEmail(String emailAddress) {
         return !emailAddress.contains(" ") && emailAddress.matches(".+@.+\\.[a-z]+");
     }

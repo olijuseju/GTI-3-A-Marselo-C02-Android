@@ -85,14 +85,15 @@ public class RegisterActivity extends AppCompatActivity {
         editText_repeatpassword = findViewById(R.id.password_repeatregister);
 
 
-
-
         logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
             @Override
             public void onCompletedObtenerTowns(List<Town> towns) {
                 Towns=towns;
 
+                // Recorre lo que hay en el array de cada municipio
                 for (Town cadatown: Towns){
+
+                    // Añade el nombre al array
                     nameTowns.add(cadatown.getName());
                 }
             }
@@ -104,8 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-
-        // Adapter para el array con el layout de los items suelos y el array de los items que contiene el desplegable
+        // Adapter para el array con el layout de los items sueltos y el array de los items que contiene el desplegable
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 RegisterActivity.this,
                 R.layout.dropdown_item,
@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Obtengo los datos que hay en el edit text y los almaceno
+                // Obtengo los datos que hay en los edit text y los almaceno
                 correo = editText_correo.getText().toString();
                 username = editText_username.getText().toString();
                 password = editText_password.getText().toString();
@@ -140,7 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
                 repeatpassword = editText_repeatpassword.getText().toString();
 
                 // Compruebo si los campos están vacíos para que si lo están lance un mensaje de error
-                // Campo correo
+
+
+                // Comprobamos si el campo correo está vacío
                 if(correo.isEmpty()){
                     layout_correo.setErrorEnabled(true);
                     layout_correo.setError(getText(R.string.login_introduce_correo_ok));
@@ -148,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_correo.setErrorEnabled(false);
                 }
 
-                // Campo nombre de usuario
+                // Comprobamos si el campo nombre de usuario está vacío
                 if(username.isEmpty()){
                     layout_nombreusuario.setErrorEnabled(true);
                     layout_nombreusuario.setError(getText(R.string.register_introduce_username));
@@ -156,12 +158,15 @@ public class RegisterActivity extends AppCompatActivity {
                     layout_nombreusuario.setErrorEnabled(false);
                 }
 
-                // Campo contraseña
+                // Comprobamos si el campo contraseña está vacío
                 if(password.isEmpty()){
                     layout_password.setErrorEnabled(true);
                     layout_password.setError(getText(R.string.login_introduce_contra));
                 }else{
+                    // Si la contraseña es mayor o igual que 6
                     if(password.length()>=6){
+
+                        // Si las contraseñas coinciden
                         if(!password.equals(repeatpassword)){
                             layout_password.setErrorEnabled(true);
                             layout_password.setError(getText(R.string.register_repeatpassF));
@@ -174,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
 
-                // Campo municipio
+                // Comprobamos si el campo municipio está vacío
                 if(town.isEmpty()){
                     txtInputLayout.setErrorEnabled(true);
                     txtInputLayout.setError(getText(R.string.register_introduce_town));
@@ -184,13 +189,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-                // SI en los dos inputs hay datos
+                // SI en todos los inputs hay datos
                 if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty() && password.length()>=6){
 
+                    // Verifica si es un correo mediante el metodo
                     if(isValidEmail(correo)){
 
+                        // Obtenemos la posición del municipio que ha pulsado
                         int pos = adapter.getPosition(town);
                         int idTown = Towns.get(pos).getId();
+
+                        // Llamamos a registrar usuario
                         logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, idTown , 5, new LogicaNegocioUsarios.RegistroCallback() {
                             @Override
                             public void onCompletedRegistrarUsario(int success) {
@@ -212,6 +221,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * La descripción de isValidEmail. Funcion que permite verificar si un correo es realmente un correo mediante sentencia regex.
+     *
+     * @param emailAddress String con el mail del edit text
+     *
+     */
     public static boolean isValidEmail(String emailAddress) {
         return !emailAddress.contains(" ") && emailAddress.matches(".+@.+\\.[a-z]+");
     }

@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+/**
+ * @author Andrey Kuzmin
+ * LoginActivity
+ * 2021-11-24
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 

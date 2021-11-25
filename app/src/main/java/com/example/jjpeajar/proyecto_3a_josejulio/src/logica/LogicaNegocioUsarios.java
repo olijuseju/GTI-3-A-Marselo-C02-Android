@@ -14,7 +14,7 @@ public class LogicaNegocioUsarios {
 
     public LogicaNegocioUsarios(){ }
 
-    //user interface
+    //iniciar sesion interface
     public interface IniciarSesionCallback {
         void onCompletedIniciarSesion(UserController userController);
         void onFailedIniciarSesion(boolean res);
@@ -28,17 +28,29 @@ public class LogicaNegocioUsarios {
 
     }
 
+    //registro interface
     public interface RegistroCallback{
         void onCompletedRegistrarUsario(int success);
         void onFailedRegistrarUsario(boolean resultado);
     }
 
+    //update interface
     public interface UpdateCallback{
 
         void onCompletedUpdateUsuario(UserController userController);
         void onFailedUpdateUsuario(boolean resultado);
     }
 
+    /**
+     * La descripción de guardarUsuario. Funcion que guarda usuarios.
+     *
+     * @param username String con el nombre de usuario
+     * @param mail String con el mail del usuario
+     * @param password String con la contraseña del usuario
+     * @param town String con el municipio del usuario
+     * @param context String con el contexto
+     *
+     */
     public void guardarUsuario(String username, String mail, String password, int town, Context context){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
@@ -55,6 +67,14 @@ public class LogicaNegocioUsarios {
         });
     }
 
+    /**
+     * La descripción de obtenerUsario. Funcion que obtiene el usuario de la bbdd.
+     *
+     * @param idUser String con el nombre id del usuario
+     * @param token String con el token para usarse en las coockies
+     * @param getUsuariosCallback GetUsuariosCallback para almacenar el cuerpo
+     *
+     */
     public int obtenerUsario(int idUser, String token, GetUsuariosCallback getUsuariosCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
@@ -84,6 +104,14 @@ public class LogicaNegocioUsarios {
         return 1;
     }
 
+    /**
+     * La descripción de login. Funcion que permite loguearte con un usuario almacenado en la bbdd.
+     *
+     * @param mail String con el mail del usuario
+     * @param password String con el password del usuario
+     * @param iniciarSesionCallback IniciarSesionCallback para almacenar el cuerpo
+     *
+     */
     public void login(String mail, String password, IniciarSesionCallback iniciarSesionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
@@ -116,6 +144,17 @@ public class LogicaNegocioUsarios {
         });
     }
 
+    /**
+     * La descripción de registrarUsario. Funcion que permite registrar usuarios en la bbdd.
+     *
+     * @param username String con el nombre del usuario
+     * @param correo String con el mail del usuario
+     * @param password String con el password del usuario
+     * @param confirm_password String con la password reconfirmada del usuario
+     * @param town Int con el id del municipio
+     * @param role Int con el rol del usuario
+     * @param registroCallback RegistroCallback para almacenar la respuesta del cuerpo
+     */
     public void registrarUsario(String username, String correo , String password , String confirm_password , int town , int role , RegistroCallback registroCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
@@ -147,7 +186,17 @@ public class LogicaNegocioUsarios {
         });
     }
 
-
+    /**
+     * La descripción de actualizarUsuario. Funcion que permite actualizar sus datos a los usuarios en la bbdd.
+     *
+     * @param id Int con el id del usuario
+     * @param token String con el token del usuario
+     * @param username String con el nombre del usuario
+     * @param correo String con el mail del usuario
+     * @param password String con la contraseña del usuario
+     * @param town Int con el id del municipio del usuario
+     * @param usariosCallback UpdateCallback para almacenar la respuesta del cuerpo
+     */
     public void actualizarUsuario(int id, String token, String username, String correo , String password ,int town ,UpdateCallback usariosCallback) {
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
