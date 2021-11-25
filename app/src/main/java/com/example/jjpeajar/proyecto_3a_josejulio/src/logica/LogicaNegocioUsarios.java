@@ -12,6 +12,7 @@ import android.util.Log;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformation;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformationController;
 import com.google.gson.Gson;
 
 public class LogicaNegocioUsarios {
@@ -46,6 +47,14 @@ public class LogicaNegocioUsarios {
         void onCompletedUpdateUsuario(UserController userController);
         void onFailedUpdateUsuario(boolean resultado);
     }
+
+    //vincular dispositivo interface
+    public interface VinculateDeviceCallback {
+
+        void onCompletedVinculateDevice(UserInformationController userInformationController);
+        void onFailedVinculateDevice(boolean resultado);
+    }
+
 
     /**
      * La descripción de guardarUsuario. Funcion que guarda usuarios.
@@ -237,4 +246,49 @@ public class LogicaNegocioUsarios {
             }
         });
     }
+
+    /**
+    * La descripción de vincularDispoitivo. Funcion que permite actualizar sus datos a los usuarios en la bbdd.
+    *
+    * @param serial Int con el serial del dispositivo
+    * @param vinculateDeviceCallback VinculateDeviceCallback para almacenar la respuesta del cuerpo
+     */
+
+    public void vincularDispoitivo(int serial, String acces_token, VinculateDeviceCallback vinculateDeviceCallback) {
+
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/device" , String.valueOf(serial), acces_token, new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                try {
+
+                    Gson gson= new Gson();
+                    UserInformationController userInformationController= gson.fromJson(cuerpo, UserInformationController.class);
+
+                    Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
+                    Log.d("pepeupdate", "  CUERPO ->" + userInformationController.getSuccess()+"");
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    int success= userInformationController.getSuccess();
+                    if(success == 1){
+                        vinculateDeviceCallback.onCompletedVinculateDevice(userInformationController);
+                    }else if(success == 0){
+                        vinculateDeviceCallback.onFailedVinculateDevice(true);
+                    }
+
+                } catch (Exception e) {
+                    Log.d("Error", "Error");
+                }
+
+            }
+        });
+    }
+
+
+
+
+
+
 }

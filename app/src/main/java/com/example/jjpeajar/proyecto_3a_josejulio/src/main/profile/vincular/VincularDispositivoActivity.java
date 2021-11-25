@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -47,11 +48,20 @@ public class VincularDispositivoActivity extends AppCompatActivity {
     private String deviceModel;
     private String deviceCode;
     private String nameDevice;
+    private String access_token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vincular_dispositivo);
+
+        //coockies
+        SharedPreferences shared= getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+
+        //si ya ha iniciado sesion
+        access_token = (shared.getString("access_token", null));
 
         //findById elements
         step1Card=findViewById(R.id.step1_card);
@@ -121,17 +131,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
                 step1StateInactive();
             } else {
                 deviceModel =result.getContents().toString(); //get the machine code
-
-                String[] strings= deviceModel.split("-");
-                if(strings.length > 1){ //si es un qr de infinity crop
-                    deviceModel = strings[1];
-                    deviceCode = strings[0];
-                    //comprobar si la maquina ya esta registrada o no
-
-                }else{ //si no es nuestro qr
-                    setSnackbar(findViewById(R.id.layout_vincular_dispositivo), getString(R.string.snack_qr_error));
-                }
-
+                step1StateActive();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
