@@ -6,18 +6,25 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification;
  * 2021-11-23
  */
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.adapter.NotificationAdapter;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Notification;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,7 +74,11 @@ public class NotificationFragment extends Fragment {
     }
 
     //atributtes
+    private List<Notification> notificationList = new ArrayList<>();
+    private String access_token;
 
+    //logica
+    LogicaNegocioNotification logicaNegocioNotification;
 
     //rv
     private RecyclerView rv_notifications;
@@ -80,11 +91,24 @@ public class NotificationFragment extends Fragment {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.fragment_notification, container, false);
 
+        //init logica
+        logicaNegocioNotification = new LogicaNegocioNotification();
+
+        //get access_token from signed user
+        //coockies
+        SharedPreferences shared= this.getActivity().getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , getContext().MODE_PRIVATE);
+
+        //si ya ha iniciado sesion
+        access_token = (shared.getString("access_token", null));
+
         //findByid
         rv_notifications=v.findViewById(R.id.notification__rv_notifications);
 
         //methods
         initRvNotifications();
+        getNotificationItem();
 
 
         return v;
@@ -96,8 +120,25 @@ public class NotificationFragment extends Fragment {
         rv_notifications.setNestedScrollingEnabled(false);
         //manejador para declarar la direccion de los items del rv
         rv_notifications.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+    }
 
-        notificationAdapter= new NotificationAdapter();
-        rv_notifications.setAdapter(notificationAdapter);
+    //metodo que rellena la lista de elementos
+    private void getNotificationItem(){
+        notificationList.clear();
+
+        logicaNegocioNotification.obtenerNotificacionesByIdUser(access_token, new LogicaNegocioNotification.ObtenerNotificacionesByIdUserCallback() {
+            @Override
+            public void onCompletedObtenerNotificacionesByIdUserCallback(List<Notification> notifications) {
+                notificationList = notifications;
+
+                notificationAdapter= new NotificationAdapter(getContext() , notificationList);
+                rv_notifications.setAdapter(notificationAdapter);
+            }
+
+            @Override
+            public void onFailedObtenerNotificacionesByIdUserCallback(boolean res) {
+
+            }
+        });
     }
 }

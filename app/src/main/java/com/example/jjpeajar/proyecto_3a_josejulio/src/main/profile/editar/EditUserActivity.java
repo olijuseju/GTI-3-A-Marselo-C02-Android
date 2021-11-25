@@ -34,15 +34,23 @@ import java.util.List;
 public class EditUserActivity extends AppCompatActivity {
 
     // Atributos
+
+    //Inputs
     private TextInputLayout txtInputLayout;
     private AutoCompleteTextView dropdowntxt;
     private TextInputEditText username_edituser;
     private TextInputEditText mail_edituser;
     private TextInputEditText password_edituser;
     private TextInputEditText repeatpassword_edituser;
+
+    //logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
+
+    //Botones arriba
     private ConstraintLayout bt_ok;
     private ConstraintLayout bt_back_edit;
+
+    //Adapter Towns
     private List<String> nameTowns = new ArrayList<String>();
     private List<Town> ListTowns = new ArrayList<Town>();
     private ArrayAdapter<String> adapter;
@@ -66,11 +74,11 @@ public class EditUserActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_edit_user);
 
+        //findView
         username_edituser = findViewById(R.id.username_edituser);
         mail_edituser = findViewById(R.id.mail_edituser);
         password_edituser = findViewById(R.id.password_edituser);
         repeatpassword_edituser = findViewById(R.id.repeatpassword_edituser);
-
 
         bt_ok = findViewById(R.id.bt_ok);
         bt_back_edit = findViewById(R.id.bt_back_edit);
@@ -84,12 +92,12 @@ public class EditUserActivity extends AppCompatActivity {
         logicaNegocioUsarios=new LogicaNegocioUsarios();
         logicaNegocioTowns=new LogicaNegocioTowns();
 
-
-
+        //Get usuario para obtener sus datos
         logicaNegocioUsarios.obtenerUsario(Integer.parseInt(shared.getString("user_id", null)), access_token , new LogicaNegocioUsarios.GetUsuariosCallback() {
             @Override
             public void onCompletedGetUsuario(UserController userController) {
 
+                //Guardamos datos en las cookies
                 SharedPreferences.Editor editor = getSharedPreferences("com.example.jjpeajar.proyecto_3a_josejulio", MODE_PRIVATE).edit();
                 editor.putString("user_name", userController.getUser().getName());
                 editor.putString("user_email", userController.getUser().getEmail());
@@ -97,15 +105,13 @@ public class EditUserActivity extends AppCompatActivity {
                 editor.putString("user_id", String.valueOf( (int) userController.getUser().getId() ));
                 editor.apply();
 
-
-
+                //Rellenamos los inputs con los datos del user
                 username_edituser.setText(shared.getString("user_name", null));
                 mail_edituser.setText(shared.getString("user_email", null));
                 password_edituser.setText("123456789");
                 repeatpassword_edituser.setText("123456789");
 
                 Town_id = shared.getInt("town_id", -1);
-
 
             }
 
@@ -116,7 +122,7 @@ public class EditUserActivity extends AppCompatActivity {
         });
 
 
-
+        //Get towns para rellenar el adapter
         logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
             @Override
             public void onCompletedObtenerTowns(List<Town> towns) {
@@ -136,6 +142,7 @@ public class EditUserActivity extends AppCompatActivity {
                 // Le asocio al input el adapter
                 dropdowntxt.setAdapter(adapter);
 
+                //Pongo el municipio del usuario en el dropdown
                 if(Town_id!=-1){
                     Log.d("pepeupdate", "  IDTOWNN -------------------------------------  " + Town_id);
                     dropdowntxt.setText(ListTowns.get(Town_id - 1).getName(), false);
@@ -150,6 +157,7 @@ public class EditUserActivity extends AppCompatActivity {
         });
 
 
+        //On click
         bt_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,18 +173,28 @@ public class EditUserActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Descripcion de editarUsuario. Editamos el usuario cuando hace click en el boton de arriba a la derecha
+     *
+     * @param id
+     * @param token
+     */
+
     private void editarUsuario(String id, String token){
 
         townName = dropdowntxt.getText().toString();
         if(!townName.isEmpty()) {
+            //Obtenemos el id de la town del bottomsheet
             int pos = adapter.getPosition(townName);
             int idTown = ListTowns.get(pos).getId();
-            Log.d("pepeupdate", "  IDTOWNN -------------------------------------  " + idTown);
+
+            //Actualizamos usuario
             logicaNegocioUsarios.actualizarUsuario(Integer.parseInt(id), token, username_edituser.getText().toString(), mail_edituser.getText().toString(), password_edituser.getText().toString(), idTown, new LogicaNegocioUsarios.UpdateCallback() {
                 @Override
                 public void onCompletedUpdateUsuario(UserController userController) {
 
 
+                    //Guardamos datos en las cookies
                     SharedPreferences.Editor editor = getSharedPreferences("com.example.jjpeajar.proyecto_3a_josejulio", MODE_PRIVATE).edit();
                     editor.putString("user_name", userController.getUser().getName());
                     editor.putString("user_email", userController.getUser().getEmail());
@@ -184,6 +202,7 @@ public class EditUserActivity extends AppCompatActivity {
                     editor.putString("user_id", String.valueOf((int) userController.getUser().getId()));
                     editor.apply();
 
+                    //Salimos de la activity al editar el usuario
                     finish();
                 }
 

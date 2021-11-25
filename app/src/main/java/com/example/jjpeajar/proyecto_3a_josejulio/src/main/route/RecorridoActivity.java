@@ -32,9 +32,12 @@ public class RecorridoActivity extends AppCompatActivity {
 
     // Atributos
 
+    //Strings eje x de las graficas del bottomsheet
     private static final String[] WEEK_DAYS = {"", "Mon", "Tue", "Wed",  "Thu", "Fri", "Sat", "Sun" ,""};
     private static final String[] WEEKS_MONTH = {"","Sem 1", "Sem 2", "Sem 3",  "Sem 4", "Sem 5",""};
     private static final String[] MONTHS_YEAR = {"","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",""};
+
+    //Distancia total recorrida
     public int distancia;
 
     @Override
@@ -42,11 +45,33 @@ public class RecorridoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recorrido);
 
+        //findView
+
+        TextView numDistancia = findViewById(R.id.numDistancia);
+        TextView numCal = findViewById(R.id.numCal);
+        TextView numPasos = findViewById(R.id.numPasos);
+
+
+        MaterialCardView cardView1 = findViewById(R.id.cardV1);
+        MaterialCardView cardView2 = findViewById(R.id.cardV2);
+        MaterialCardView cardView3 = findViewById(R.id.cardV3);
+
+        GraphView graphView = (GraphView) findViewById(R.id.gr);
+        GraphView graphView2 = (GraphView) findViewById(R.id.gr2);
+        GraphView graphView3 = (GraphView) findViewById(R.id.gr3);
+
+        ConstraintLayout bt_back = findViewById(R.id.bt_back);
+
+
+        //Logica Negocio
         LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
+        //Get mediciones
         distancia=0;
         logicaNegocioMediciones.obtenerMediciones(new LogicaNegocioMediciones.MedicionesCallback() {
             @Override
             public void onCompletedObtenerMediciones(MedicionController medicionController) {
+
+                //Sacamos la distancia total
                 for (int i = 0 ; i< medicionController.getMediciones().size() - 1 ;i++) {
                     Location locationA = new Location("punto A");
 
@@ -60,16 +85,16 @@ public class RecorridoActivity extends AppCompatActivity {
 
                     distancia += locationA.distanceTo(locationB);
 
-
-                    int pasos = (int) (distancia/0.71777203560149);
-                    int kcalorias = (int) (40*distancia)/1000;
-                    TextView numDistancia = findViewById(R.id.numDistancia);
-                    numDistancia.setText(String.valueOf(distancia/1000));
-                    TextView numCal = findViewById(R.id.numCal);
-                    numCal.setText(String.valueOf(kcalorias));
-                    TextView numPasos = findViewById(R.id.numPasos);
-                    numPasos.setText(String.valueOf(pasos));
                 }
+
+                //Obtenemos pasos y kcal por medio de la distancia
+                int pasos = (int) (distancia/7.1777203560149);
+                int kcalorias = (int) (40*distancia)/1000;
+
+                //Set text
+                numDistancia.setText(String.valueOf(distancia/1000));
+                numCal.setText(String.valueOf(kcalorias));
+                numPasos.setText(String.valueOf(pasos));
             }
 
             @Override
@@ -78,16 +103,7 @@ public class RecorridoActivity extends AppCompatActivity {
             }
         });
 
-        MaterialCardView cardView1 = findViewById(R.id.cardV1);
-        MaterialCardView cardView2 = findViewById(R.id.cardV2);
-        MaterialCardView cardView3 = findViewById(R.id.cardV3);
-
-        GraphView graphView = (GraphView) findViewById(R.id.gr);
-        GraphView graphView2 = (GraphView) findViewById(R.id.gr2);
-        GraphView graphView3 = (GraphView) findViewById(R.id.gr3);
-
-        ConstraintLayout bt_back = findViewById(R.id.bt_back);
-
+        //Creamos series
         LineGraphSeries<DataPoint> series =
                 new LineGraphSeries<>();
         series.setColor(Color.BLUE);
@@ -98,17 +114,18 @@ public class RecorridoActivity extends AppCompatActivity {
         series1.setColor(Color.parseColor("#F1CA7E"));
 
 
-
         LineGraphSeries<DataPoint> series2 =
                 new LineGraphSeries<>();
         series2.setColor(Color.RED);
 
 
+        //Inicializamos las 3 graficas
         inicializarGraficaCard(graphView, series);
         inicializarGraficaCard(graphView2, series1);
         inicializarGraficaCard(graphView3, series2);
 
 
+        //Onclicks
         bt_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +156,13 @@ public class RecorridoActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *
+     * La descripción de inicializarGraficaCard. Crea las graficas por medio de los serial
+     *
+     * @param graphView
+     * @param series
+     */
     void inicializarGraficaCard(GraphView graphView, LineGraphSeries<DataPoint> series){
         graphView.getGridLabelRenderer().setVerticalLabelsVisible(false);
         graphView.getGridLabelRenderer().setHorizontalLabelsVisible(false);
@@ -153,6 +177,11 @@ public class RecorridoActivity extends AppCompatActivity {
     } // ()
 
 
+    /**
+     * Descripcion de initBottomSheet. Crea el bottomsheet
+     *
+     * @param titulo Titulo de arriba del bottomsheet (Distancia,Pasos, Calorias,...)
+     */
     private void initBottomSheet(String titulo){
         //set the bottom sheet
         BottomSheetDialog optionsBottomSheet = new BottomSheetDialog(RecorridoActivity.this);
@@ -205,6 +234,7 @@ public class RecorridoActivity extends AppCompatActivity {
             }
         });
 
+
         txtitulo.setText(titulo);
 
         graphViewBs.getGridLabelRenderer().setHorizontalLabelsAngle(120);
@@ -216,7 +246,10 @@ public class RecorridoActivity extends AppCompatActivity {
 
     } // ()
 
-
+    /**
+     * Descripcion de inicializarGraficaBSSemanal. Crea la grafica de la semana
+     * @param graphViewBs Grafica de la semana
+     */
     void inicializarGraficaBSSemanal(GraphView graphViewBs){
 
         graphViewBs.removeAllSeries();
@@ -233,6 +266,8 @@ public class RecorridoActivity extends AppCompatActivity {
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(graphViewData);
         series.setColor(getResources().getColor(R.color.gris_borde));
 
+
+        //Estética de la grafica
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphViewBs);
         staticLabelsFormatter.setHorizontalLabels(WEEK_DAYS);
         series.setSpacing(20);
@@ -247,10 +282,15 @@ public class RecorridoActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Descripcion de inicializarGraficaBSMensual. Crea la grafica del mes
+     * @param graphViewBs Grafica del mes
+     */
+
     void inicializarGraficaBSMensual(GraphView graphViewBs){
-        //Rellenar el graph semanal
         graphViewBs.removeAllSeries();
 
+        //Rellenar el graph mensual
         DataPoint[] graphViewDataMes = new DataPoint[7];
 
 
@@ -263,10 +303,10 @@ public class RecorridoActivity extends AppCompatActivity {
         BarGraphSeries<DataPoint> seriesmes = new BarGraphSeries<DataPoint>(graphViewDataMes);
         seriesmes.setColor(getResources().getColor(R.color.gris_borde));
 
+        //Estética de la grafica
         StaticLabelsFormatter staticLabelsFormatter1 = new StaticLabelsFormatter(graphViewBs);
         staticLabelsFormatter1.setHorizontalLabels(WEEKS_MONTH);
         seriesmes.setSpacing(20);
-
 
         graphViewBs.getViewport().setScrollable(true);
         graphViewBs.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
@@ -276,11 +316,16 @@ public class RecorridoActivity extends AppCompatActivity {
         graphViewBs.addSeries(seriesmes);
     }
 
+
+    /**
+     * Descripcion de inicializarGraficaBSAnual. Crea la grafica del año
+     * @param graphViewBs Grafica del año
+     */
     void inicializarGraficaBSAnual(GraphView graphViewBs){
 
         graphViewBs.removeAllSeries();
 
-        //Rellenar el graph semanal
+        //Rellenar el graph anual
         DataPoint[] graphViewData = new DataPoint[14];
 
         graphViewData[0] = new DataPoint(0, 0);
@@ -292,6 +337,8 @@ public class RecorridoActivity extends AppCompatActivity {
         BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(graphViewData);
         series.setColor(getResources().getColor(R.color.gris_borde));
 
+
+        //Estética de la grafica
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graphViewBs);
         staticLabelsFormatter.setHorizontalLabels(MONTHS_YEAR);
         series.setSpacing(20);
