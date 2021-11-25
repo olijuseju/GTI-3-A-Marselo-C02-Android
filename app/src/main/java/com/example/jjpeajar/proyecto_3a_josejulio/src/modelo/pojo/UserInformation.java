@@ -96,7 +96,7 @@ public class UserInformation {
         this.updated_at = updated_at;
     }
 
-    public String SerialToJson(String serial){
+    public String SerialToJson(int serial){
         return  "serial="+serial;
     }
 }

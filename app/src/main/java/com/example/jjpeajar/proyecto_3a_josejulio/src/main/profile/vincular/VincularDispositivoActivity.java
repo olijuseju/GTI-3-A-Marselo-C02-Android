@@ -131,19 +131,24 @@ public class VincularDispositivoActivity extends AppCompatActivity {
                     Log.d("pepe",serial+"");
                     logicaNegocioUsarios.vincularDispoitivo(serial, access_token, new LogicaNegocioUsarios.VinculateDeviceCallback() {
                         @Override
-                        public void onCompletedVinculateDevice(UserInformationController userInformationController) {
-                            Log.d("pepe","puto");
+                        public void onCompletedVinculateDevice(String serial) {
+                            SharedPreferences shared= getSharedPreferences(
+                                    "com.example.jjpeajar.proyecto_3a_josejulio"
+                                    , MODE_PRIVATE);
+                            SharedPreferences.Editor editor = shared.edit();
+                            editor.putString("serial_device", serial);
+                            editor.commit();
+                            //cambio de actividad
+                            finish();
                         }
 
                         @Override
                         public void onFailedVinculateDevice(boolean resultado) {
-
+                            setSnackbar(findViewById(R.id.layout_vincular_dispositivo), "El codigo no es correcto");
+                            step1StateInactive();
                         }
                     });
 
-
-                    //cambio de actividad
-                    finish();
                 }else{ //faltan pasos por hacer
                     setSnackbar(findViewById(R.id.layout_vincular_dispositivo), getString(R.string.snack_steps_remain));
                 }
