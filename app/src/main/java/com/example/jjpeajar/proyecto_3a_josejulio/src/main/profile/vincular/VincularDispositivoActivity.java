@@ -11,11 +11,14 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformationController;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,6 +53,9 @@ public class VincularDispositivoActivity extends AppCompatActivity {
     private String nameDevice;
     private String access_token;
 
+    // Logica
+    private LogicaNegocioUsarios logicaNegocioUsarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,11 @@ public class VincularDispositivoActivity extends AppCompatActivity {
 
         //si ya ha iniciado sesion
         access_token = (shared.getString("access_token", null));
+
+        Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
+        Log.d("pepeupdate", "  access ->" + access_token+"");
+
+        logicaNegocioUsarios = new LogicaNegocioUsarios();
 
         //findById elements
         step1Card=findViewById(R.id.step1_card);
@@ -95,11 +106,40 @@ public class VincularDispositivoActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.d("pepe", access_token);
+                int serial;
+
                 if(isStep1Done  && isStep3Done){ //si todos los pasos estas terminados
                     //guardamos los datos en el objeto machine
+
+
+                    try{
+
+                        serial = Integer.parseInt(deviceModel);
+
+                    }catch (Exception e){
+                        serial = 000;
+                    }
+
+                    Log.d("pepe",serial+"");
+                    logicaNegocioUsarios.vincularDispoitivo(serial, access_token, new LogicaNegocioUsarios.VinculateDeviceCallback() {
+                        @Override
+                        public void onCompletedVinculateDevice(UserInformationController userInformationController) {
+                            Log.d("pepe","puto");
+                        }
+
+                        @Override
+                        public void onFailedVinculateDevice(boolean resultado) {
+
+                        }
+                    });
 
 
                     //cambio de actividad
@@ -139,7 +179,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
     }
 
     private void step1StateActive(){
-        step1State.setImageResource(R.drawable.icons_circulo); //change icon to active
+        step1State.setImageResource(R.drawable.icons_active_state); //change icon to active
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             step1State.setImageTintList(ColorStateList.valueOf(getColor(R.color.check_verde))); //change color to active
         }
@@ -155,7 +195,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         step3StateInactive();
     }
     private void step3StateActive(){
-        step3State.setImageResource(R.drawable.icons_circulo); //change icon to active
+        step3State.setImageResource(R.drawable.icons_active_state); //change icon to active
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             step3State.setImageTintList(ColorStateList.valueOf(getColor(R.color.check_verde))); //change color to active
         }
@@ -226,7 +266,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
                 step3_model_text.setTextColor(getColor(R.color.black));
             }
             //set activate img state
-            step3_1_state.setImageResource(R.drawable.icons_circulo);
+            step3_1_state.setImageResource(R.drawable.icons_active_state);
             //change color
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 step3_1_state.setImageTintList(ColorStateList.valueOf(getColor(R.color.check_verde)));

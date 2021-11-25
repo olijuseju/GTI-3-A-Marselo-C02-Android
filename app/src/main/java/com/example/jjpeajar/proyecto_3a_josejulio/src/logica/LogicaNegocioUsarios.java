@@ -258,17 +258,20 @@ public class LogicaNegocioUsarios {
 
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/device" , String.valueOf(serial), acces_token, new PeticionarioRest.RespuestaREST() {
+        UserInformation userInformation = new UserInformation();
+        String res = userInformation.SerialToJson(String.valueOf(serial));
+
+        Log.d("pepe", res);
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/device/" , res, acces_token, new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
 
-                try {
 
                     Gson gson= new Gson();
                     UserInformationController userInformationController= gson.fromJson(cuerpo, UserInformationController.class);
 
                     Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
-                    Log.d("pepeupdate", "  CUERPO ->" + userInformationController.getSuccess()+"");
+                    Log.d("pepeupdate", "  CUERPO ->" + cuerpo+"");
 
                     //comprobamos si esta registrado en nuestra bbdd o no
                     int success= userInformationController.getSuccess();
@@ -278,9 +281,6 @@ public class LogicaNegocioUsarios {
                         vinculateDeviceCallback.onFailedVinculateDevice(true);
                     }
 
-                } catch (Exception e) {
-                    Log.d("Error", "Error");
-                }
 
             }
         });
