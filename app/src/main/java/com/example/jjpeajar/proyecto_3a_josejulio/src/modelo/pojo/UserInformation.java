@@ -1,5 +1,13 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+
+/**
+ * @author Jose Julio Peñaranda
+ * UserInformation
+ * 2021-10-23
+ */
+
+
 import java.util.Date;
 
 public class UserInformation {

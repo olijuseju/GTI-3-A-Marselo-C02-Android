@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification;
 
+/**
+ * @author Andrey Kuzmin
+ * NotificationFragment
+ * 2021-11-23
+ */
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;

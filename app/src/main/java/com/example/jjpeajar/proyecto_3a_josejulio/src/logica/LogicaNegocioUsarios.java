@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
+/**
+ * @author Andrey Kuzmin
+ * LogicaNecocioUsuarios
+ * 2021-11-22
+ */
+
 import android.content.Context;
 import android.util.Log;
 

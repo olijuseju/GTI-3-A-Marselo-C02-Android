@@ -1,5 +1,12 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
+/**
+ * @author Andrey Kuzmin
+ * LogicaNecocioMediciones
+ * 2021-11-22
+ */
+
+
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;

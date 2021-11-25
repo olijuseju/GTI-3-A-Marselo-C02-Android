@@ -2,8 +2,8 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
 /**
  * @author Andrey Kuzmin
- * LoginActivity
- * 2021-11-23
+ * User
+ * 2021-11-22
  */
 
 public class User {

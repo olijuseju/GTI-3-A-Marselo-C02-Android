@@ -1,5 +1,13 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+
+/**
+ * @author Jose Julio Peñaranda
+ * UserAccountInformation
+ * 2021-10-23
+ */
+
+
 public class UserAccountInformation {
     public int id;
     public int user_id;

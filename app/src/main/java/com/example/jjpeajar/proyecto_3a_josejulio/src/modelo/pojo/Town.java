@@ -1,5 +1,12 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+/**
+ * @author Belén Grande
+ * Town
+ * 2021-11-24
+ */
+
+
 public class Town {
 
     private Integer id;

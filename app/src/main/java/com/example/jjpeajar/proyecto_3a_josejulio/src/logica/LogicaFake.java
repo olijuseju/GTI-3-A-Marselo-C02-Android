@@ -6,6 +6,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
 
 /**
  * @author Jose Julio Peñaranda
+ * LogicaFake
  * 2021-10-14
  */
 // --------------------------------------------------------------

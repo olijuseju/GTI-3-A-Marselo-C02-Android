@@ -1,8 +1,8 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
 /**
- * @author Andrey Kuzmin
- * LoginActivity
+ * @author Belén Grande
+ * Town Controller
  * 2021-11-24
  */
 
@@ -15,12 +15,15 @@ public class TownController {
     public List<Town> getTowns() {
         return towns;
     }
+
     public void setTowns(List<Town> towns) {
         this.towns = towns;
     }
+
     public Integer getSuccess() {
         return success;
     }
+
     public void setSuccess(Integer success) {
         this.success = success;
     }

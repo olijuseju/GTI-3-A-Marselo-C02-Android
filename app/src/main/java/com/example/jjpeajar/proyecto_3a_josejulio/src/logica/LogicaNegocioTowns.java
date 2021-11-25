@@ -2,7 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 /**
  * @author Belén Grande López
- * RegisterActivity
+ * LogicaNegocioTowns
  * 2021-11-24
  */
 

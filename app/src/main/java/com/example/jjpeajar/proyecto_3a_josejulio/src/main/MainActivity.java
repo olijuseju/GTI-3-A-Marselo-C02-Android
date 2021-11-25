@@ -26,6 +26,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuh
 // --------------------------------------------------------------
 /**
  * @author Jose Julio Peñaranda
+ * MainActivity
  * 2021-10-14
  */
 // --------------------------------------------------------------

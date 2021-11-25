@@ -1,5 +1,13 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+
+/**
+ * @author Andrey Kuzmin
+ * MedicionController
+ * 2021-10-14
+ */
+
+
 import java.util.List;
 
 public class MedicionController {

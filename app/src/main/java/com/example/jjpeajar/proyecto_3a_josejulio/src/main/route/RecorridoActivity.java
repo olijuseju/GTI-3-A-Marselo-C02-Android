@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.route;
 
+/**
+ * @author Jose Julio Peñaranda
+ * RecorridoActivity
+ * 2021-11-23
+ */
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -23,6 +29,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class RecorridoActivity extends AppCompatActivity {
+
+    // Atributos
 
     private static final String[] WEEK_DAYS = {"", "Mon", "Tue", "Wed",  "Thu", "Fri", "Sat", "Sun" ,""};
     private static final String[] WEEKS_MONTH = {"","Sem 1", "Sem 2", "Sem 3",  "Sem 4", "Sem 5",""};

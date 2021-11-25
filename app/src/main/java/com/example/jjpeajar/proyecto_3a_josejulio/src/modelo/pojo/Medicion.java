@@ -1,5 +1,11 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+/**
+ * @author Andrey Kuzmin
+ * Medicion
+ * 2021-10-14
+ */
+
 public class Medicion {
     public int id;
     public int user_id;
