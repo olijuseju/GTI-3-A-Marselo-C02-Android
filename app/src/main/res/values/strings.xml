@@ -147,6 +147,6 @@
     <!-- cerrar sesion alert -->
     <string name="deleteText_dialog">¿Seguro que quieres salir de tu cuenta de MarseloO2?</string>
     <string name="cancelButton_dialog">Cancelar</string>
-    <string name="deleteConfirmButton_dialog">Eliminar</string>
+    <string name="deleteConfirmButton_dialog">Cerrar sesión</string>
 
 </resources>
