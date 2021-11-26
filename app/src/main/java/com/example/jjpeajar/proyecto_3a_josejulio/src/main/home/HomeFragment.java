@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
@@ -75,25 +77,41 @@ public class HomeFragment extends Fragment {
     }
 
     //atributtes
-    private TextView conect;
+    private Button conect;
+    private TextView txt_bienvenida;
+    private String name_user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //get access_token from signed user
+        //coockies
+        SharedPreferences shared= this.getActivity().getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , getContext().MODE_PRIVATE);
+
+        //si ya ha iniciado sesion
+        name_user = (shared.getString("user_name", null));
+
         // Inflate the layout for this fragment
-            View v= inflater.inflate(R.layout.fragment_home, container, false);
+        View v= inflater.inflate(R.layout.fragment_home, container, false);
 
-            //findById
-            conect=v.findViewById(R.id.fragment_home_btn_conect);
+        //findById
+        conect=v.findViewById(R.id.fragment_home_btn_conect);
+        txt_bienvenida=v.findViewById(R.id.fragment_home_txt_bienvenida);
 
-            //onclick
-            conect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
-                }
-            });
+        //onclick
+        conect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
+            }
+        });
 
-            return v;
+        //set bienvenida text
+        String bienvenida= getText(R.string.txt_home_bienvenida) + " " + name_user;
+        txt_bienvenida.setText(bienvenida);
+
+        return v;
     }
 }
