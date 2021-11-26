@@ -125,4 +125,7 @@
     <string name="deleteText_dialog">Are you sure you want to sign out of your MarseloO2 account?</string>
     <string name="cancelButton_dialog">Cancel</string>
     <string name="deleteConfirmButton_dialog">Sign out</string>
+
+    <!-- pantalla principal -->
+    <string name="txt_home_bienvenida">Welcome</string>
 </resources>
