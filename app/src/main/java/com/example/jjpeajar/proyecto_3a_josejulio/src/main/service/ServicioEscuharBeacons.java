@@ -1,6 +1,10 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.service;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -10,12 +14,20 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
 
 import java.util.ArrayList;
@@ -47,6 +59,11 @@ public class ServicioEscuharBeacons  extends IntentService {
     private String dispositivoBuscado = null;
     private LogicaNegocioMediciones logicaNegocio = new LogicaNegocioMediciones();
     public ArrayList<Medicion> medicionC02s= new ArrayList<Medicion>();
+
+    //notificaciones
+    private PendingIntent pendingIntent;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private final static int NOTIFICACION_ID = 0;
 
     public TramaIBeacon tib;
 
@@ -272,7 +289,7 @@ public class ServicioEscuharBeacons  extends IntentService {
                     if(medicionC02s.size()==20){
                         Log.d("clienterestandroid", "llamamos a la logica");
 
-
+                        String access_token=shared.getString("access_token", null);
                         for (Medicion medicion:medicionC02s) {
                             logicaNegocio.publicarMedicion(shared.getString("access_token", null), medicion.getUser_id(), medicion.getDevice_id(), medicion.getValue(), medicion.getLatitude(), medicion.getLongitude(), medicion.getType_read(), medicion.getDate(), new LogicaNegocioMediciones.PublicarMedicionesCallback() {
                                 @Override
@@ -285,6 +302,32 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                                 }
                             });
+                            if(medicion.getType_read().equals("CO2")){
+
+
+                                if(medicion.getValue() > 0 ){
+                                    callToLogicaToCrearNotificacion("Danger","El O2 es muy alta!" , access_token  , medicion);
+                                }
+
+                            }else if(medicion.getType_read().equals("Temperatura")){
+
+                                if(medicion.getValue() >= 21 ){
+                                    callToLogicaToCrearNotificacion("Danger","La temperatura es muy alta!" ,access_token , medicion);
+                                } else if(medicion.getValue() < 13) {
+                                    callToLogicaToCrearNotificacion("Warnning","La temperatura es muy baja, ponte un abrigo!" ,access_token , medicion);
+
+                                }
+
+                            }else if(medicion.getType_read().equals("Humedad")){
+
+                                if(medicion.getValue() >= 56 ){
+                                    callToLogicaToCrearNotificacion("Danger","La humedad es muy alta!" ,access_token , medicion);
+                                }else if(medicion.getValue() < 10) {
+                                    callToLogicaToCrearNotificacion("Warnning","La humedad es muy baja!" ,access_token , medicion);
+
+                                }
+
+                            }
                         }
                         medicionC02s.clear();
                     }
@@ -336,6 +379,65 @@ public class ServicioEscuharBeacons  extends IntentService {
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleItent: termina");
 
+    }
+
+    private void callToLogicaToCrearNotificacion(String type ,String message , String access_token , Medicion medicion){
+
+        SharedPreferences shared= getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+        int user_id=Integer.valueOf(shared.getString("user_id", null));
+        String date=String.valueOf(medicion.getDate());
+
+        Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+        Log.d("pepe", "  CUERPO ->" + medicion.getValue()+"");
+
+        Log.d("pepe", " DENGUEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -------------------------------------  ");
+        Log.d("pepe", "  CUERPO -> " + user_id +" "+  date +" "+  message +" "+ type);
+
+        try{
+            LogicaNegocioNotification logicaNegocioNotification= new LogicaNegocioNotification();
+            logicaNegocioNotification
+                    .crearNotificacion(access_token, user_id , date , message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
+                        @Override
+                        public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
+                            createNotificationChannel();
+                            createNotification( notificationController.getNotification().getType(), notificationController.getNotification().getMessage());
+                        }
+
+                        @Override
+                        public void onFailedCrearNotificacionCallback(boolean res) {
+
+                        }
+                    });
+        }catch (Exception e){
+
+        }
+
+    }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Noticacion";
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    private void createNotification(String titulo , String message){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.icons_exclamation);
+        builder.setContentTitle(titulo);
+        builder.setContentText(message);
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setLights(Color.MAGENTA, 1000, 1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setGroup("GROUP_KEY_WORK_EMAIL");
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
 } // class
 // -------------------------------------------------------------------------------------------------

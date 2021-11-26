@@ -135,20 +135,24 @@ public class LogicaNegocioNotification {
             @Override
             public void callback(int codigo, String cuerpo) {
 
-                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
-                Gson gson= new Gson();
-                NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
+                try{
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+                    Gson gson= new Gson();
+                    NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
 
-                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-                Log.d("pepe", "  CUERPO ->" + notificationController.getSuccess()+"");
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + notificationController.getSuccess()+"");
 
-                //comprobamos si esta registrado en nuestra bbdd o no
-                int success= notificationController.getSuccess();
-                if(success == 1){
-                    crearNotificacionCallback.onCompletedCrearNotificacionCallback(notificationController);
-                }else {
-                    crearNotificacionCallback.onFailedCrearNotificacionCallback(true);
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    int success= notificationController.getSuccess();
+                    if(success == 1){
+                        crearNotificacionCallback.onCompletedCrearNotificacionCallback(notificationController);
+                    }else {
+                        crearNotificacionCallback.onFailedCrearNotificacionCallback(true);
+                    }
+                }catch (Exception e){
+
                 }
             }
         });
