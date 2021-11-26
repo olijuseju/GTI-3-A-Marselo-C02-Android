@@ -33,13 +33,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item1"
+        android:id="@+id/btn_particulas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/machine_item"
+        app:layout_constraintEnd_toStartOf="@+id/btn_ozone"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -92,16 +92,16 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item"
+        android:id="@+id/btn_ozone"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/machine_item1"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_particulas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/machine_item1"
-        app:layout_constraintTop_toTopOf="@+id/machine_item1">
+        app:layout_constraintStart_toEndOf="@+id/btn_particulas"
+        app:layout_constraintTop_toTopOf="@+id/btn_particulas">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -135,16 +135,16 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item3"
+        android:id="@+id/btn_dioxido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/machine_item5"
+        app:layout_constraintEnd_toStartOf="@+id/btn_azufre"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/machine_item1">
+        app:layout_constraintTop_toBottomOf="@+id/btn_particulas">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -179,16 +179,16 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item5"
+        android:id="@+id/btn_azufre"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/machine_item3"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_dioxido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/machine_item3"
-        app:layout_constraintTop_toTopOf="@+id/machine_item3">
+        app:layout_constraintStart_toEndOf="@+id/btn_dioxido"
+        app:layout_constraintTop_toTopOf="@+id/btn_dioxido">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -222,15 +222,15 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item6"
+        android:id="@+id/btn_plomo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/machine_item3"
-        app:layout_constraintStart_toStartOf="@+id/machine_item3"
-        app:layout_constraintTop_toBottomOf="@+id/machine_item3">
+        app:layout_constraintEnd_toEndOf="@+id/btn_dioxido"
+        app:layout_constraintStart_toStartOf="@+id/btn_dioxido"
+        app:layout_constraintTop_toBottomOf="@+id/btn_dioxido">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -267,16 +267,16 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/machine_item7"
+        android:id="@+id/btn_cadmio"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/machine_item6"
-        app:layout_constraintEnd_toEndOf="@+id/machine_item5"
-        app:layout_constraintStart_toStartOf="@+id/machine_item5"
-        app:layout_constraintTop_toBottomOf="@+id/machine_item5">
+        app:layout_constraintBottom_toBottomOf="@+id/btn_plomo"
+        app:layout_constraintEnd_toEndOf="@+id/btn_azufre"
+        app:layout_constraintStart_toStartOf="@+id/btn_azufre"
+        app:layout_constraintTop_toBottomOf="@+id/btn_azufre">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -318,8 +318,8 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="@+id/machine_item7"
-        app:layout_constraintTop_toBottomOf="@+id/machine_item7">
+        app:layout_constraintEnd_toEndOf="@+id/btn_cadmio"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cadmio">
 
         <TextView
             android:id="@+id/textView15"
@@ -335,6 +335,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

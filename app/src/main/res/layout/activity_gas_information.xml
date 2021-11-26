@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bt_back_edit"
+        android:id="@+id/bt_back_infogas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -70,7 +70,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_back_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/bt_back_infogas" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/gas_item"
