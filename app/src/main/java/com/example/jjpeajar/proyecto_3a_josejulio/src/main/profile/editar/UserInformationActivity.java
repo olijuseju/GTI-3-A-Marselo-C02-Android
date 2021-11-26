@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide.GasInformationActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 
 public class UserInformationActivity extends AppCompatActivity {
 
@@ -33,7 +34,8 @@ public class UserInformationActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent i = new Intent(getApplicationContext(), MenuMainActivity.class);
+                startActivity(i);
             }
         });
 
