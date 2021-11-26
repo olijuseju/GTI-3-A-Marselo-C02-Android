@@ -20,9 +20,15 @@ public class Notification {
     public Notification() { }
 
     //contructor para sacar notificaciones en un rv por ejemplo
-
-
     public Notification(String date, String message, String type) {
+        this.date = date;
+        this.message = message;
+        this.type = type;
+    }
+
+    //contructor para crear notificaciones
+    public Notification(Integer userId, String date, String message, String type) {
+        this.userId = userId;
         this.date = date;
         this.message = message;
         this.type = type;
@@ -69,5 +75,12 @@ public class Notification {
     }
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String toJsonForCreate(){
+        return  "user_id="+getUserId()
+                +"&date="+getDate()
+                +"&message="+getMessage()
+                +"&type="+getType();
     }
 }

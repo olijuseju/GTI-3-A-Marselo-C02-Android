@@ -13,6 +13,7 @@ import java.util.List;
 public class NotificationController {
 
     private List<Notification> notifications = new ArrayList<Notification>();
+    private Notification notification;
     private Integer success;
     private String message;
 
@@ -35,6 +36,13 @@ public class NotificationController {
     }
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 
 }

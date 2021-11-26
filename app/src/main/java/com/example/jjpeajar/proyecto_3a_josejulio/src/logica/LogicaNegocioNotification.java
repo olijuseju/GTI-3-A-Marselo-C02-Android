@@ -30,6 +30,11 @@ public class LogicaNegocioNotification {
         void onCompletedDeleteNotificacionesByIdUserCallback(String message);
         void onFailedDeleteNotificacionesByIdUserCallback(boolean res);
     }
+    // crearNotificacion interface
+    public interface CrearNotificacionCallback {
+        void onCompletedCrearNotificacionCallback(NotificationController notificationController);
+        void onFailedCrearNotificacionCallback(boolean res);
+    }
 
     /**
      * La descripción de obtenerNotificacionesByIdUser. Funcion que obtiene las notificaciones de la bbdd.
@@ -100,6 +105,50 @@ public class LogicaNegocioNotification {
                             .onCompletedDeleteNotificacionesByIdUserCallback(notificationController.getMessage());
                 }else {
                     deleteNotificacionesByIdUserCallback.onFailedDeleteNotificacionesByIdUserCallback(true);
+                }
+            }
+        });
+    }
+
+    /**
+     * La descripción de crearNotificacion. Funcion que crea una notificacion en la base de datos.
+     *
+     * @param access_token String con el token del usuario
+     * @param user_id int con el id del usario registrado
+     * @param date String con la fecha de la notificacion
+     * @param message String con el mensaje de la notificacion
+     * @param type String con el tipo de notificacion
+     * @param crearNotificacionCallback Objeto CrearNotificacionCallback para poder devolver el cuerpo.
+     *
+     */
+    public void crearNotificacion( String access_token ,int user_id , String date , String message , String type , CrearNotificacionCallback crearNotificacionCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+        //creamos pojo
+        Notification notification= new Notification(user_id,date,message,type);
+        //concadenamos los atributos
+        String res= notification.toJsonForCreate();
+
+        Log.d("pepe", " ENTRAAAAAAAAAAA -------------------------------------  ");
+        Log.d("pepe", "  CUERPO ->" + res+"");
+
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/notificaciones/create", res, access_token , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+                Gson gson= new Gson();
+                NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
+
+                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                Log.d("pepe", "  CUERPO ->" + notificationController.getSuccess()+"");
+
+                //comprobamos si esta registrado en nuestra bbdd o no
+                int success= notificationController.getSuccess();
+                if(success == 1){
+                    crearNotificacionCallback.onCompletedCrearNotificacionCallback(notificationController);
+                }else {
+                    crearNotificacionCallback.onFailedCrearNotificacionCallback(true);
                 }
             }
         });

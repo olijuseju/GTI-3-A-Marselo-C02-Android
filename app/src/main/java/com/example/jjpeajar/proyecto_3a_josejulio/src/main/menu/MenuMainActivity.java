@@ -9,6 +9,8 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,9 +18,16 @@ import androidx.fragment.app.FragmentTransaction;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -26,11 +35,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.graphic.GraphicFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.NotificationFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.ProfileFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MenuMainActivity extends AppCompatActivity {
@@ -46,6 +57,11 @@ public class MenuMainActivity extends AppCompatActivity {
     private static final int CODIGO_PETICION_PERMISOS = 11223344;
     private static final int SOLICITUD_PERMISO_LOCALIZACION = 1234;
     private Intent elIntentDelServicio = null;
+
+    //notificaciones
+    private PendingIntent pendingIntent;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private final static int NOTIFICACION_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +128,60 @@ public class MenuMainActivity extends AppCompatActivity {
             }
         });
 
+
+        //notificaciones
+        //coockies
+        /*SharedPreferences shared= getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+
+        //si ya ha iniciado sesion
+        String access_token = (shared.getString("access_token", null));
+        LogicaNegocioNotification logicaNegocioNotification= new LogicaNegocioNotification();
+        logicaNegocioNotification
+                .crearNotificacion(access_token, 11, "2020-12-20", "Esto se ha creado automaticamente", "Information", new LogicaNegocioNotification.CrearNotificacionCallback() {
+                    @Override
+                    public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
+                        createNotificationChannel();
+                        createNotification( "Information", "Esto se ha creado automaticamente");
+                    }
+
+                    @Override
+                    public void onFailedCrearNotificacionCallback(boolean res) {
+
+                    }
+                });*/
     }
+
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Noticacion";
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    private void createNotification(String titulo , String message){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.icons_exclamation);
+        builder.setContentTitle(titulo);
+        builder.setContentText(message);
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setLights(Color.MAGENTA, 1000, 1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setGroup("GROUP_KEY_WORK_EMAIL");
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
+    }
+
 
     /**
      *
-     * @param v indica si el usuario pulsó el botón
+     *
      */
     public void botonBuscarNuestroDispositivoBTLEPulsado() {
         Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado" );
