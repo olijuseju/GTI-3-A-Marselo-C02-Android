@@ -149,6 +149,10 @@
     <string name="cancelButton_dialog">Cancelar</string>
     <string name="deleteConfirmButton_dialog">Cerrar sesión</string>
 
+    <!-- cerrar sesion alert -->
+    <string name="clearConfirmButton_dialog">Limpiar</string>
+    <string name="clearText_dialog">¿Seguro que quieres eliminar todas las notificaciones recibidas?</string>
+
     <!-- pantalla principal -->
     <string name="txt_home_bienvenida">Bienvenido,</string>
 

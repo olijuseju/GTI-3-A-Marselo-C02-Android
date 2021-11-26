@@ -6,9 +6,11 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification;
  * 2021-11-23
  */
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.adapter.NotificationAdapter;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Notification;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,7 @@ public class NotificationFragment extends Fragment {
     //atributtes
     private List<Notification> notificationList = new ArrayList<>();
     private String access_token;
+    private ConstraintLayout btn_clear;
 
     //logica
     LogicaNegocioNotification logicaNegocioNotification;
@@ -105,10 +109,18 @@ public class NotificationFragment extends Fragment {
 
         //findByid
         rv_notifications=v.findViewById(R.id.notification__rv_notifications);
+        btn_clear=v.findViewById(R.id.fragment_notification_btn_clear);
 
         //methods
         initRvNotifications();
         getNotificationItem();
+
+        btn_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initAlertaClear();
+            }
+        });
 
 
         return v;
@@ -137,6 +149,39 @@ public class NotificationFragment extends Fragment {
 
             @Override
             public void onFailedObtenerNotificacionesByIdUserCallback(boolean res) {
+
+            }
+        });
+    }
+
+    private void initAlertaClear(){
+        MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(getContext());
+        alertDialogBuilder.setMessage(R.string.clearText_dialog);
+        //alertDialogBuilder.setMessage("");
+        alertDialogBuilder.setNegativeButton(R.string.cancelButton_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDialogBuilder.setPositiveButton(R.string.clearConfirmButton_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                limpiarNotificaciones();
+            }
+        });
+        alertDialogBuilder.show();
+    }
+
+    private void limpiarNotificaciones(){
+        logicaNegocioNotification.DeleteNotificacionesByIdUser(access_token, new LogicaNegocioNotification.DeleteNotificacionesByIdUserCallback() {
+            @Override
+            public void onCompletedDeleteNotificacionesByIdUserCallback(String message) {
+                getNotificationItem();
+            }
+
+            @Override
+            public void onFailedDeleteNotificacionesByIdUserCallback(boolean res) {
 
             }
         });

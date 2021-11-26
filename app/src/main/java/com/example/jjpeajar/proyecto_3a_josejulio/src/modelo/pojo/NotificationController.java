@@ -14,6 +14,7 @@ public class NotificationController {
 
     private List<Notification> notifications = new ArrayList<Notification>();
     private Integer success;
+    private String message;
 
     //getters && setters
     public List<Notification> getNotifications() {
@@ -27,6 +28,13 @@ public class NotificationController {
     }
     public void setSuccess(Integer success) {
         this.success = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 }

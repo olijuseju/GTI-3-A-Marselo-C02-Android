@@ -126,6 +126,10 @@
     <string name="cancelButton_dialog">Cancel</string>
     <string name="deleteConfirmButton_dialog">Sign out</string>
 
+    <!-- cerrar sesion alert -->
+    <string name="clearConfirmButton_dialog">Clear</string>
+    <string name="clearText_dialog">Are you sure you want to delete all the notifications received?</string>
+
     <!-- pantalla principal -->
     <string name="txt_home_bienvenida">Welcome</string>
 </resources>

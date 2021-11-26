@@ -25,6 +25,11 @@ public class LogicaNegocioNotification {
         void onCompletedObtenerNotificacionesByIdUserCallback(List<Notification> notifications);
         void onFailedObtenerNotificacionesByIdUserCallback(boolean res);
     }
+    // ObtenerNotificaciones interface
+    public interface DeleteNotificacionesByIdUserCallback {
+        void onCompletedDeleteNotificacionesByIdUserCallback(String message);
+        void onFailedDeleteNotificacionesByIdUserCallback(boolean res);
+    }
 
     /**
      * La descripción de obtenerNotificacionesByIdUser. Funcion que obtiene las notificaciones de la bbdd.
@@ -35,6 +40,9 @@ public class LogicaNegocioNotification {
      */
     public void obtenerNotificacionesByIdUser(String access_token , ObtenerNotificacionesByIdUserCallback obtenerNotificacionesByIdUserCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        Log.d("pepe", " ENTRAAAAAAAAAAA -------------------------------------  ");
+        Log.d("pepe", "  CUERPO ->" + access_token+"");
 
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
             @Override
@@ -59,6 +67,40 @@ public class LogicaNegocioNotification {
 
 
 
+            }
+        });
+    }
+
+    /**
+     * La descripción de deleteNotificacionesByIdUser. Funcion que elimina las notificaciones de un usuario.
+     *
+     * @param access_token String con el token del usuario
+     * @param deleteNotificacionesByIdUserCallback Objeto DeleteNotificacionesByIdUserCallback para poder devolver el cuerpo.
+     *
+     */
+    public void DeleteNotificacionesByIdUser(String access_token , DeleteNotificacionesByIdUserCallback deleteNotificacionesByIdUserCallback ){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        peticionarioRest.realizarPeticion("DELETE", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+                Gson gson= new Gson();
+                NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
+
+                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                Log.d("pepe", "  CUERPO ->" + notificationController.getSuccess()+"");
+
+                //comprobamos si esta registrado en nuestra bbdd o no
+                int success= notificationController.getSuccess();
+                if(success == 1){
+                    deleteNotificacionesByIdUserCallback
+                            .onCompletedDeleteNotificacionesByIdUserCallback(notificationController.getMessage());
+                }else {
+                    deleteNotificacionesByIdUserCallback.onFailedDeleteNotificacionesByIdUserCallback(true);
+                }
             }
         });
     }
