@@ -64,7 +64,7 @@ public class UserInformation {
         this.role_id = role_id;
     }
 
-    public Object getDevice_id() {
+    public int getDevice_id() {
         return device_id;
     }
 

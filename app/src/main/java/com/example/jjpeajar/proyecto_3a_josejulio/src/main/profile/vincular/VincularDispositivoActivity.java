@@ -137,12 +137,13 @@ public class VincularDispositivoActivity extends AppCompatActivity {
                     Log.d("pepe",serial+"");
                     logicaNegocioUsarios.vincularDispoitivo(serial, access_token, new LogicaNegocioUsarios.VinculateDeviceCallback() {
                         @Override
-                        public void onCompletedVinculateDevice(String serial) {
+                        public void onCompletedVinculateDevice(String serial, int device_id) {
                             SharedPreferences shared= getSharedPreferences(
                                     "com.example.jjpeajar.proyecto_3a_josejulio"
                                     , MODE_PRIVATE);
                             SharedPreferences.Editor editor = shared.edit();
                             editor.putString("serial_device", serial);
+                            editor.putInt("id_device", device_id);
                             editor.commit();
                             //cambio de actividad
                             finish();

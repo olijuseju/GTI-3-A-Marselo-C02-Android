@@ -245,46 +245,52 @@ public class ServicioEscuharBeacons  extends IntentService {
                 int data;
                 int numTipoDato = Utilidades.bytesToInt(tramaIBeacon.getMajor());
                 String tipoDato;
-                medicionC02s.add(new Medicion());
-                Log.d("clienterestandroid", medicionC02s.size()+"");
-
-                if(medicionC02s.size()==20){
-                    Log.d("clienterestandroid", "llamamos a la logica");
-
-                    if(numTipoDato==11){
-                        tipoDato="CO2";
-                        int datoBruto = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-                        data = (datoBruto/65535)*100;
-                    }else if(numTipoDato==12){
-                        tipoDato="Temperatura";
-                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                    }else if(numTipoDato==10){
-                        tipoDato="Humedad";
-                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                    }else{
-                        tipoDato="Otros";
-                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                    }
 
 
-                    for (Medicion medicion:medicionC02s) {
-                        logicaNegocio.publicarMedicion(shared.getString("access_token", null), Integer.parseInt(shared.getString("user_id", null)), 1, data, 30, 30, tipoDato, 20201020, new LogicaNegocioMediciones.PublicarMedicionesCallback() {
-                            @Override
-                            public void onCompletedPublicarMediciones(int success) {
+                if(numTipoDato==11){
+                    tipoDato="CO2";
+                    int datoBruto = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                    data = (datoBruto/65535)*100;
+                }else if(numTipoDato==12){
+                    tipoDato="Temperatura";
+                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
 
-                            }
+                }else if(numTipoDato==10){
+                    tipoDato="Humedad";
+                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
 
-                            @Override
-                            public void onFailedPublicarMediciones(boolean res) {
+                }else{
+                    tipoDato="Otros";
+                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
 
-                            }
-                        });
-                    }
-                    medicionC02s.clear();
                 }
+
+                int device_id = shared.getInt("id_device", -1);
+                if(device_id!=-1){
+                    medicionC02s.add(new Medicion(Integer.parseInt(shared.getString("user_id", null)),device_id, 30,30, tipoDato,data, 20201020));
+                    Log.d("clienterestandroid", medicionC02s.size()+"");
+                    if(medicionC02s.size()==20){
+                        Log.d("clienterestandroid", "llamamos a la logica");
+
+
+                        for (Medicion medicion:medicionC02s) {
+                            logicaNegocio.publicarMedicion(shared.getString("access_token", null), medicion.getUser_id(), medicion.getDevice_id(), medicion.getValue(), medicion.getLatitude(), medicion.getLongitude(), medicion.getType_read(), medicion.getDate(), new LogicaNegocioMediciones.PublicarMedicionesCallback() {
+                                @Override
+                                public void onCompletedPublicarMediciones(int success) {
+
+                                }
+
+                                @Override
+                                public void onFailedPublicarMediciones(boolean res) {
+
+                                }
+                            });
+                        }
+                        medicionC02s.clear();
+                    }
+                }
+
+
             }
 
             @Override

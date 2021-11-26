@@ -53,7 +53,7 @@ public class LogicaNegocioUsarios {
     //vincular dispositivo interface
     public interface VinculateDeviceCallback {
 
-        void onCompletedVinculateDevice(String serial);
+        void onCompletedVinculateDevice(String serial, int device_id);
         void onFailedVinculateDevice(boolean resultado);
     }
 
@@ -283,7 +283,7 @@ public class LogicaNegocioUsarios {
                     //comprobamos si esta registrado en nuestra bbdd o no
                     int success = userInformationController.getSuccess();
                     if (success == 1) {
-                        vinculateDeviceCallback.onCompletedVinculateDevice(String.valueOf(serial));
+                        vinculateDeviceCallback.onCompletedVinculateDevice(String.valueOf(serial), userInformationController.getUserInformation().getDevice_id());
                     } else if (success == 0) {
                         vinculateDeviceCallback.onFailedVinculateDevice(true);
                     }
