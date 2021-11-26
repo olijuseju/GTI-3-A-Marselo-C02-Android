@@ -27,6 +27,11 @@ public class LogicaNegocioMediciones {
         void onFailedObtenerMediciones(boolean res);
     }
 
+    public interface PublicarMedicionesCallback{
+        void onCompletedPublicarMediciones(int success);
+        void onFailedPublicarMediciones(boolean res);
+    }
+
     public LogicaNegocioMediciones(){
 
     }
@@ -61,6 +66,40 @@ public class LogicaNegocioMediciones {
                     }
                 }catch (Exception e){
                     Log.d("Error", " Error");
+                }
+            }
+        });
+    }
+
+    /**
+     * La descripción de publicarMedicion. Funcion que publica las mediciones de CO2 en la bbdd.
+     * @param token
+     * @param userId
+     * @param sensorId
+     * @param data
+     * @param latitud
+     * @param longitud
+     */
+    public void publicarMedicion(String token, int userId, int sensorId, int data, double latitud, double longitud, String type_read, int fecha, PublicarMedicionesCallback publicarMedicionesCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        Medicion medicion = new Medicion(userId, sensorId, latitud, longitud, type_read, data, fecha);
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/medicion/create", medicion.toJSON(),token, new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                try {
+                    Gson gson= new Gson();
+                    MedicionController medicionController= gson.fromJson(cuerpo, MedicionController.class);
+
+                    Log.d("pepe", "  RECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + medicionController.getSuccess());
+                    //guardar respuesta en el interface
+                    publicarMedicionesCallback.onCompletedPublicarMediciones(medicionController.getSuccess());
+
+                }catch (Exception e){
+                    Log.d("Error", "Error");
+                    //error
+                    publicarMedicionesCallback.onFailedPublicarMediciones(true);
                 }
             }
         });

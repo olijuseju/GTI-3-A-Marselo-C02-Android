@@ -16,6 +16,28 @@ public class Medicion {
     public int value;
     public int date;
 
+    public Medicion(){}
+
+    public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, int value, int date) {
+        this.id = id;
+        this.user_id = user_id;
+        this.device_id = device_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type_read = type_read;
+        this.value = value;
+        this.date = date;
+    }
+
+    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, int value, int date) {
+        this.user_id = user_id;
+        this.device_id = device_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type_read = type_read;
+        this.value = value;
+        this.date = date;
+    }
 
     public int getId() {
         return id;

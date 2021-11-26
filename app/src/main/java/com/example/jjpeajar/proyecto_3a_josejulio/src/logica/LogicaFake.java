@@ -2,7 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 // --------------------------------------------------------------
 
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 
 /**
  * @author Jose Julio Peñaranda
@@ -26,7 +26,7 @@ public class LogicaFake {
      * @param medicionCO2 Objeto MedicionC02 de la medicion a publicar.
      *
      */
-    public void publicarMedicion(MedicionC02 medicionCO2){
+    public void publicarMedicion(Medicion medicionCO2){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/medicion/create", medicionCO2.toJSON(), new PeticionarioRest.RespuestaREST() {

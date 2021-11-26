@@ -238,7 +238,7 @@ public class LogicaNegocioUsarios {
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
 
                     Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
-                    Log.d("pepeupdate", "  CUERPO ->" + userController.getSuccess()+"");
+                    Log.d("pepeupdate", "  CUERPO ->" + token+"");
 
                     //comprobamos si esta registrado en nuestra bbdd o no
                     float success= userController.getSuccess();

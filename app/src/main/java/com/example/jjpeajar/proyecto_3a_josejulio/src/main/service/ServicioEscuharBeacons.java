@@ -9,11 +9,13 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionC02;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
 
 import java.util.ArrayList;
@@ -43,8 +45,8 @@ public class ServicioEscuharBeacons  extends IntentService {
 
     private long tiempoDeEspera = 10000;
     private String dispositivoBuscado = null;
-    private LogicaFake logicaNegocio = new LogicaFake();
-    public ArrayList<MedicionC02> medicionC02s= new ArrayList<>();
+    private LogicaNegocioMediciones logicaNegocio = new LogicaNegocioMediciones();
+    public ArrayList<Medicion> medicionC02s= new ArrayList<Medicion>();
 
     public TramaIBeacon tib;
 
@@ -228,6 +230,10 @@ public class ServicioEscuharBeacons  extends IntentService {
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId() );
 
+        SharedPreferences shared= getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
             public void onScanResult( int callbackType, ScanResult resultado ) {
@@ -236,19 +242,47 @@ public class ServicioEscuharBeacons  extends IntentService {
                 mostrarInformacionDispositivoBTLE( resultado );
                 byte[] bytes = resultado.getScanRecord().getBytes();
                 TramaIBeacon tramaIBeacon = new TramaIBeacon(bytes);
-                MedicionC02 medicionC02 = new MedicionC02();
-                medicionC02.SensorId="1";
-                medicionC02.longitud=30;
-                medicionC02.latitud=30;
-                int data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-                medicionC02.data = data;
-                medicionC02s.add(medicionC02);
+                int data;
+                int numTipoDato = Utilidades.bytesToInt(tramaIBeacon.getMajor());
+                String tipoDato;
+                medicionC02s.add(new Medicion());
                 Log.d("clienterestandroid", medicionC02s.size()+"");
 
                 if(medicionC02s.size()==20){
                     Log.d("clienterestandroid", "llamamos a la logica");
 
-                    logicaNegocio.publicarMedicion(medicionC02s.get(1));
+                    if(numTipoDato==11){
+                        tipoDato="CO2";
+                        int datoBruto = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                        data = (datoBruto/65535)*100;
+                    }else if(numTipoDato==12){
+                        tipoDato="Temperatura";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+
+                    }else if(numTipoDato==10){
+                        tipoDato="Humedad";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+
+                    }else{
+                        tipoDato="Otros";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+
+                    }
+
+
+                    for (Medicion medicion:medicionC02s) {
+                        logicaNegocio.publicarMedicion(shared.getString("access_token", null), Integer.parseInt(shared.getString("user_id", null)), 1, data, 30, 30, tipoDato, 20201020, new LogicaNegocioMediciones.PublicarMedicionesCallback() {
+                            @Override
+                            public void onCompletedPublicarMediciones(int success) {
+
+                            }
+
+                            @Override
+                            public void onFailedPublicarMediciones(boolean res) {
+
+                            }
+                        });
+                    }
                     medicionC02s.clear();
                 }
             }
