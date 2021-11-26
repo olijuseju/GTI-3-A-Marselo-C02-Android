@@ -52,9 +52,12 @@ public class LogicaNegocioNotification {
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
+
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
                 Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                 Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+
+                try{
                     Gson gson= new Gson();
                     NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
 
@@ -69,6 +72,9 @@ public class LogicaNegocioNotification {
                     }else {
                         obtenerNotificacionesByIdUserCallback.onFailedObtenerNotificacionesByIdUserCallback(true);
                     }
+                }catch (Exception e){
+
+                }
 
 
 

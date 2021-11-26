@@ -221,6 +221,34 @@ public class MenuMainActivity extends AppCompatActivity {
         startService(elIntentDelServicio);
     } // ()
 
+    /**
+     * Detenemos la búsqueda de dispositivos
+     */
+    private void detenerBusquedaDispositivosBTLE() {
+
+        if ( this.elIntentDelServicio == null ) {
+            // no estaba arrancado
+            return;
+        }
+
+        stopService( this.elIntentDelServicio );
+
+        this.elIntentDelServicio = null;
+
+        Log.d(ETIQUETA_LOG, " boton detener servicio Pulsado" );
+
+    } // ()
+
+
+    /**
+     *
+     */
+    public void botonDetenerBusquedaDispositivosBTLEPulsado() {
+        Log.d("pepe", " boton detener busqueda dispositivos BTLE Pulsado" );
+        this.detenerBusquedaDispositivosBTLE();
+    } // ()
+
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
 

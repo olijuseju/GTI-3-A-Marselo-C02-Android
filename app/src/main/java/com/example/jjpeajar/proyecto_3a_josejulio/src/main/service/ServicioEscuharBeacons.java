@@ -59,6 +59,8 @@ public class ServicioEscuharBeacons  extends IntentService {
     private String dispositivoBuscado = null;
     private LogicaNegocioMediciones logicaNegocio = new LogicaNegocioMediciones();
     public ArrayList<Medicion> medicionC02s= new ArrayList<Medicion>();
+    public boolean tamuerto;
+    public boolean tatuerto;
 
     //notificaciones
     private PendingIntent pendingIntent;
@@ -267,6 +269,8 @@ public class ServicioEscuharBeacons  extends IntentService {
                 if(numTipoDato==11){
                     tipoDato="CO2";
                     int datoBruto = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                    Log.d("datoBruto", datoBruto+"");
+
                     data = (datoBruto/65535)*100;
                 }else if(numTipoDato==12){
                     tipoDato="Temperatura";
@@ -305,14 +309,17 @@ public class ServicioEscuharBeacons  extends IntentService {
                             if(medicion.getType_read().equals("CO2")){
 
 
-                                if(medicion.getValue() > 0 ){
+                                if(medicion.getValue() > 100 ){
                                     callToLogicaToCrearNotificacion("Danger","El O2 es muy alta!" , access_token  , medicion);
                                 }
 
                             }else if(medicion.getType_read().equals("Temperatura")){
 
                                 if(medicion.getValue() >= 21 ){
-                                    callToLogicaToCrearNotificacion("Danger","La temperatura es muy alta!" ,access_token , medicion);
+                                    if(!tamuerto){
+                                        tamuerto=true;
+                                        callToLogicaToCrearNotificacion("Danger","La temperatura es muy alta!" ,access_token , medicion);
+                                    }
                                 } else if(medicion.getValue() < 13) {
                                     callToLogicaToCrearNotificacion("Warnning","La temperatura es muy baja, ponte un abrigo!" ,access_token , medicion);
 
@@ -321,7 +328,10 @@ public class ServicioEscuharBeacons  extends IntentService {
                             }else if(medicion.getType_read().equals("Humedad")){
 
                                 if(medicion.getValue() >= 56 ){
-                                    callToLogicaToCrearNotificacion("Danger","La humedad es muy alta!" ,access_token , medicion);
+                                    if(!tatuerto) {
+                                        tatuerto = true;
+                                        callToLogicaToCrearNotificacion("Danger", "La humedad es muy alta!", access_token, medicion);
+                                    }
                                 }else if(medicion.getValue() < 10) {
                                     callToLogicaToCrearNotificacion("Warnning","La humedad es muy baja!" ,access_token , medicion);
 
@@ -329,6 +339,8 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                             }
                         }
+                        tamuerto=false;
+                        tatuerto=false;
                         medicionC02s.clear();
                     }
                 }

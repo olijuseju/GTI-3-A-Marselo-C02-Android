@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
     private Button conect;
     private TextView txt_bienvenida;
     private String name_user;
+    private TextView fragment_home_btn_desconectar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,12 +100,20 @@ public class HomeFragment extends Fragment {
         //findById
         conect=v.findViewById(R.id.fragment_home_btn_conect);
         txt_bienvenida=v.findViewById(R.id.fragment_home_txt_bienvenida);
+        fragment_home_btn_desconectar=v.findViewById(R.id.fragment_home_btn_desconectar);
 
         //onclick
         conect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
+            }
+        });
+
+        fragment_home_btn_desconectar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MenuMainActivity)getActivity()).botonDetenerBusquedaDispositivosBTLEPulsado();
             }
         });
 
