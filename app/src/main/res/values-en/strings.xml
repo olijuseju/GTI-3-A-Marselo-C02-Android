@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Proyecto_3A_JoseJulio</string>
+
+    <!-- login -->
+    <string name="login_title">Login</string>
+    <string name="login_txt_mail">E-mail</string>
+    <string name="login_btn">Sign in</string>
+    <string name="login_subtxt">Dont have an account yet?</string>
+    <string name="login_txt_register">Register here ></string>
+    <string name = "login_introduce_correo_ok"> Please, enter a valid email</string>
+    <string name="login_introduce_contra">Please, introduce your password</string>
+    <string name="login_datos_incorrectos">"The entered data is not correct."</string>
+
+    <!-- registro -->
+    <string name="register_title">Register</string>
+    <string name="register_username">User name</string>
+    <string name="register_txt_mail">E-mail</string>
+    <string name="register_password">Password</string>
+    <string name="register_town">Select your town</string>
+    <string name="register_txtfinal">You have already registered?</string>
+    <string name="register_txtbutton_final">Register</string>
+    <string name="register_introduce_username">Please, introduce your username</string>
+    <string name="register_introduce_town">Select a town</string>
+    <string name="register_repeatpass">Confirm your password</string>
+    <string name="register_repeatpassF">Make sure that the passwords are the same</string>
+
+    <!--perfil-->
+    <string name="profile_recorrido">Route</string>
+    <string name="profile_info">Info</string>
+    <string name="profile_link_device">Link device</string>
+    <string name="profile_config">Settings</string>
+    <string name="profile_logout">Log out</string>
+
+    <string name="profile_name">Name</string>
+    <string name="profile_lastname">Lastname</string>
+
+
+    <!--informacion usuario-->
+    <string name="userinfo_button_edit">Edit</string>
+    <string name="userinfo_name">Name</string>
+    <string name="userinfo_role">Worker in </string>
+    <string name="userinfo_mail_txt">E-mail</string>
+    <string name="userinfo_mail">yourmail@gmail.com</string>
+    <string name="userinfo_town_txt">Town</string>
+    <string name="userinfo_town">Teulada</string>
+
+    <!--editar usuario-->
+    <string name="edituser_tittle">Edit profile</string>
+    <string name="edituser_changephoto">Change photo</string>
+    <string name="edituser_username">User name</string>
+    <string name="edituser_mail">E-Mail</string>
+    <string name="edituser_password">Password</string>
+    <string name="edituser_town">Select your town</string>
+
+    <!--guia de gases-->
+    <string name="gasguide_tittle">Gas guide</string>
+    <string name="gasguide_particulas">PM Particles</string>
+    <string name="gasguide_ozone">Ozone</string>
+    <string name="gasguide_no2">Nitrogen dioxide</string>
+    <string name="gasguide_so2">Sulfur dioxide</string>
+    <string name="gasguide_pb">Lead</string>
+    <string name="gasguide_cd">Cadmium</string>
+    <string name="gasguide_clickmore">Click to see more</string>
+
+
+    <!--informacion de gases-->
+    <string name="gasinfo_tittle">Ozone (O3)</string>
+    <string name="gasinfo_values">Values</string>
+    <string name="gasinfo_descrip">Description</string>
+    <string name="gasinfo_txtvalues">120 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtinfo">180 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtalert">240 μg/m3 de media en 8h</string>
+    <string name="gasinfo_txtdescript">Ozone is one of the main components of smog. This is formed by the reaction with sunlight (photochemical) of pollutants such as nitrogen oxides from vehicle or industrial emissions and volatile organic compounds emitted by vehicles, solvents and industry. The highest ozone levels are recorded during periods of sunny weather. Excess ozone in the air can have serious adverse effects on human health. It can cause breathing problems, cause asthma, reduce lung function, and cause serious illness. </string>
+
+    <!--dias de la semana-->
+    <string name="lun">mon</string>
+    <string name="mar">tue</string>
+    <string name="mie">wed</string>
+    <string name="jue">thu</string>
+    <string name="vie">fri</string>
+    <string name="sab">sat</string>
+    <string name="dom">sun</string>
+
+
+    <!--notificaciones-->
+    <string name="notification_tittle">Notifications</string>
+    <string name="notification_filter">Filter</string>
+    <string name="notification_flush">Flush</string>
+
+    <!--semanas-->
+    <string name="sem">Week</string>
+
+
+    <string name="sem1">week1</string>
+    <string name="sem2">week2</string>
+    <string name="sem3">week3</string>
+    <string name="sem4">week4</string>
+    <string name="sem5">week5</string>
+
+
+    <!--dias de la semana-->
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="march">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dic">Dec</string>
+
+
+    <string name="distancia">Distance</string>
+    <string name="camino">Path</string>
+    <string name="calor_as">Calories</string>
+    <string name="pasos">Steps</string>
+    <string name="mes">Month</string>
+    <string name="a_o">Year</string>
+
+    <!-- cerrar sesion alert -->
+    <string name="deleteText_dialog">Are you sure you want to sign out of your MarseloO2 account?</string>
+    <string name="cancelButton_dialog">Cancel</string>
+    <string name="deleteConfirmButton_dialog">Sign out</string>
+
+    <!-- cerrar sesion alert -->
+    <string name="clearConfirmButton_dialog">Clear</string>
+    <string name="clearText_dialog">Are you sure you want to delete all the notifications received?</string>
+
+    <!-- pantalla principal -->
+    <string name="txt_home_bienvenida">Welcome</string>
+</resources>
