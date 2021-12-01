@@ -27,7 +27,7 @@
 
     <!--perfil-->
     <string name="profile_recorrido">Recorrido</string>
-    <string name="profile_info">Información</string>
+    <string name="profile_info">Editar Usuario</string>
     <string name="profile_link_device">Vincular dispositivo</string>
     <string name="profile_config">Configuración</string>
     <string name="profile_logout">Cerrar sesión</string>
@@ -53,7 +53,7 @@
     <string name="edituser_town">Seleccione su municipio</string>
 
     <!--guia de gases-->
-    <string name="gasguide_tittle">Guía de gases</string>
+    <string name="gasguide_tittle">Información adicional</string>
     <string name="gasguide_particulas">Partículas PM</string>
     <string name="gasguide_ozone">Ozono</string>
     <string name="gasguide_no2">Dióxido de nitrógeno</string>

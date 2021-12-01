@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide.GasGuideActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.login.LoginActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
@@ -82,6 +83,7 @@ public class ProfileFragment extends Fragment {
     //atributos
     private ConstraintLayout btn_vincular;
     private ConstraintLayout clRecorrido;
+    private ConstraintLayout clGuiaGases;
     private ConstraintLayout clInfo;
     private ConstraintLayout btn_cerrar_sesion;
     private String access_token;
@@ -107,9 +109,12 @@ public class ProfileFragment extends Fragment {
         logicaNegocioUsarios = new LogicaNegocioUsarios();
 
         clRecorrido = v.findViewById(R.id.constraintLayout3);
+        clGuiaGases = v.findViewById(R.id.clGases);
         clInfo = v.findViewById(R.id.c5);
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
         btn_cerrar_sesion = v.findViewById(R.id.profile_btn_cerrar_sesion);
+
+
 
         //onclicks
         btn_vincular.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +137,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), EditUserActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        clGuiaGases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), GasGuideActivity.class);
                 startActivity(i);
             }
         });
