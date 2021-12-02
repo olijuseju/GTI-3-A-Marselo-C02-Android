@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/bt_back_config" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout6"
+                android:id="@+id/clTema"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -118,12 +118,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout13"
+                android:id="@+id/clNotificaciones"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6"
+                app:layout_constraintTop_toBottomOf="@+id/clTema"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground">
@@ -168,7 +168,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout13" />
+                app:layout_constraintTop_toBottomOf="@+id/clNotificaciones" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout15"
