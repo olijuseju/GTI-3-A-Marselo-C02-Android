@@ -132,4 +132,14 @@
 
     <!-- pantalla principal -->
     <string name="txt_home_bienvenida">Welcome</string>
+
+
+    <!-- Configuration -->
+    <string name="tema">Theme</string>
+    <string name="notificaciones">Manage notifications</string>
+    <string name="web">Web MarseloO2</string>
+    <string name="comentarios">Send Comments</string>
+    <string name="politica">Polícy privacy</string>
+    <string name="version">App Version</string>
+
 </resources>
