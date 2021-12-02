@@ -25,7 +25,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/ic_profile_button_flecha"
+                    android:background="@drawable/bc_profile_button_flecha"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView39">
 
@@ -78,7 +78,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:selectableItemBackground"
-                    android:background="@drawable/ic_profile_button_flecha"
+                    android:background="@drawable/bc_profile_button_flecha"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/constraintLayout2">

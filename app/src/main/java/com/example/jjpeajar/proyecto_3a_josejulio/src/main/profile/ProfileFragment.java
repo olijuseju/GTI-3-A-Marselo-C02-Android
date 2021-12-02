@@ -25,6 +25,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsario
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide.GasGuideActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.login.LoginActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.config.ConfigurationActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
@@ -86,6 +87,7 @@ public class ProfileFragment extends Fragment {
     private ConstraintLayout clGuiaGases;
     private ConstraintLayout clInfo;
     private ConstraintLayout btn_cerrar_sesion;
+    private ConstraintLayout clConfig;
     private String access_token;
     //logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
@@ -113,7 +115,7 @@ public class ProfileFragment extends Fragment {
         clInfo = v.findViewById(R.id.c5);
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
         btn_cerrar_sesion = v.findViewById(R.id.profile_btn_cerrar_sesion);
-
+        clConfig = v.findViewById(R.id.clConfig);
 
 
         //onclicks
@@ -146,6 +148,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), GasGuideActivity.class);
+                startActivity(i);
+            }
+        });
+
+        clConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ConfigurationActivity.class);
                 startActivity(i);
             }
         });
