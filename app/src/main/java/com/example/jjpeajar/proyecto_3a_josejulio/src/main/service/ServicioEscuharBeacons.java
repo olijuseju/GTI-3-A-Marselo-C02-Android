@@ -26,6 +26,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
@@ -268,10 +269,8 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                 if(numTipoDato==11){
                     tipoDato="CO2";
-                    int datoBruto = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-                    Log.d("datoBruto", datoBruto+"");
-
-                    data = (datoBruto/65535)*100;
+                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                    Log.d("datoBruto", data+"");
                 }else if(numTipoDato==12){
                     tipoDato="Temperatura";
                     data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
@@ -309,17 +308,17 @@ public class ServicioEscuharBeacons  extends IntentService {
                             if(medicion.getType_read().equals("CO2")){
 
 
-                                if(medicion.getValue() > 100 ){
-                                    callToLogicaToCrearNotificacion("Danger","El O2 es muy alta!" , access_token  , medicion);
+                                if(medicion.getValue() >= 0 ){
+                                    if(!tamuerto) {
+                                        tamuerto = true;
+                                        callToLogicaToCrearNotificacion("Danger", "El O2 es muy alta!", access_token, medicion);
+                                    }
                                 }
 
                             }else if(medicion.getType_read().equals("Temperatura")){
 
-                                if(medicion.getValue() >= 21 ){
-                                    if(!tamuerto){
-                                        tamuerto=true;
-                                        callToLogicaToCrearNotificacion("Danger","La temperatura es muy alta!" ,access_token , medicion);
-                                    }
+                                if(medicion.getValue() >= 100 ){
+
                                 } else if(medicion.getValue() < 13) {
                                     callToLogicaToCrearNotificacion("Warnning","La temperatura es muy baja, ponte un abrigo!" ,access_token , medicion);
 
@@ -327,7 +326,7 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                             }else if(medicion.getType_read().equals("Humedad")){
 
-                                if(medicion.getValue() >= 56 ){
+                                if(medicion.getValue() >= 100 ){
                                     if(!tatuerto) {
                                         tatuerto = true;
                                         callToLogicaToCrearNotificacion("Danger", "La humedad es muy alta!", access_token, medicion);
@@ -413,8 +412,8 @@ public class ServicioEscuharBeacons  extends IntentService {
                     .crearNotificacion(access_token, user_id , date , message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
                         @Override
                         public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
-                            createNotificationChannel();
-                            createNotification( notificationController.getNotification().getType(), notificationController.getNotification().getMessage());
+                            /*createNotificationChannel();
+                            createNotification( notificationController.getNotification().getType(), notificationController.getNotification().getMessage());*/
                         }
 
                         @Override
@@ -428,7 +427,7 @@ public class ServicioEscuharBeacons  extends IntentService {
 
     }
 
-    private void createNotificationChannel(){
+    /*private void createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "Noticacion";
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
@@ -450,7 +449,7 @@ public class ServicioEscuharBeacons  extends IntentService {
         builder.setGroup("GROUP_KEY_WORK_EMAIL");
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
         notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
-    }
+    }*/
 } // class
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------
