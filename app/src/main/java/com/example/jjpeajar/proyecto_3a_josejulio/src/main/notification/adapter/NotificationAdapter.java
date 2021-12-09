@@ -1,6 +1,7 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Notification;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationHolder> {
 
@@ -44,7 +49,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // sacar el pojo de la lista
         final Notification notificationItem= notificationList.get(position);
 
-        holder.txt_time.setText(notificationItem.getDate());
+        String convertedTime = notificationItem.getDate();
+        if(convertedTime != null){
+            holder.txt_time.setText(convertedTime);
+        }
+
         holder.txt_principal.setText(notificationItem.getMessage());
 
         String typeNotification= notificationItem.getType();
@@ -63,6 +72,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.rojo_borde));
 
         }
+
     }
 
     @Override

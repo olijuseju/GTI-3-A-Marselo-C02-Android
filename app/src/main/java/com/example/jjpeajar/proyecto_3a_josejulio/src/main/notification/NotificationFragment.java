@@ -86,6 +86,8 @@ public class NotificationFragment extends Fragment {
 
     //rv
     private RecyclerView rv_notifications;
+    //rv empty
+    private ConstraintLayout rv_empty;
     //adapter
     private NotificationAdapter notificationAdapter;
 
@@ -110,6 +112,7 @@ public class NotificationFragment extends Fragment {
         //findByid
         rv_notifications=v.findViewById(R.id.notification__rv_notifications);
         btn_clear=v.findViewById(R.id.fragment_notification_btn_clear);
+        rv_empty=v.findViewById(R.id.empty_recyclerView);
 
         //methods
         initRvNotifications();
@@ -145,6 +148,16 @@ public class NotificationFragment extends Fragment {
 
                 notificationAdapter= new NotificationAdapter(getContext() , notificationList);
                 rv_notifications.setAdapter(notificationAdapter);
+
+                //si el recyclerView esta vacio
+                if(notificationAdapter.getItemCount() == 0 ){
+                    rv_notifications.setVisibility(View.GONE); //ocultar rv
+                    rv_empty.setVisibility(View.VISIBLE); //mostrar elementos
+                }else{ //sino
+                    rv_notifications.setVisibility(View.VISIBLE); //mostras rv con sus items
+                    rv_empty.setVisibility(View.GONE); //ocultar container con info
+                }
+                notificationAdapter.notifyDataSetChanged();
             }
 
             @Override

@@ -142,4 +142,9 @@
     <string name="politica">Polícy privacy</string>
     <string name="version">App Version</string>
 
+    <!-- RecyclerView Notifications -->
+    <string name="empty_primary_text">No notification yet</string>
+    <string name="empty_secondary_text">Swipe down to refresh the list</string>
+
+
 </resources>

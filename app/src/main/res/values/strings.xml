@@ -165,5 +165,10 @@
     <string name="politica">Política de privacidad</string>
     <string name="version">Versión de la aplicación</string>
 
+    <!-- RecyclerView Notifications -->
+    <string name="empty_primary_text">No hay ninguna notificación todavía</string>
+    <string name="empty_secondary_text">Deslice hacia abajo para actualizar la lista</string>
+
+
 
 </resources>

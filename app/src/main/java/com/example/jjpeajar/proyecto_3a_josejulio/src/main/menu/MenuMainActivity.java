@@ -41,6 +41,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.NotificationFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.ProfileFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -87,6 +88,12 @@ public class MenuMainActivity extends AppCompatActivity {
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
 
         //actions
+        CrearNotification crearNotification = new CrearNotification(getApplicationContext());
+        crearNotification.initNotificationChannel();
+        crearNotification.initNotification("puta" , "tu madre");
+        CrearNotification crearNotification1 = new CrearNotification(getApplicationContext());
+        crearNotification1.initNotificationChannel();
+        crearNotification1.initNotification("dasdasdasdasda" , "tu asdasdasdasd");
 
         //set menu navigation
         bottomNavigationView.setBackground(null); //le quito el borde ya que se ve unas lineas de fondo , nuse porque
