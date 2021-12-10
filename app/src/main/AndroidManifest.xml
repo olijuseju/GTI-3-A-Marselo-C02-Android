@@ -41,10 +41,10 @@
             android:name=".src.main.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.gasguide.GasInformationActivity"
+            android:name=".src.main.profile.gasguide.GasInformationActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.gasguide.GasGuideActivity"
+            android:name=".src.main.profile.gasguide.GasGuideActivity"
             android:exported="true" />
         <activity
             android:name=".src.main.profile.editar.EditUserActivity"

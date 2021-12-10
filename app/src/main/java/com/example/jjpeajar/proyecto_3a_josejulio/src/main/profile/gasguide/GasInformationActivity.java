@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.gasguide;
 
 /**
  * @author Belén Grande López
@@ -11,7 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.ConditionVariable;
 import android.view.View;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
@@ -30,8 +29,7 @@ public class GasInformationActivity extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), GasGuideActivity.class);
-                startActivity(i);
+                finish();
             }
         });
     }

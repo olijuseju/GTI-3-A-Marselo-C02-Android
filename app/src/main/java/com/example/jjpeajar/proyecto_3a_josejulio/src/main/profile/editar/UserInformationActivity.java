@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide.GasInformationActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 
 public class UserInformationActivity extends AppCompatActivity {
