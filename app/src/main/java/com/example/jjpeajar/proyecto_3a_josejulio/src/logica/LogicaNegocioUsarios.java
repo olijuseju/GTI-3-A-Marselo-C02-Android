@@ -262,7 +262,7 @@ public class LogicaNegocioUsarios {
     * @param serial Int con el serial del dispositivo
     * @param vinculateDeviceCallback VinculateDeviceCallback para almacenar la respuesta del cuerpo
      */
-    public void vincularDispoitivo(int serial, String acces_token, VinculateDeviceCallback vinculateDeviceCallback) {
+    public void vincularDispoitivo(String serial, String acces_token, VinculateDeviceCallback vinculateDeviceCallback) {
 
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 

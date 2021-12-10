@@ -13,12 +13,12 @@ public class Medicion {
     public double latitude;
     public double longitude;
     public String type_read;
-    public int value;
+    public double value;
     public int date;
 
     public Medicion(){}
 
-    public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, int value, int date) {
+    public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, double value, int date) {
         this.id = id;
         this.user_id = user_id;
         this.device_id = device_id;
@@ -29,7 +29,7 @@ public class Medicion {
         this.date = date;
     }
 
-    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, int value, int date) {
+    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, double value, int date) {
         this.user_id = user_id;
         this.device_id = device_id;
         this.latitude = latitude;
@@ -37,6 +37,16 @@ public class Medicion {
         this.type_read = type_read;
         this.value = value;
         this.date = date;
+    }
+
+    //constructor para guardar medicion (sin date ya que la bd se lo asigna automatico)
+    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, double value) {
+        this.user_id = user_id;
+        this.device_id = device_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type_read = type_read;
+        this.value = value;
     }
 
     public int getId() {
@@ -87,11 +97,11 @@ public class Medicion {
         this.type_read = type_read;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 

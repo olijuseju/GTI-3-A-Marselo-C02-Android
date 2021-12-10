@@ -120,7 +120,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Log.d("pepe", access_token);
-                int serial;
+                String serial;
 
                 if(isStep1Done  && isStep3Done){ //si todos los pasos estas terminados
                     //guardamos los datos en el objeto machine
@@ -128,10 +128,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
 
                     try{
 
-                        serial = Integer.parseInt(deviceModel);
+                        serial = deviceModel;
 
                     }catch (Exception e){
-                        serial = 000;
+                        serial = "none";
                     }
 
                     Log.d("pepe",serial+"");
