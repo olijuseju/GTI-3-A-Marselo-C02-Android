@@ -170,9 +170,10 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout14"
-                android:layout_width="409dp"
+                android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -185,9 +186,7 @@
                     android:id="@+id/button_go_login"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/login_title"
                     android:textColor="@color/color_principal"
