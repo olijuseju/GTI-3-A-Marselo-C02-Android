@@ -6,7 +6,6 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile;
  * 2021-11-12
  */
 
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,17 +21,13 @@ import android.view.ViewGroup;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide.GasGuideActivity;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.login.LoginActivity;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.gasguide.GasGuideActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.config.ConfigurationActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jakewharton.processphoenix.ProcessPhoenix;
-
-import java.lang.invoke.ConstantCallSite;
 
 /**
  * A simple {@link Fragment} subclass.

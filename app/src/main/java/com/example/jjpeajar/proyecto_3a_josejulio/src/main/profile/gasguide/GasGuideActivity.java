@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src.main.gasguide;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.gasguide;
 
 /**
  * @author Belén Grande López
@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class GasGuideActivity extends AppCompatActivity {
@@ -25,6 +25,7 @@ public class GasGuideActivity extends AppCompatActivity {
     private MaterialCardView btn_ozone;
     private MaterialCardView btn_azufe;
     private MaterialCardView btn_dioxido;
+    private ConstraintLayout btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class GasGuideActivity extends AppCompatActivity {
         btn_dioxido = findViewById(R.id.btn_dioxido);
         btn_particulas = findViewById(R.id.btn_particulas);
         btn_ozone = findViewById(R.id.btn_ozone);
+        btn_back = findViewById(R.id.bt_back_gasguide);
+
 
         //onclicks
         btn_azufe.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +87,13 @@ public class GasGuideActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), GasInformationActivity.class);
                 startActivity(i);
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
