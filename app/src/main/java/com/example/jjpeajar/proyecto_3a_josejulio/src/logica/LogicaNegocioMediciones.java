@@ -76,14 +76,13 @@ public class LogicaNegocioMediciones {
      * @param token
      * @param userId
      * @param sensorId
-     * @param data
      * @param latitud
      * @param longitud
      */
-    public void publicarMedicion(String token, int userId, int sensorId, int data, double latitud, double longitud, String type_read, int fecha, PublicarMedicionesCallback publicarMedicionesCallback){
+    public void publicarMedicion(String token, int userId, int sensorId, double media, double latitud, double longitud, String type_read, PublicarMedicionesCallback publicarMedicionesCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-        Medicion medicion = new Medicion(userId, sensorId, latitud, longitud, type_read, data, fecha);
+        Medicion medicion = new Medicion(userId, sensorId, latitud, longitud, type_read, media);
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/medicion/create", medicion.toJSON(),token, new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {

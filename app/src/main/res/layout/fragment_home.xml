@@ -441,7 +441,7 @@
                             android:layout_height="28dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:src="@drawable/icons_air"
+                            android:src="@drawable/icons_co2"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:tint="@color/rojo_borde" />
@@ -494,7 +494,7 @@
                             android:layout_height="28dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:src="@drawable/icons_co2"
+                            android:src="@drawable/icons_air"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:tint="@color/naranja_borde" />
@@ -516,7 +516,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:text="O2"
+                            android:text="Humedad"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/textView3502"

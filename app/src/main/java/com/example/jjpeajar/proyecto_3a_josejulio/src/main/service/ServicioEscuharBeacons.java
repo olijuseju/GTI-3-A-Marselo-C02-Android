@@ -1,9 +1,7 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.main.service;
 
+import android.Manifest;
 import android.app.IntentService;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,19 +12,16 @@ import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Build;
+import android.content.pm.PackageManager;
 import android.util.Log;
+import android.widget.Toast;
 
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.ActivityCompat;
 
-import com.example.jjpeajar.proyecto_3a_josejulio.R;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaFake;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
@@ -44,13 +39,14 @@ import java.util.List;
  * 2021-10-14
  */
 // --------------------------------------------------------------
+
 /**
  * Este servicio en segundo plano se encarga de recibir los beacons
  * Los beacons están filtrados por nombre para solo recibir los de nuestro arduino
  * Al recibir un beacon crea un objeto medicionCO2
  * Con este objeto llama a la logica para realizar la peticion
  */
-public class ServicioEscuharBeacons  extends IntentService {
+public class ServicioEscuharBeacons extends IntentService {
 
     // ---------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------
@@ -59,9 +55,20 @@ public class ServicioEscuharBeacons  extends IntentService {
     private long tiempoDeEspera = 10000;
     private String dispositivoBuscado = null;
     private LogicaNegocioMediciones logicaNegocio = new LogicaNegocioMediciones();
-    public ArrayList<Medicion> medicionC02s= new ArrayList<Medicion>();
+    //arrays
+    public ArrayList<Medicion> mediciones = new ArrayList<Medicion>(); //aca guardamos mediciones
+    public ArrayList<Integer> beaconsCO2 = new ArrayList<Integer>(); //aca guardamos beacons co2
+    public ArrayList<Integer> beaconsTemp = new ArrayList<Integer>(); //aca guardamos beacons temp
+    public ArrayList<Integer> beaconsHum = new ArrayList<Integer>(); //aca guardamos becaons hum
+
     public boolean tamuerto;
     public boolean tatuerto;
+
+    //GPSTracker
+    GPSTracker gpsTracker;
+    //latitud & longitud
+    private double latitud;
+    private double longitud;
 
     //notificaciones
     private PendingIntent pendingIntent;
@@ -89,7 +96,7 @@ public class ServicioEscuharBeacons  extends IntentService {
      * ServicioEscucharBeacons()
      * constructor
      */
-    public ServicioEscuharBeacons( ) {
+    public ServicioEscuharBeacons() {
         super("HelloIntentService");
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.constructor: termina");
@@ -97,6 +104,7 @@ public class ServicioEscuharBeacons  extends IntentService {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * inicializarBlueTooth()
      * Inicializamos el escaner Bluetooth
@@ -111,15 +119,15 @@ public class ServicioEscuharBeacons  extends IntentService {
 
         bta.enable();
 
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitado =  " + bta.isEnabled() );
+        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): habilitado =  " + bta.isEnabled());
 
-        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): estado =  " + bta.getState() );
+        Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): estado =  " + bta.getState());
 
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos escaner btle ");
 
         this.elEscanner = bta.getBluetoothLeScanner();
 
-        if ( this.elEscanner == null ) {
+        if (this.elEscanner == null) {
             Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): Socorro: NO hemos obtenido escaner btle  !!!!");
 
         }
@@ -129,12 +137,13 @@ public class ServicioEscuharBeacons  extends IntentService {
 
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
     /**
      * Mostramos la informacion del resultado del escaneo
      * @param resultado Resultado del escaneo Bluetooth
      */
 
-    private void mostrarInformacionDispositivoBTLE( ScanResult resultado ) {
+    private void mostrarInformacionDispositivoBTLE(ScanResult resultado) {
 
         BluetoothDevice bluetoothDevice = resultado.getDevice();
         byte[] bytes = resultado.getScanRecord().getBytes();
@@ -154,7 +163,7 @@ public class ServicioEscuharBeacons  extends IntentService {
         }*/
 
         Log.d(ETIQUETA_LOG, " dirección = " + bluetoothDevice.getAddress());
-        Log.d(ETIQUETA_LOG, " rssi = " + rssi );
+        Log.d(ETIQUETA_LOG, " rssi = " + rssi);
 
         Log.d(ETIQUETA_LOG, " bytes = " + new String(bytes));
         Log.d(ETIQUETA_LOG, " bytes (" + bytes.length + ") = " + Utilidades.bytesToHexString(bytes));
@@ -188,27 +197,40 @@ public class ServicioEscuharBeacons  extends IntentService {
      *  parar()
      *  Paramos el servicio
      */
-    public void parar () {
+    public void parar() {
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() " );
+        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() ");
 
 
-        if ( this.seguir == false ) {
+        if (this.seguir == false) {
             return;
         }
 
 
-        if ( this.callbackDelEscaneo == null ) {
+        if (this.callbackDelEscaneo == null) {
             return;
         }
 
-        this.elEscanner.stopScan( this.callbackDelEscaneo );
+        //---------------------------------------------
+        //---------------------------------------------
+        //parar busqueda gps
+        if(gpsTracker != null){
+            if(gpsTracker.getIsGPSTrackingEnabled()){ //comprobar si esta activo
+                gpsTracker.updateGPSCoordinates(); //actualizar localizacion
+                gpsTracker.stopUsingGPS(); //detener busqueda
+                Log.d("pepe", "GPSTracking DETENIDO --> STOP SUCCEFUL");
+            }
+        }
+        //---------------------------------------------
+        //---------------------------------------------
+
+        this.elEscanner.stopScan(this.callbackDelEscaneo);
         this.callbackDelEscaneo = null;
 
         this.seguir = false;
         this.stopSelf();
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() : acaba " );
+        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.parar() : acaba ");
 
     }
 
@@ -217,7 +239,7 @@ public class ServicioEscuharBeacons  extends IntentService {
     // ---------------------------------------------------------------------------------------------
     public void onDestroy() {
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() " );
+        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onDestroy() ");
 
 
         this.parar(); // posiblemente no haga falta, si stopService() ya se carga el servicio y su worker thread
@@ -239,6 +261,7 @@ public class ServicioEscuharBeacons  extends IntentService {
 
         inicializarBlueTooth();
 
+
         this.dispositivoBuscado = intent.getStringExtra("dispositivoBuscado");
 
         this.tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
@@ -248,52 +271,190 @@ public class ServicioEscuharBeacons  extends IntentService {
 
         long contador = 1;
 
-        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId() );
+        Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
-        SharedPreferences shared= getSharedPreferences(
+        //init preferences
+        SharedPreferences shared = getSharedPreferences(
                 "com.example.jjpeajar.proyecto_3a_josejulio"
                 , MODE_PRIVATE);
 
+        //si detecta el beacon indicado ejecuta ->
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
-            public void onScanResult( int callbackType, ScanResult resultado ) {
+            public void onScanResult(int callbackType, ScanResult resultado) {
                 super.onScanResult(callbackType, resultado);
-                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
-                mostrarInformacionDispositivoBTLE( resultado );
-                byte[] bytes = resultado.getScanRecord().getBytes();
-                TramaIBeacon tramaIBeacon = new TramaIBeacon(bytes);
-                int data;
-                int numTipoDato = Utilidades.bytesToInt(tramaIBeacon.getMajor());
-                String tipoDato;
 
-
-                if(numTipoDato==11){
-                    tipoDato="CO2";
-                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-                    Log.d("datoBruto", data+"");
-                }else if(numTipoDato==12){
-                    tipoDato="Temperatura";
-                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                }else if(numTipoDato==10){
-                    tipoDato="Humedad";
-                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                }else{
-                    tipoDato="Otros";
-                    data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
-
-                }
-
+                //sacamos el id del device que tiene vinculado, sino lo pongo como -1
                 int device_id = shared.getInt("id_device", -1);
-                if(device_id!=-1){
-                    medicionC02s.add(new Medicion(Integer.parseInt(shared.getString("user_id", null)),device_id, 30,30, tipoDato,data, 20201020));
-                    Log.d("clienterestandroid", medicionC02s.size()+"");
-                    if(medicionC02s.size()==20){
+                //sacamos el token del user registrado, si no existe es null
+                String access_token = shared.getString("access_token", null);
+                //sacamos el id del user
+                int id_user = Integer.parseInt(shared.getString("user_id", null));
+
+
+                if (device_id != -1) { // si tiene un dispositivo vinculado
+
+                    // -----------------------------------------------------------------
+                    //inicializar el gps par obtener la longitud y la latitud
+                    //IMPORTANTE -> Al acceder a su info va a dar null, hay que llamar primero al metodo
+                    // ---> gpsTracker.updateGPSCoordinates();
+                    gpsTracker=  new GPSTracker(getApplicationContext());
+                    // -----------------------------------------------------------------
+
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+                    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
+                    mostrarInformacionDispositivoBTLE(resultado);
+                    byte[] bytes = resultado.getScanRecord().getBytes();
+                    TramaIBeacon tramaIBeacon = new TramaIBeacon(bytes);
+                    int data; // valor del gas
+                    int numTipoDato = Utilidades.bytesToInt(tramaIBeacon.getMajor());
+                    //tipo de medicion
+                    String tipoDato;
+
+                    //identificamos los beacons que nos llegan
+                    if (numTipoDato == 11) { //co2
+                        tipoDato = "CO2";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                        //---------------------------------------------------------------
+                        // guardamos el beacon en la lista de beacons de ese gas
+                        beaconsCO2.add(data);
+                        //---------------------------------------------------------------
+
+                    } else if (numTipoDato == 12) { //temp
+                        tipoDato = "Temperatura";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                        //---------------------------------------------------------------
+                        // guardamos el beacon en la lista de beacons de ese gas
+                        beaconsTemp.add(data);
+                        //---------------------------------------------------------------
+
+                    } else if (numTipoDato == 10) { //humedad
+                        tipoDato = "Humedad";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                        //---------------------------------------------------------------
+                        // guardamos el beacon en la lista de beacons de ese gas
+                        beaconsHum.add(data);
+                        //---------------------------------------------------------------
+
+                    } else {  // hijole el sensor esta dañado
+                        tipoDato = "Otros";
+                        data = Utilidades.bytesToInt(tramaIBeacon.getMinor());
+                        //---------------------------------------------------------------
+                        // sensor dañado , de mometo nada
+                        //---------------------------------------------------------------
+
+                    }
+
+                    // algoritmo para sacar la media y guardar la medicion
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+                    Log.d("pepe", "MEDIA CO2  --> " + beaconsCO2.size());
+                    //comprobamos si los beacons de un gas llegan al limite de beacons indicado
+                    if(beaconsCO2.size() == 15){
+
+                        //hacer sumatorio de los valores de CO2
+                        int sumatorio=0; //sumatorio
+                        double media=0; // media final
+                        int tamanyo= beaconsCO2.size(); //size lista
+                        //for que recorre cada Integer de la lista
+                        for(Integer dato: beaconsCO2){
+                            sumatorio= sumatorio + dato;    // sumatorio
+                        }
+
+                        //media de co2
+                        media = (double) sumatorio / (double) tamanyo;
+                        // 2 decimales
+                        media=Math.round(media*100.0)/100.0;
+
+                        Log.d("pepe", "MEDIA CO2  --> " + media);
+
+                        //llamamos al metodo que rellena la medicion con los datos necesarios y
+                        //llama a la logica
+                        guardarMedicion(id_user , access_token, device_id, tipoDato, media);
+
+                        //limpiamos la lista
+                        beaconsCO2.clear();
+                        Log.d("pepe", "LIMPIAR LISTA CO2  --> " + beaconsCO2.size());
+                    }
+
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+                    Log.d("pepe", "MEDIA TEMPERATURA  --> " + beaconsTemp.size());
+                    //comprobamos si los beacons de un gas llegan al limite de beacons indicado
+                    if(beaconsTemp.size() == 15){
+
+                        //hacer sumatorio de los valores de temperatura
+                        int sumatorio=0; //sumatorio
+                        double media=0; // media final
+                        int tamanyo= beaconsTemp.size(); //size lista
+                        //for que recorre cada Integer de la lista
+                        for(Integer dato: beaconsTemp){
+                            sumatorio= sumatorio + dato;    // sumatorio
+                        }
+
+                        //media de co2
+                        media = (double) sumatorio / (double) tamanyo;
+                        // 2 decimales
+                        media=Math.round(media*100.0)/100.0;
+
+                        Log.d("pepe", "MEDIA TEMPERATURA  --> " + media);
+
+                        //llamamos al metodo que rellena la medicion con los datos necesarios y
+                        //llama a la logica
+                        guardarMedicion(id_user , access_token, device_id, tipoDato, media);
+
+                        //limpiamos la lista
+                        beaconsTemp.clear();
+                        Log.d("pepe", "LIMPIAR LISTA TEMPERATURA  --> " + beaconsTemp.size());
+                    }
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+                    Log.d("pepe", "MEDIA HUMEDAD  --> " + beaconsHum.size());
+                    //comprobamos si los beacons de un gas llegan al limite de beacons indicado
+                    if(beaconsHum.size() == 15){
+
+                        //hacer sumatorio de los valores de temperatura
+                        int sumatorio=0; //sumatorio
+                        double media=0; // media final
+                        int tamanyo= beaconsHum.size(); //size lista
+                        //for que recorre cada Integer de la lista
+                        for(Integer dato: beaconsHum){
+                            sumatorio= sumatorio + dato;    // sumatorio
+                        }
+
+                        //media de co2
+                        media = (double) sumatorio / (double) tamanyo;
+                        // 2 decimales
+                        media=Math.round(media*100.0)/100.0;
+
+                        Log.d("pepe", "MEDIA HUMEDAD  --> " + media);
+
+                        //llamamos al metodo que rellena la medicion con los datos necesarios y
+                        //llama a la logica
+                        guardarMedicion(id_user , access_token, device_id, tipoDato, media);
+
+                        //limpiamos la lista
+                        beaconsHum.clear();
+
+                        Log.d("pepe", "LIMPIAR LISTA HUMEDAD  --> " + beaconsHum.size());
+                    }
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+                    //obtener la latitud y la longitud
+                    /*obtenerLocalizacionActual();
+                    mediciones.add(new Medicion(Integer.parseInt(shared.getString("user_id", null)), device_id, 30, 30, tipoDato, data, 20201020));
+                    Log.d("clienterestandroid", mediciones.size() + "");
+                    if (mediciones.size() == 20) {
                         Log.d("clienterestandroid", "llamamos a la logica");
 
-                        String access_token=shared.getString("access_token", null);
-                        for (Medicion medicion:medicionC02s) {
+                        access_token = shared.getString("access_token", null);
+                        for (Medicion medicion : mediciones) {
                             logicaNegocio.publicarMedicion(shared.getString("access_token", null), medicion.getUser_id(), medicion.getDevice_id(), medicion.getValue(), medicion.getLatitude(), medicion.getLongitude(), medicion.getType_read(), medicion.getDate(), new LogicaNegocioMediciones.PublicarMedicionesCallback() {
                                 @Override
                                 public void onCompletedPublicarMediciones(int success) {
@@ -305,43 +466,49 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                                 }
                             });
-                            if(medicion.getType_read().equals("CO2")){
+                            if (medicion.getType_read().equals("CO2")) {
 
 
-                                if(medicion.getValue() >= 0 ){
-                                    if(!tamuerto) {
+                                if (medicion.getValue() >= 0) {
+                                    if (!tamuerto) {
                                         tamuerto = true;
                                         callToLogicaToCrearNotificacion("Danger", "El O2 es muy alta!", access_token, medicion);
                                     }
                                 }
 
-                            }else if(medicion.getType_read().equals("Temperatura")){
+                            } else if (medicion.getType_read().equals("Temperatura")) {
 
-                                if(medicion.getValue() >= 100 ){
+                                if (medicion.getValue() >= 100) {
 
-                                } else if(medicion.getValue() < 13) {
-                                    callToLogicaToCrearNotificacion("Warnning","La temperatura es muy baja, ponte un abrigo!" ,access_token , medicion);
+                                } else if (medicion.getValue() < 13) {
+                                    callToLogicaToCrearNotificacion("Warnning", "La temperatura es muy baja, ponte un abrigo!", access_token, medicion);
 
                                 }
 
-                            }else if(medicion.getType_read().equals("Humedad")){
+                            } else if (medicion.getType_read().equals("Humedad")) {
 
-                                if(medicion.getValue() >= 100 ){
-                                    if(!tatuerto) {
+                                if (medicion.getValue() >= 100) {
+                                    if (!tatuerto) {
                                         tatuerto = true;
                                         callToLogicaToCrearNotificacion("Danger", "La humedad es muy alta!", access_token, medicion);
                                     }
-                                }else if(medicion.getValue() < 10) {
-                                    callToLogicaToCrearNotificacion("Warnning","La humedad es muy baja!" ,access_token , medicion);
+                                } else if (medicion.getValue() < 10) {
+                                    callToLogicaToCrearNotificacion("Warnning", "La humedad es muy baja!", access_token, medicion);
 
                                 }
 
                             }
                         }
-                        tamuerto=false;
-                        tatuerto=false;
-                        medicionC02s.clear();
-                    }
+                        tamuerto = false;
+                        tatuerto = false;
+                        mediciones.clear();
+                    }*/
+
+
+                    //---------------------------------------------------------------
+                    //---------------------------------------------------------------
+
+
                 }
 
 
@@ -362,23 +529,23 @@ public class ServicioEscuharBeacons  extends IntentService {
             }
         };
 
-        ScanFilter sf = new ScanFilter.Builder().setDeviceName( dispositivoBuscado ).build();
+        ScanFilter sf = new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build();
         List<ScanFilter> filters = new ArrayList<>();
         ScanSettings.Builder scan = new ScanSettings.Builder();
         filters.add(sf);
         this.elEscanner.startScan(filters, scan.build(), callbackDelEscaneo);
-        Log.d(ETIQUETA_LOG, "  servicioEscucharBeacons(): empezamos a escanear buscando: " + dispositivoBuscado );
+        Log.d(ETIQUETA_LOG, "  servicioEscucharBeacons(): empezamos a escanear buscando: " + dispositivoBuscado);
 
 
         try {
 
-            while ( this.seguir ) {
+            while (this.seguir) {
                 Thread.sleep(tiempoDeEspera);
-                Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador );
+                Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
             }
 
-            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )" );
+            Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )");
 
 
         } catch (InterruptedException e) {
@@ -392,24 +559,24 @@ public class ServicioEscuharBeacons  extends IntentService {
 
     }
 
-    private void callToLogicaToCrearNotificacion(String type ,String message , String access_token , Medicion medicion){
+    private void callToLogicaToCrearNotificacion(String type, String message, String access_token, Medicion medicion) {
 
-        SharedPreferences shared= getSharedPreferences(
+        SharedPreferences shared = getSharedPreferences(
                 "com.example.jjpeajar.proyecto_3a_josejulio"
                 , MODE_PRIVATE);
-        int user_id=Integer.valueOf(shared.getString("user_id", null));
-        String date=String.valueOf(medicion.getDate());
+        int user_id = Integer.valueOf(shared.getString("user_id", null));
+        String date = String.valueOf(medicion.getDate());
 
         Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-        Log.d("pepe", "  CUERPO ->" + medicion.getValue()+"");
+        Log.d("pepe", "  CUERPO ->" + medicion.getValue() + "");
 
         Log.d("pepe", " DENGUEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -------------------------------------  ");
-        Log.d("pepe", "  CUERPO -> " + user_id +" "+  date +" "+  message +" "+ type);
+        Log.d("pepe", "  CUERPO -> " + user_id + " " + date + " " + message + " " + type);
 
-        try{
-            LogicaNegocioNotification logicaNegocioNotification= new LogicaNegocioNotification();
+        try {
+            LogicaNegocioNotification logicaNegocioNotification = new LogicaNegocioNotification();
             logicaNegocioNotification
-                    .crearNotificacion(access_token, user_id , date , message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
+                    .crearNotificacion(access_token, user_id, date, message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
                         @Override
                         public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
                             /*createNotificationChannel();
@@ -421,10 +588,58 @@ public class ServicioEscuharBeacons  extends IntentService {
 
                         }
                     });
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
+    }
+
+    //metodo que guarda la medicion en la base de datos
+    private void guardarMedicion(int id_user , String access_token , int device_id , String tipo , double media ){
+        Log.d("pepe", "guardarMedicion  ->" +"ENTROOO");
+
+        //obtener la latitud y la longitud
+        if(obtenerLocalizacionActual()){ // si se ha obtenido la latitud y longitud
+            Log.d("pepe", "obtenerLocalizacionActual()  ->" +"ENTROOO y da TRUEEE");
+            //llamar a la logica
+
+            logicaNegocio.publicarMedicion(access_token, id_user, device_id, media, latitud, longitud, tipo, new LogicaNegocioMediciones.PublicarMedicionesCallback() {
+                @Override
+                public void onCompletedPublicarMediciones(int success) {
+                    Log.d("pepe", "publicarMedicion()  ->" +"resultado -> " + success);
+                }
+
+                @Override
+                public void onFailedPublicarMediciones(boolean res) {
+                    Log.d("pepe", "publicarMedicion()  ->" +"resultado FALLIDO -> " + res);
+
+                }
+            });
+
+        }else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Asegúrese de activar el gps", Toast.LENGTH_LONG); // initiate the Toast with context, message and duration for the Toast
+            toast.show(); // display the Toast
+        }
+
+    }
+
+    private boolean obtenerLocalizacionActual() {
+        Log.d("pepe", "GPS  ->" +"se llama");
+
+        //si tiene los permisos necesarios
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            //obtener las coordenadas mas recientes
+            gpsTracker.updateGPSCoordinates();
+            //sacar lat y long llamando al getter
+            latitud=gpsTracker.getLatitude();
+            longitud=gpsTracker.getLongitude();
+
+            Log.d("pepe", "GPS  ->" +latitud +" " + longitud );
+
+            return true;
+        }
+        return false;
     }
 
     /*private void createNotificationChannel(){
