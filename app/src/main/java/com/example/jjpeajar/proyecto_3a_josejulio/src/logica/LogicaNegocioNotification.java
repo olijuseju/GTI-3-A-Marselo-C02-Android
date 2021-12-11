@@ -127,10 +127,10 @@ public class LogicaNegocioNotification {
      * @param crearNotificacionCallback Objeto CrearNotificacionCallback para poder devolver el cuerpo.
      *
      */
-    public void crearNotificacion( String access_token ,int user_id , String date , String message , String type , CrearNotificacionCallback crearNotificacionCallback){
+    public void crearNotificacion( String access_token ,int user_id , String message , String type , CrearNotificacionCallback crearNotificacionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
         //creamos pojo
-        Notification notification= new Notification(user_id,date,message,type);
+        Notification notification= new Notification(user_id,message,type);
         //concadenamos los atributos
         String res= notification.toJsonForCreate();
 

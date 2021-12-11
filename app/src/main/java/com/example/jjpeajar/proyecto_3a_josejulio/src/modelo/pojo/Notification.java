@@ -37,7 +37,7 @@ public class Notification {
     }
 
     //contructor para crear notificaciones
-    public Notification(Integer userId, String date, String message, String type) {
+    public Notification(Integer userId, String message, String type) {
         this.userId = userId;
         this.date = date;
         this.message = message;
@@ -90,7 +90,6 @@ public class Notification {
 
     public String toJsonForCreate(){
         return  "user_id="+getUserId()
-                +"&date="+getDate()
                 +"&message="+getMessage()
                 +"&type="+getType();
     }
