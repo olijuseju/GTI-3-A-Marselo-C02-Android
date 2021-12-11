@@ -82,6 +82,9 @@ public class HomeFragment extends Fragment {
     private TextView txt_bienvenida;
     private String name_user;
     private TextView fragment_home_btn_desconectar;
+    private TextView txt_medicion_calidad_aire;
+    private TextView txt_medicion_temp;
+    private TextView txt_medicion_hum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +105,9 @@ public class HomeFragment extends Fragment {
         conect=v.findViewById(R.id.fragment_home_btn_conect);
         txt_bienvenida=v.findViewById(R.id.fragment_home_txt_bienvenida);
         fragment_home_btn_desconectar=v.findViewById(R.id.fragment_home_btn_desconectar);
+        txt_medicion_calidad_aire=v.findViewById(R.id.txt_medicion_calidad_aire);
+        txt_medicion_temp= v.findViewById(R.id.txt_medicion_temp);
+        txt_medicion_hum= v.findViewById(R.id.txt_medicion_hum);
 
         //onclick
         conect.setOnClickListener(new View.OnClickListener() {
@@ -131,5 +137,26 @@ public class HomeFragment extends Fragment {
         txt_bienvenida.setText(bienvenida);
 
         return v;
+    }
+
+    private String estimacionCalidadAire(double media){
+
+        String estimacion = "Sin datos";
+
+        //umbrales de la calidad de aire
+        if(media <= 350){
+            estimacion = "Alta";
+        }else if(media > 350 && media <= 500) {
+            estimacion = "Buena";
+        }else if(media > 500 && media <= 800) {
+            estimacion = "Moderada";
+        }else if(media > 800 && media <= 1200){
+            estimacion = "Baja";
+        }else if(media > 1200){
+            estimacion = "Mala";
+        }
+
+        return estimacion;
+
     }
 }

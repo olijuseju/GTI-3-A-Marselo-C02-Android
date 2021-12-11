@@ -447,7 +447,7 @@
                             app:tint="@color/rojo_borde" />
 
                         <TextView
-                            android:id="@+id/textView35"
+                            android:id="@+id/txt_medicion_calidad_aire"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -466,8 +466,8 @@
                             android:text="Calidad del aire"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView35"
-                            app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                            app:layout_constraintEnd_toEndOf="@+id/txt_medicion_calidad_aire"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_medicion_calidad_aire" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -500,7 +500,7 @@
                             app:tint="@color/naranja_borde" />
 
                         <TextView
-                            android:id="@+id/textView3502"
+                            android:id="@+id/txt_medicion_hum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -519,8 +519,8 @@
                             android:text="Humedad"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView3502"
-                            app:layout_constraintTop_toBottomOf="@+id/textView3502" />
+                            app:layout_constraintEnd_toEndOf="@+id/txt_medicion_hum"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_medicion_hum" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -555,7 +555,7 @@
                             app:tint="@color/azul_borde" />
 
                         <TextView
-                            android:id="@+id/textView35aire"
+                            android:id="@+id/txt_medicion_temp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
@@ -574,8 +574,8 @@
                             android:text="Temperatura"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/textView35aire"
-                            app:layout_constraintTop_toBottomOf="@+id/textView35aire" />
+                            app:layout_constraintEnd_toEndOf="@+id/txt_medicion_temp"
+                            app:layout_constraintTop_toBottomOf="@+id/txt_medicion_temp" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>

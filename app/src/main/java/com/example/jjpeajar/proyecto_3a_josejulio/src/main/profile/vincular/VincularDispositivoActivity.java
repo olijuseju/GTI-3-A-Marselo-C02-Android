@@ -167,7 +167,7 @@ public class VincularDispositivoActivity extends AppCompatActivity {
     private void QrScan(){
         IntentIntegrator integrator= new IntentIntegrator(VincularDispositivoActivity.this);
         integrator.setBeepEnabled(false);
-        integrator.setOrientationLocked(false);
+        integrator.setOrientationLocked(true);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt(getResources().getString(R.string.step1Text_newDeviceQR));
         integrator.initiateScan();
