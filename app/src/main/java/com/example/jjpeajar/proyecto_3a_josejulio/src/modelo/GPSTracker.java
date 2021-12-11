@@ -26,7 +26,9 @@ import androidx.core.app.ActivityCompat;
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 
 /**
- * Created by @moizest89
+ * @author Andrey Kuzmin
+ * GPSTracker
+ * 2021-12-08
  */
 
 
@@ -198,13 +200,13 @@ public class GPSTracker extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         //Setting Dialog Title
-        alertDialog.setTitle("dengue");
+        alertDialog.setTitle("Activar ubicación");
 
         //Setting Dialog Message
-        alertDialog.setMessage("tu vieja");
+        alertDialog.setMessage("Para continuar, activa la ubicacion del dispositivo");
 
         //On Pressing Setting button
-        alertDialog.setPositiveButton("sis", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Acceder", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which)
@@ -215,7 +217,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         //On pressing cancel button
-        alertDialog.setNegativeButton("non", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Cnacelar", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which)

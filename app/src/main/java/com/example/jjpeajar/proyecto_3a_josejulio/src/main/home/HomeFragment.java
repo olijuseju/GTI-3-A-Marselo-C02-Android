@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.GPSTracker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,7 +107,15 @@ public class HomeFragment extends Fragment {
         conect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
+
+                GPSTracker gpsTracker=  new GPSTracker(getContext());
+
+                //comprobar si tiene el gps activado
+                if (!gpsTracker.getIsGPSTrackingEnabled()){
+                    gpsTracker.showSettingsAlert();
+                }else{
+                    ((MenuMainActivity)getActivity()).botonBuscarNuestroDispositivoBTLEPulsado();
+                }
             }
         });
 
