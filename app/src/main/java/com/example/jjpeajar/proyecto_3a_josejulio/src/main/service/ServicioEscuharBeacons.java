@@ -22,6 +22,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMedici
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
@@ -69,6 +70,11 @@ public class ServicioEscuharBeacons extends IntentService {
     //latitud & longitud
     private double latitud;
     private double longitud;
+    //booleanos
+    private boolean isInformation = false;
+    private boolean isAlerta = false;
+    private boolean isPeligro = false;
+    private boolean isErrorSensor = false;
 
     //notificaciones
     private PendingIntent pendingIntent;
@@ -261,7 +267,6 @@ public class ServicioEscuharBeacons extends IntentService {
 
         inicializarBlueTooth();
 
-
         this.dispositivoBuscado = intent.getStringExtra("dispositivoBuscado");
 
         this.tiempoDeEspera = intent.getLongExtra("tiempoDeEspera", /* default */ 50000);
@@ -374,6 +379,9 @@ public class ServicioEscuharBeacons extends IntentService {
                         //llamamos al metodo que rellena la medicion con los datos necesarios y
                         //llama a la logica
                         guardarMedicion(id_user , access_token, device_id, tipoDato, media);
+
+                        //comprobar si hace falta lanzar notificacion
+                        lanzarNotificacionCO2(id_user , access_token , media);
 
                         //limpiamos la lista
                         beaconsCO2.clear();
@@ -559,38 +567,104 @@ public class ServicioEscuharBeacons extends IntentService {
 
     }
 
-    private void callToLogicaToCrearNotificacion(String type, String message, String access_token, Medicion medicion) {
+    private void lanzarNotificacionCO2(int id_user , String access_token , double media){
+        String message = "";
+        String tittle = "";
+        String type = "";
+        //datos erroneos
+        if(media >= 2500 || media <= 0){
+            if(isErrorSensor == false){
+                //saltar notificacion datos erroneos del sensor
+                message= "El sensor emite datos erróneos o mal calibrados";
+                tittle= "Datos erróneos";
+                CrearNotification crearNotification = new CrearNotification(getApplicationContext());
+                crearNotification.initNotificationChannel();
+                crearNotification.initNotification(tittle , message);
 
-        SharedPreferences shared = getSharedPreferences(
-                "com.example.jjpeajar.proyecto_3a_josejulio"
-                , MODE_PRIVATE);
-        int user_id = Integer.valueOf(shared.getString("user_id", null));
-        String date = String.valueOf(medicion.getDate());
+                //call to logica method
+                //callToLogicaToCrearNotificacion(id_user , tittle , message , access_token);
 
-        Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-        Log.d("pepe", "  CUERPO ->" + medicion.getValue() + "");
+                isErrorSensor = true;
+            }
+        }else{  //los datos son correctos
+            isErrorSensor= false;
+            //actions
+            CrearNotification crearNotification = new CrearNotification(getApplicationContext());
+            crearNotification.initNotificationChannel();
+
+            if(media <= 350 && isInformation == false){
+                //calidad de aire interior alta
+                message= "La calidad de aire es muy alta";
+                tittle= "Información";
+                type= "Information";
+                crearNotification.initNotification(tittle , message);
+
+                isInformation = true;
+                isAlerta = false;
+                isPeligro = false;
+            }else if(media > 350 && media <= 500  && isInformation == false) {
+                //calidad de aire interior buena
+                message= "La calidad de aire es buena";
+                tittle= "Información";
+                type= "Information";
+                crearNotification.initNotification(tittle , message);
+
+                isInformation = true;
+                isAlerta = false;
+                isPeligro = false;
+            }else if(media > 500 && media <= 800 && isAlerta == false){
+                //calidad de aire interior moderada
+                message= "La calidad de aire es moderada";
+                tittle= "Alerta";
+                type= "Warnning";
+                crearNotification.initNotification(tittle , message);
+
+                isAlerta = true;
+                isInformation = false;
+                isPeligro = false;
+            }else if(media > 800 && media <= 1200 && isAlerta == false){
+                //calidad de aire interior baja
+                message= "La calidad de aire es baja";
+                tittle= "Alerta";
+                type= "Warnning";
+                crearNotification.initNotification(tittle , message);
+
+                isAlerta = true;
+                isInformation = false;
+                isPeligro = false;
+            }else if(media > 1200 && isPeligro == false){
+                //calidad de aire interior mala
+                message= "La calidad de aire es muy mala";
+                tittle= "Peligro";
+                type= "Danger";
+                crearNotification.initNotification(tittle , message);
+                isPeligro = true;
+                isInformation = false;
+                isAlerta = false;
+            }
+
+            //call to logica method
+            callToLogicaToCrearNotificacion(id_user , type , message , access_token);
+        }
+    }
+
+    private void callToLogicaToCrearNotificacion(int user_id , String type, String message, String access_token) {
 
         Log.d("pepe", " DENGUEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -------------------------------------  ");
-        Log.d("pepe", "  CUERPO -> " + user_id + " " + date + " " + message + " " + type);
+        Log.d("pepe", "  CUERPO -> " + user_id + " " + message + " " + type);
 
-        try {
-            LogicaNegocioNotification logicaNegocioNotification = new LogicaNegocioNotification();
-            logicaNegocioNotification
-                    .crearNotificacion(access_token, user_id, date, message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
-                        @Override
-                        public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
-                            /*createNotificationChannel();
-                            createNotification( notificationController.getNotification().getType(), notificationController.getNotification().getMessage());*/
-                        }
+        LogicaNegocioNotification logicaNegocioNotification = new LogicaNegocioNotification();
+        logicaNegocioNotification
+                .crearNotificacion(access_token, user_id, message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
+                    @Override
+                    public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
+                    }
 
-                        @Override
-                        public void onFailedCrearNotificacionCallback(boolean res) {
+                    @Override
+                    public void onFailedCrearNotificacionCallback(boolean res) {
 
-                        }
-                    });
-        } catch (Exception e) {
-
-        }
+                    }
+                });
 
     }
 
