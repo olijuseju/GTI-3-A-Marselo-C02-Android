@@ -75,6 +75,7 @@ public class ServicioEscuharBeacons extends IntentService {
     private boolean isAlerta = false;
     private boolean isPeligro = false;
     private boolean isErrorSensor = false;
+    private boolean isSensorRoto = false;
 
     //notificaciones
     private PendingIntent pendingIntent;
@@ -283,19 +284,18 @@ public class ServicioEscuharBeacons extends IntentService {
                 "com.example.jjpeajar.proyecto_3a_josejulio"
                 , MODE_PRIVATE);
 
+        //sacamos el id del device que tiene vinculado, sino lo pongo como -1
+        int device_id = shared.getInt("id_device", -1);
+        //sacamos el token del user registrado, si no existe es null
+        String access_token = shared.getString("access_token", null);
+        //sacamos el id del user
+        int id_user = Integer.parseInt(shared.getString("user_id", null));
+
         //si detecta el beacon indicado ejecuta ->
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
             public void onScanResult(int callbackType, ScanResult resultado) {
                 super.onScanResult(callbackType, resultado);
-
-                //sacamos el id del device que tiene vinculado, sino lo pongo como -1
-                int device_id = shared.getInt("id_device", -1);
-                //sacamos el token del user registrado, si no existe es null
-                String access_token = shared.getString("access_token", null);
-                //sacamos el id del user
-                int id_user = Integer.parseInt(shared.getString("user_id", null));
-
 
                 if (device_id != -1) { // si tiene un dispositivo vinculado
 
@@ -551,6 +551,12 @@ public class ServicioEscuharBeacons extends IntentService {
                 Thread.sleep(tiempoDeEspera);
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
+
+                if(contador >= 25){
+                    //sensor dañado
+                    lanzarNotificacionSensorRoto(id_user , access_token, contador);
+                }
+
             }
 
             Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent : tarea terminada ( tras while(true) )");
@@ -602,6 +608,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isInformation = true;
                 isAlerta = false;
                 isPeligro = false;
+                isSensorRoto= false;
             }else if(media > 350 && media <= 500  && isInformation == false) {
                 //calidad de aire interior buena
                 message= "La calidad de aire es buena";
@@ -612,6 +619,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isInformation = true;
                 isAlerta = false;
                 isPeligro = false;
+                isSensorRoto= false;
             }else if(media > 500 && media <= 800 && isAlerta == false){
                 //calidad de aire interior moderada
                 message= "La calidad de aire es moderada";
@@ -622,6 +630,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isAlerta = true;
                 isInformation = false;
                 isPeligro = false;
+                isSensorRoto= false;
             }else if(media > 800 && media <= 1200 && isAlerta == false){
                 //calidad de aire interior baja
                 message= "La calidad de aire es baja";
@@ -632,6 +641,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isAlerta = true;
                 isInformation = false;
                 isPeligro = false;
+                isSensorRoto= false;
             }else if(media > 1200 && isPeligro == false){
                 //calidad de aire interior mala
                 message= "La calidad de aire es muy mala";
@@ -641,10 +651,37 @@ public class ServicioEscuharBeacons extends IntentService {
                 isPeligro = true;
                 isInformation = false;
                 isAlerta = false;
+                isSensorRoto= false;
             }
 
             //call to logica method
             callToLogicaToCrearNotificacion(id_user , type , message , access_token);
+        }
+    }
+
+    private void lanzarNotificacionSensorRoto(int id_user , String access_token, long contador){
+        String message = "";
+        String tittle = "";
+        String type = "";
+
+        if(isErrorSensor == false){
+            //actions
+            CrearNotification crearNotification = new CrearNotification(getApplicationContext());
+            crearNotification.initNotificationChannel();
+            //sensor roto
+            message= contador + " segundos sin respuesta del sensor";
+            tittle= "Sensor dañado";
+            type= "Pinga";
+            crearNotification.initNotification(tittle , message);
+
+            //call to logica method
+            //callToLogicaToCrearNotificacion(id_user , type , message , access_token);
+
+            //parar busqueda de beacons
+            onDestroy();
+            //lanzar mensaje al user para que sepa que se ha detenido la busqueda
+
+            isErrorSensor = true;
         }
     }
 
