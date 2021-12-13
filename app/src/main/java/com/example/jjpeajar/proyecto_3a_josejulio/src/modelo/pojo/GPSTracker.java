@@ -1,4 +1,4 @@
-package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo;
+package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,29 +23,30 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.jjpeajar.proyecto_3a_josejulio.R;
-
 /**
  * @author Andrey Kuzmin
  * GPSTracker
  * 2021-12-08
+ *
+ * Clase que se encarga de mediante el gps sacar los datos del usario como la latitud y longitud
+ *
  */
 
 
 public class GPSTracker extends Service implements LocationListener {
 
-    // Get Class Name
+    // Get nombre de la clase
     private static String TAG = GPSTracker.class.getName();
 
     private final Context mContext;
 
-    // flag for GPS Status
+    // gps status
     boolean isGPSEnabled = false;
 
-    // flag for network status
+    // network status
     boolean isNetworkEnabled = false;
 
-    // flag for GPS Tracking is enabled
+    // GPS Tracking is enabled
     boolean isGPSTrackingEnabled = false;
 
     Location location;
@@ -67,13 +68,15 @@ public class GPSTracker extends Service implements LocationListener {
     // Store LocationManager.GPS_PROVIDER or LocationManager.NETWORK_PROVIDER information
     private String provider_info;
 
+    //contructor
     public GPSTracker(Context context) {
         this.mContext = context;
         getLocation();
     }
 
+
     /**
-     * Try to get my current location by GPS or Network Provider
+     * La descripción de getLocation. Funcion que obtiene la localizacion actual por GOS o network provider
      */
     public void getLocation() {
 

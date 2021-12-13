@@ -20,7 +20,7 @@ public class LogicaNegocioTowns {
     // URL
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
-    // town interface
+    // obtener town interface
     public interface ObtenerTownsCallback {
         void onCompletedObtenerTowns(List<Town> towns);
         void onFailedObtenerTowns(boolean res);
@@ -35,12 +35,14 @@ public class LogicaNegocioTowns {
     public void obtenerTown(ObtenerTownsCallback obtenerTownsCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
+        //peticion
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/municipios/", null , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
 
                 try {
+                    //convertir json a POJO
                     Gson gson= new Gson();
                     TownController townControllers= gson.fromJson(cuerpo, TownController.class);
 

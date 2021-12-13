@@ -16,6 +16,7 @@ public class Medicion {
     public double value;
     public int date;
 
+    //contructor vacio
     public Medicion(){}
 
     public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, double value, int date) {
@@ -49,6 +50,7 @@ public class Medicion {
         this.value = value;
     }
 
+    //getters && setters
     public int getId() {
         return id;
     }
@@ -113,6 +115,7 @@ public class Medicion {
         this.date = date;
     }
 
+    //concadenar atributos
     public String toJSON(){
         //return "{\"data\": "+this.data+"\", \"read_date\": "+this.read_date+"\", \"device_id\": "+this.deviceId+"\"}";
         return "user_id="+this.user_id+"&device_id="+this.device_id+"&latitude="+this.latitude+"&longitude="+this.longitude+"&type_read="+this.type_read+"&value="+this.value+"&date="+this.date;

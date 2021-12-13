@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link GraphicFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author Andrey Kuzmin
+ * GraphicFragment
+ * 2021-11-19
  */
+
 public class GraphicFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +26,7 @@ public class GraphicFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    //contructor
     public GraphicFragment() {
         // Required empty public constructor
     }

@@ -176,8 +176,8 @@ public class EditUserActivity extends AppCompatActivity {
     /**
      * Descripcion de editarUsuario. Editamos el usuario cuando hace click en el boton de arriba a la derecha
      *
-     * @param id
-     * @param token
+     * @param id . id del user
+     * @param token , access_token del user registrado
      */
     private void editarUsuario(String id, String token){
 

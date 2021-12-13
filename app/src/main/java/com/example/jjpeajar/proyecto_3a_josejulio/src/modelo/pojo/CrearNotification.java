@@ -1,5 +1,14 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
+/**
+ * @author Andrey Kuzmin
+ * CrearNotification
+ * 2021-12-08
+ *
+ * Clase que se encarga de lanzar una notificacion.
+ *
+ */
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -23,7 +32,9 @@ public class CrearNotification {
         this.context = context;
     }
 
-    //inicializar canal para poder mostrar diferentes notificaciones
+    /**
+     * La descripción de initNotificationChannel. Funcion -> inicializar canal para poder mostrar diferentes notificaciones
+     */
     public void initNotificationChannel(){
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -35,7 +46,9 @@ public class CrearNotification {
 
     }
 
-    //inicializar notificacion
+    /**
+     * La descripción de initNotificationChannel. Funcion -> inicializar notificacion
+     */
     public void initNotification(String titulo , String mensaje){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder.setSmallIcon(R.drawable.logo);
@@ -47,7 +60,10 @@ public class CrearNotification {
         notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
     }
 
-    //comprobar si las notificaciones estan activas o no
+    /**
+     * La descripción de initNotificationChannel. Funcion -> comprobar si las notificaciones estan activas o no
+     * @return Boolean , devuelve true si hay una notificacion activa
+     */
     public Boolean isNotificationActive(){
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         return notificationManagerCompat.areNotificationsEnabled();

@@ -29,11 +29,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NotificationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NotificationFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -115,9 +110,10 @@ public class NotificationFragment extends Fragment {
         rv_empty=v.findViewById(R.id.empty_recyclerView);
 
         //methods
-        initRvNotifications();
-        getNotificationItem();
+        initRvNotifications(); //init recyclerView
+        getNotificationItem();  // obtener los datos y init adapter
 
+        //al pulsar el boton de limpiar notificaciones
         btn_clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +125,10 @@ public class NotificationFragment extends Fragment {
         return v;
     }
 
+    /**
+     * La descripción de initRvNotifications. Funcion que inicializa el rv de notificaciones.
+     *
+     */
     private void initRvNotifications(){
         //defino que el rv no tenga fixed size
         rv_notifications.setHasFixedSize(false);
@@ -137,15 +137,18 @@ public class NotificationFragment extends Fragment {
         rv_notifications.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
     }
 
-    //metodo que rellena la lista de elementos
+    /**
+     * La descripción de getNotificationItem. Funcion que rellena la lista de elementos.
+     *
+     */
     private void getNotificationItem(){
-        notificationList.clear();
-
+        notificationList.clear(); //limpiar lista
+        //peticion
         logicaNegocioNotification.obtenerNotificacionesByIdUser(access_token, new LogicaNegocioNotification.ObtenerNotificacionesByIdUserCallback() {
             @Override
             public void onCompletedObtenerNotificacionesByIdUserCallback(List<Notification> notifications) {
-                notificationList = notifications;
-
+                notificationList = notifications; //obtener las notificaciones que devuelve el callback
+                //init adapter
                 notificationAdapter= new NotificationAdapter(getContext() , notificationList);
                 rv_notifications.setAdapter(notificationAdapter);
 
@@ -157,7 +160,7 @@ public class NotificationFragment extends Fragment {
                     rv_notifications.setVisibility(View.VISIBLE); //mostras rv con sus items
                     rv_empty.setVisibility(View.GONE); //ocultar container con info
                 }
-                notificationAdapter.notifyDataSetChanged();
+                notificationAdapter.notifyDataSetChanged();  // actualizar adapter
             }
 
             @Override
@@ -167,6 +170,10 @@ public class NotificationFragment extends Fragment {
         });
     }
 
+    /**
+     * La descripción de initAlertaClear. Funcion que inicia la alerta de eliminar notificaciones.
+     *
+     */
     private void initAlertaClear(){
         MaterialAlertDialogBuilder alertDialogBuilder= new MaterialAlertDialogBuilder(getContext());
         alertDialogBuilder.setMessage(R.string.clearText_dialog);
@@ -180,16 +187,23 @@ public class NotificationFragment extends Fragment {
         alertDialogBuilder.setPositiveButton(R.string.clearConfirmButton_dialog, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //al pulsar limpiar llama a
                 limpiarNotificaciones();
             }
         });
         alertDialogBuilder.show();
     }
 
+    /**
+     * La descripción de limpiarNotificaciones. Funcion que llama a la logica para limpiar las notificaciones.
+     *
+     */
     private void limpiarNotificaciones(){
+        //llamar a la logica
         logicaNegocioNotification.DeleteNotificacionesByIdUser(access_token, new LogicaNegocioNotification.DeleteNotificacionesByIdUserCallback() {
             @Override
             public void onCompletedDeleteNotificacionesByIdUserCallback(String message) {
+                //si se han eliminado con exito , obtener los datos otra vez
                 getNotificationItem();
             }
 

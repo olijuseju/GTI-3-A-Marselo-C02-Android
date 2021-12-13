@@ -4,6 +4,8 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
  * @author Belén Grande
  * Town Controller
  * 2021-11-24
+ *
+ * Pojo que utilizamos para convertir el JSON.
  */
 
 import java.util.ArrayList;

@@ -160,8 +160,8 @@ public class RecorridoActivity extends AppCompatActivity {
      *
      * La descripción de inicializarGraficaCard. Crea las graficas por medio de los serial
      *
-     * @param graphView
-     * @param series
+     * @param graphView , vista de la grafica
+     * @param series , puntos de la grafica
      */
     void inicializarGraficaCard(GraphView graphView, LineGraphSeries<DataPoint> series){
         graphView.getGridLabelRenderer().setVerticalLabelsVisible(false);
@@ -169,6 +169,7 @@ public class RecorridoActivity extends AppCompatActivity {
         graphView.getGridLabelRenderer().setGridStyle( GridLabelRenderer.GridStyle.NONE );
 
         double y;
+        //add puntos a la grafica
         for (int i =0; i<40; i++){
             y = (int) (Math.random() * 8) + 1;
             series.appendData(new DataPoint(i,y), true, 90);
@@ -204,6 +205,7 @@ public class RecorridoActivity extends AppCompatActivity {
         TextView txanyo = optionsBottomSheet.findViewById(R.id.textViewAnyo);
 
         //onclick methods
+        //cambiamos las fechas de las mediciones
         constraintLayoutSem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
