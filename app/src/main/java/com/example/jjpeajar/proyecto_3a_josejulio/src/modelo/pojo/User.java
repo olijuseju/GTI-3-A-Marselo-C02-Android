@@ -81,6 +81,7 @@ public class User {
         this.updated_at = updated_at;
     }
 
+    //concadenar atributos
     public String toJsonWithPassword(String password){
         String mail= getEmail();
         return "email="+mail+"&password="+password;

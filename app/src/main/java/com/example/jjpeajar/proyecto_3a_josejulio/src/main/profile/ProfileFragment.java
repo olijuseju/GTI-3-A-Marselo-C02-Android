@@ -29,11 +29,6 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivi
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -114,6 +109,8 @@ public class ProfileFragment extends Fragment {
 
 
         //onclicks
+
+        //inicia la actividad de vincular
         btn_vincular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +118,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-
+        //inicia la actividad de recorrido
         clRecorrido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +126,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-
+        //inicia la actividad de informacion
         clInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +135,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
+        //inicia la actividad de guia de gases
         clGuiaGases.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +143,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-
+        //inicia la actividad de guia de configuracion
         clConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

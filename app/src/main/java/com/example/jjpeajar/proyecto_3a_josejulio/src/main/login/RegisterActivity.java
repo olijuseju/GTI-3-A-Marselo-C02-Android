@@ -54,9 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
     //private List<String> nameTowns = new ArrayList<String>();
     //private List<Town> Towns = new ArrayList<Town>();
 
-
-
-
     // Logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
     //private LogicaNegocioTowns logicaNegocioTowns;
@@ -204,7 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
                         //int idTown = Towns.get(pos).getId();
 
                         // Llamamos a registrar usuario
-                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, 0 , 5, new LogicaNegocioUsarios.RegistroCallback() {
+                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, 1 , 5, new LogicaNegocioUsarios.RegistroCallback() {
                             @Override
                             public void onCompletedRegistrarUsario(int success) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

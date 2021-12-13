@@ -20,7 +20,7 @@ public class LogicaNegocioUsarios {
 
     // URL
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
-
+    //constructor
     public LogicaNegocioUsarios(){ }
 
     //iniciar sesion interface
@@ -80,6 +80,7 @@ public class LogicaNegocioUsarios {
 
         //ser user = new User(username,mail,password, town);
 
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/create", "user.toJSON()", new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
@@ -98,10 +99,13 @@ public class LogicaNegocioUsarios {
      * @param token String con el token para usarse en las coockies
      * @param getUsuariosCallback GetUsuariosCallback para almacenar el cuerpo
      *
+     * @return int
+     *
      */
     public int obtenerUsario(int idUser, String token, GetUsuariosCallback getUsuariosCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
+        //peticion
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/user/"+idUser, null , token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
@@ -110,6 +114,7 @@ public class LogicaNegocioUsarios {
                 Log.d("pepeupdate", "  CUERPO ->" + cuerpo+"");
 
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                //convertir json a POJO
                 Gson gson= new Gson();
                 UserController userController= gson.fromJson(cuerpo, UserController.class);
 
@@ -117,6 +122,7 @@ public class LogicaNegocioUsarios {
                 //comprobamos si esta registrado en nuestra bbdd o no
                 float success= userController.getSuccess();
                 if(success == 1.0){
+                    //le pasamos al callback el valor
                     getUsuariosCallback.onCompletedGetUsuario(userController);
                 }else if(success == 0.0){
                     getUsuariosCallback.onFailedGetUsuario(true);
@@ -138,15 +144,17 @@ public class LogicaNegocioUsarios {
      */
     public void login(String mail, String password, IniciarSesionCallback iniciarSesionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
-
+        //init User POJO
         User user = new User(mail);
+        //concadenar los atributos para el body de la peticion
         String res= user.toJsonWithPassword(password);
-
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/login", res , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
                 try {
+                    //convertir Json a POJO
                     Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
 
@@ -181,10 +189,11 @@ public class LogicaNegocioUsarios {
      */
     public void registrarUsario(String username, String correo , String password , String confirm_password , int town , int role , RegistroCallback registroCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
-
+        //init User POJO
         User user = new User(username , correo);
+        //concadenar atributos para el body de la peticion
         String res= user.toJsonToRegister(password, confirm_password , role , town );
-
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/registroapp", res , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
@@ -192,6 +201,7 @@ public class LogicaNegocioUsarios {
                     Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                     Log.d("pepe", "  CUERPO ->" + cuerpo+"");
                     Log.d("pepe", "  nnnjnk ->" + codigo+"");
+                    //convertir Json a POJO
                     Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
                     //comprobamos si esta registrado en nuestra bbdd o no
@@ -224,16 +234,18 @@ public class LogicaNegocioUsarios {
     public void actualizarUsuario(int id, String token, String username, String correo , String password ,int town ,UpdateCallback usariosCallback) {
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
+        //init user Pojo
         User user = new User(username, correo);
         UserInformation userInformation = new UserInformation(id, town);
+        //concadenar atributos para el body de la peticion
         String res = user.toJsonToUpdate(password, town);
-
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/update/" + id, res,token, new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
 
                 try {
-
+                    //pasar de Json a Pojo
                     Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
 
@@ -265,15 +277,17 @@ public class LogicaNegocioUsarios {
     public void vincularDispoitivo(String serial, String acces_token, VinculateDeviceCallback vinculateDeviceCallback) {
 
         PeticionarioRest peticionarioRest = new PeticionarioRest();
-
+        //init userInformation POJO
         UserInformation userInformation = new UserInformation();
+        //concadenar atributos para el body
         String res = userInformation.SerialToJson(serial);
-
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/device" , res , acces_token, new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
 
                 try {
+                    // JSON -> UserInformationController
                     Gson gson = new Gson();
                     UserInformationController userInformationController = gson.fromJson(cuerpo, UserInformationController.class);
                     Log.d("pepeupdate", "  RECIBIDO -------------------------------------  ");
@@ -306,12 +320,13 @@ public class LogicaNegocioUsarios {
      */
     public void CerrarSesion(String access_token, CerrarSesionCallback cerrarSesionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
-
+        //peticion GET
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/logout", null, access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
 
                 try {
+                    //Json -> UserController
                     Gson gson= new Gson();
                     UserController userController= gson.fromJson(cuerpo, UserController.class);
 

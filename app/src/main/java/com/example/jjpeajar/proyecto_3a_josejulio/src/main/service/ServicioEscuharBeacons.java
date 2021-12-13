@@ -20,7 +20,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.GPSTracker;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
@@ -454,69 +454,6 @@ public class ServicioEscuharBeacons extends IntentService {
                     //---------------------------------------------------------------
                     //---------------------------------------------------------------
 
-                    //obtener la latitud y la longitud
-                    /*obtenerLocalizacionActual();
-                    mediciones.add(new Medicion(Integer.parseInt(shared.getString("user_id", null)), device_id, 30, 30, tipoDato, data, 20201020));
-                    Log.d("clienterestandroid", mediciones.size() + "");
-                    if (mediciones.size() == 20) {
-                        Log.d("clienterestandroid", "llamamos a la logica");
-
-                        access_token = shared.getString("access_token", null);
-                        for (Medicion medicion : mediciones) {
-                            logicaNegocio.publicarMedicion(shared.getString("access_token", null), medicion.getUser_id(), medicion.getDevice_id(), medicion.getValue(), medicion.getLatitude(), medicion.getLongitude(), medicion.getType_read(), medicion.getDate(), new LogicaNegocioMediciones.PublicarMedicionesCallback() {
-                                @Override
-                                public void onCompletedPublicarMediciones(int success) {
-
-                                }
-
-                                @Override
-                                public void onFailedPublicarMediciones(boolean res) {
-
-                                }
-                            });
-                            if (medicion.getType_read().equals("CO2")) {
-
-
-                                if (medicion.getValue() >= 0) {
-                                    if (!tamuerto) {
-                                        tamuerto = true;
-                                        callToLogicaToCrearNotificacion("Danger", "El O2 es muy alta!", access_token, medicion);
-                                    }
-                                }
-
-                            } else if (medicion.getType_read().equals("Temperatura")) {
-
-                                if (medicion.getValue() >= 100) {
-
-                                } else if (medicion.getValue() < 13) {
-                                    callToLogicaToCrearNotificacion("Warnning", "La temperatura es muy baja, ponte un abrigo!", access_token, medicion);
-
-                                }
-
-                            } else if (medicion.getType_read().equals("Humedad")) {
-
-                                if (medicion.getValue() >= 100) {
-                                    if (!tatuerto) {
-                                        tatuerto = true;
-                                        callToLogicaToCrearNotificacion("Danger", "La humedad es muy alta!", access_token, medicion);
-                                    }
-                                } else if (medicion.getValue() < 10) {
-                                    callToLogicaToCrearNotificacion("Warnning", "La humedad es muy baja!", access_token, medicion);
-
-                                }
-
-                            }
-                        }
-                        tamuerto = false;
-                        tatuerto = false;
-                        mediciones.clear();
-                    }*/
-
-
-                    //---------------------------------------------------------------
-                    //---------------------------------------------------------------
-
-
                 }
 
 
@@ -573,6 +510,16 @@ public class ServicioEscuharBeacons extends IntentService {
 
     }
 
+    /**
+     * Descripcion de lanzarNotificacionCO2. Funcion que comprueba si se necesita lanzar una notificacion
+     *  y que tipo de notificacion
+     *
+     * @param id_user , id del usuario
+     * @param access_token , token del usuario que ha iniciado sesion
+     * @param media , media de la medicion
+     *
+     */
+
     private void lanzarNotificacionCO2(int id_user , String access_token , double media){
         String message = "";
         String tittle = "";
@@ -595,16 +542,19 @@ public class ServicioEscuharBeacons extends IntentService {
         }else{  //los datos son correctos
             isErrorSensor= false;
             //actions
+            //init la clase CrearNotificacion
             CrearNotification crearNotification = new CrearNotification(getApplicationContext());
             crearNotification.initNotificationChannel();
-
+            //ifs de los umbrales
+            //los bool son para no enviar 2 notificacion del mismo tipo
             if(media <= 350 && isInformation == false){
                 //calidad de aire interior alta
                 message= "La calidad de aire es muy alta";
                 tittle= "Información";
                 type= "Information";
+                //crear notificacion
                 crearNotification.initNotification(tittle , message);
-
+                //reiniciar bools
                 isInformation = true;
                 isAlerta = false;
                 isPeligro = false;
@@ -659,6 +609,14 @@ public class ServicioEscuharBeacons extends IntentService {
         }
     }
 
+    /**
+     * Descripcion de lanzarNotificacionSensorRoto. Funcion que comprueba si se necesita lanzar una notificacion de sensor roto
+     *
+     * @param id_user , id del usuario
+     * @param access_token , token del usuario que ha iniciado sesion
+     * @param contador , contador del tiempo que no se ha recibido beacons
+     *
+     */
     private void lanzarNotificacionSensorRoto(int id_user , String access_token, long contador){
         String message = "";
         String tittle = "";
@@ -685,11 +643,20 @@ public class ServicioEscuharBeacons extends IntentService {
         }
     }
 
+    /**
+     * Descripcion de callToLogicaToCrearNotificacion. Funcion que llama a la logica de notificaciones
+     *
+     * @param user_id , id del usuario
+     * @param type , tipo de notificacion
+     * @param message , mensaje de la notificacion
+     * @param access_token , token del usuario que ha iniciado sesion
+     *
+     */
     private void callToLogicaToCrearNotificacion(int user_id , String type, String message, String access_token) {
 
         Log.d("pepe", " DENGUEEEEEEEEEEEEEEEEEEEEEEEEEEEEE -------------------------------------  ");
         Log.d("pepe", "  CUERPO -> " + user_id + " " + message + " " + type);
-
+        //llamar a la logica
         LogicaNegocioNotification logicaNegocioNotification = new LogicaNegocioNotification();
         logicaNegocioNotification
                 .crearNotificacion(access_token, user_id, message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
@@ -705,7 +672,16 @@ public class ServicioEscuharBeacons extends IntentService {
 
     }
 
-    //metodo que guarda la medicion en la base de datos
+    /**
+     * Descripcion de guardarMedicion. Funcion que llama a la logica de medicion
+     *
+     * @param id_user , id del usuario
+     * @param access_token , token del usuario que ha iniciado sesion
+     * @param device_id , id del dispositivo
+     * @param tipo , tipo de medicion
+     * @param media , media de la medicion
+     *
+     */
     private void guardarMedicion(int id_user , String access_token , int device_id , String tipo , double media ){
         Log.d("pepe", "guardarMedicion  ->" +"ENTROOO");
 
@@ -734,6 +710,11 @@ public class ServicioEscuharBeacons extends IntentService {
 
     }
 
+    /**
+     * Descripcion de obtenerLocalizacionActual. Funcion que consigue los datos del gps del usario
+     * @return boolean , bool que define si se ha podido localizar o no
+     *
+     */
     private boolean obtenerLocalizacionActual() {
         Log.d("pepe", "GPS  ->" +"se llama");
 
@@ -753,29 +734,6 @@ public class ServicioEscuharBeacons extends IntentService {
         return false;
     }
 
-    /*private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Noticacion";
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-    }
-
-    private void createNotification(String titulo , String message){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.icons_exclamation);
-        builder.setContentTitle(titulo);
-        builder.setContentText(message);
-        builder.setColor(Color.BLUE);
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        builder.setLights(Color.MAGENTA, 1000, 1000);
-        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-        builder.setGroup("GROUP_KEY_WORK_EMAIL");
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
-    }*/
 } // class
 // -------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------

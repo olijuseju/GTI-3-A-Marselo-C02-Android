@@ -21,17 +21,17 @@ public class LogicaNegocioMediciones {
     private static final String  ADDRESS= "http://vmi621282.contaboserver.net";
 
 
-    // Mediciones interface
+    // obtener Mediciones interface
     public interface MedicionesCallback{
         void onCompletedObtenerMediciones(MedicionController medicionController);
         void onFailedObtenerMediciones(boolean res);
     }
-
+    // publicar medicion interface
     public interface PublicarMedicionesCallback{
         void onCompletedPublicarMediciones(int success);
         void onFailedPublicarMediciones(boolean res);
     }
-
+    //constructor vacío
     public LogicaNegocioMediciones(){
 
     }
@@ -45,12 +45,13 @@ public class LogicaNegocioMediciones {
     public void obtenerMediciones(MedicionesCallback medicionesCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
-
+        //peticion REST
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/mediciones", null , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
                 try {
+                    //convertir de json  a POJO
                     Gson gson= new Gson();
                     MedicionController medicionController= gson.fromJson(cuerpo, MedicionController.class);
                     Log.d("pepe", "  RECIBIDO -------------------------------------  ");
@@ -73,20 +74,22 @@ public class LogicaNegocioMediciones {
 
     /**
      * La descripción de publicarMedicion. Funcion que publica las mediciones de CO2 en la bbdd.
-     * @param token
-     * @param userId
-     * @param sensorId
-     * @param latitud
-     * @param longitud
+     * @param token token del user que ha inciado sesion
+     * @param userId  id del user
+     * @param sensorId  id del sensor
+     * @param latitud   latitud
+     * @param longitud longitud
      */
     public void publicarMedicion(String token, int userId, int sensorId, double media, double latitud, double longitud, String type_read, PublicarMedicionesCallback publicarMedicionesCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
-
+        //init Medicion
         Medicion medicion = new Medicion(userId, sensorId, latitud, longitud, type_read, media);
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/medicion/create", medicion.toJSON(),token, new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 try {
+                    //convertir de json a POJO
                     Gson gson= new Gson();
                     MedicionController medicionController= gson.fromJson(cuerpo, MedicionController.class);
 

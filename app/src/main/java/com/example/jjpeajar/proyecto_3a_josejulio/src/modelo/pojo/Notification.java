@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
  * @author Andrey Kuzmin
  * Notification
  * 2021-11-24
+ *
+ *
  */
 
 
@@ -88,6 +90,7 @@ public class Notification {
         this.updated_at = updated_at;
     }*/
 
+    //concadenar atributos
     public String toJsonForCreate(){
         return  "user_id="+getUserId()
                 +"&message="+getMessage()

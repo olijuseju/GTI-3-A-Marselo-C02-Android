@@ -2,7 +2,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 /**
  * @author Andrey Kuzmin
- * LogicaFake
+ * LogicaNegocioNotification
  * 2021-10-24
  */
 
@@ -49,6 +49,7 @@ public class LogicaNegocioNotification {
         Log.d("pepe", " ENTRAAAAAAAAAAA -------------------------------------  ");
         Log.d("pepe", "  CUERPO ->" + access_token+"");
 
+        //peticion
         peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
@@ -58,6 +59,7 @@ public class LogicaNegocioNotification {
                 Log.d("pepe", "  CUERPO ->" + cuerpo+"");
 
                 try{
+                    //convertir de json a POJO
                     Gson gson= new Gson();
                     NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
 
@@ -92,12 +94,15 @@ public class LogicaNegocioNotification {
     public void DeleteNotificacionesByIdUser(String access_token , DeleteNotificacionesByIdUserCallback deleteNotificacionesByIdUserCallback ){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
+        //peticion
         peticionarioRest.realizarPeticion("DELETE", ADDRESS + "/api/v1/notificaciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
 
                 Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                 Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+
+                //convertir de json a POJO
                 Gson gson= new Gson();
                 NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
 
@@ -121,7 +126,6 @@ public class LogicaNegocioNotification {
      *
      * @param access_token String con el token del usuario
      * @param user_id int con el id del usario registrado
-     * @param date String con la fecha de la notificacion
      * @param message String con el mensaje de la notificacion
      * @param type String con el tipo de notificacion
      * @param crearNotificacionCallback Objeto CrearNotificacionCallback para poder devolver el cuerpo.
@@ -137,6 +141,7 @@ public class LogicaNegocioNotification {
         Log.d("pepe", " ENTRAAAAAAAAAAA -------------------------------------  ");
         Log.d("pepe", "  CUERPO ->" + res+"");
 
+        //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/notificaciones/create", res, access_token , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
@@ -144,6 +149,7 @@ public class LogicaNegocioNotification {
                 try{
                     Log.d("pepe", " RRECIBIDO -------------------------------------  ");
                     Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+                    //converir json a POJO
                     Gson gson= new Gson();
                     NotificationController notificationController = gson.fromJson(cuerpo, NotificationController.class);
 

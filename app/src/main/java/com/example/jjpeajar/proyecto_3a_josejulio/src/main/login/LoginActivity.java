@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             register_txt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //registrarse actividad
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                     startActivity(intent);
                 }
@@ -84,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             btn_check.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //obtengo los string de los inputs
                     correo= editText_correo.getText().toString();
                     password = editText_password.getText().toString();
 
@@ -107,7 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(!correo.isEmpty() && !password.isEmpty()) {
 
 
-                        if(isValidEmail(correo)){
+                        if(isValidEmail(correo)){ // si es un gmail valido .....@.....
+                            //llamar a la logica
                             logicaNegocioUsarios.login(correo, password, new LogicaNegocioUsarios.IniciarSesionCallback() {
                                 @Override
                                 public void onCompletedIniciarSesion(UserController userController) {
@@ -117,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                     SharedPreferences shared= getSharedPreferences(
                                             "com.example.jjpeajar.proyecto_3a_josejulio"
                                             , MODE_PRIVATE);
+                                    //guardar los valores del user registrado en las preferencias
                                     SharedPreferences.Editor editor = shared.edit();
                                     editor.putString("user_name", userController.getUser().getName());
                                     editor.putString("user_email", userController.getUser().getEmail());
@@ -136,8 +140,8 @@ public class LoginActivity extends AppCompatActivity {
                                 }
 
                             });
-                            layout_correo.setErrorEnabled(false);
-                        }else{
+                            layout_correo.setErrorEnabled(false); //desactivar error
+                        }else{ // correo invalido
                             layout_correo.setErrorEnabled(true);
                             layout_correo.setError(getText(R.string.login_introduce_correo_ok));
                         }

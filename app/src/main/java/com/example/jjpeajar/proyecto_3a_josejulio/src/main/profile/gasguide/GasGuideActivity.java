@@ -19,6 +19,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class GasGuideActivity extends AppCompatActivity {
 
+    //atributos
     private MaterialCardView btn_plomo;
     private MaterialCardView btn_cadmio;
     private MaterialCardView btn_particulas;
@@ -32,6 +33,7 @@ public class GasGuideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gas_guide);
 
+        //findById
         btn_azufe = findViewById(R.id.btn_azufre);
         btn_cadmio = findViewById(R.id.btn_cadmio);
         btn_plomo = findViewById(R.id.btn_plomo);
