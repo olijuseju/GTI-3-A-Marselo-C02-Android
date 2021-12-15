@@ -543,7 +543,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
 
-                if(contador >= 5 && isReadBeacons == false){
+                if(contador >= 15 && isReadBeacons == false){
                     //sensor dañado
                     lanzarNotificacionSensorRoto(id_user , access_token);
                 }

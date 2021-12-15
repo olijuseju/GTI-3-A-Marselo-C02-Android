@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.encontrar.EncontrarDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.gasguide.GasGuideActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.config.ConfigurationActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
@@ -78,6 +79,7 @@ public class ProfileFragment extends Fragment {
     private ConstraintLayout clGuiaGases;
     private ConstraintLayout clInfo;
     private ConstraintLayout btn_cerrar_sesion;
+    private ConstraintLayout btn_distancia;
     private ConstraintLayout clConfig;
     private TextView txt_nombre_user;
     private TextView txt_rol_user;
@@ -115,6 +117,7 @@ public class ProfileFragment extends Fragment {
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
         btn_cerrar_sesion = v.findViewById(R.id.profile_btn_cerrar_sesion);
         clConfig = v.findViewById(R.id.clConfig);
+        btn_distancia= v.findViewById(R.id.profile_btn_distancia);
 
 
         //set bienvenida text con el nombre del user
@@ -131,6 +134,16 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        //encontrar dispositivo actiivty
+        btn_distancia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), EncontrarDispositivoActivity.class);
+                startActivity(i);
+            }
+        });
+
         //inicia la actividad de recorrido
         clRecorrido.setOnClickListener(new View.OnClickListener() {
             @Override
