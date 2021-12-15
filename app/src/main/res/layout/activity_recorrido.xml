@@ -32,6 +32,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -95,6 +96,7 @@
 
                     <TextView
                         android:id="@+id/numDistancia"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -107,6 +109,7 @@
 
                     <TextView
                         android:id="@+id/textView29"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -120,6 +123,7 @@
 
                     <TextView
                         android:id="@+id/textView37"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Km"
@@ -196,6 +200,7 @@
 
                     <TextView
                         android:id="@+id/numPasos"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -218,6 +223,7 @@
 
                     <TextView
                         android:id="@+id/textView39"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -230,6 +236,7 @@
 
                     <TextView
                         android:id="@+id/textView40"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pasos"
@@ -278,6 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:text="0"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         android:textSize="40sp"
 
@@ -287,6 +295,7 @@
 
                     <TextView
                         android:id="@+id/textView42"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -302,6 +311,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="kcal"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@+id/numCal"

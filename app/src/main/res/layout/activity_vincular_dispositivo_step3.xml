@@ -43,12 +43,14 @@
 
     <TextView
         android:id="@+id/textView9"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/step3tittle_bottom_sheet"
         android:textColor="@color/black"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/confirm_step3_bottom_sheet"
         app:layout_constraintStart_toEndOf="@+id/quit_step3_bottom_sheet"
         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -100,6 +102,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/step1_newDevice"
+        android:fontFamily="@font/montserrat"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +110,7 @@
 
     <TextView
         android:id="@+id/textView11"
+        android:fontFamily="@font/montserrat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -121,6 +125,7 @@
     <TextView
         android:id="@+id/qr_code_step3"
         android:layout_width="0dp"
+        android:fontFamily="@font/montserrat"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -136,6 +141,7 @@
 
     <TextView
         android:id="@+id/textView13"
+        android:fontFamily="@font/montserrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

@@ -34,7 +34,7 @@
     <string name="profile_logout">Cerrar sesión</string>
 
     <string name="profile_name">Nombre</string>
-    <string name="profile_lastname">Apellido</string>
+    <string name="profile_lastname">Miembro</string>
 
     <!--informacion usuario-->
     <string name="userinfo_button_edit">Editar</string>

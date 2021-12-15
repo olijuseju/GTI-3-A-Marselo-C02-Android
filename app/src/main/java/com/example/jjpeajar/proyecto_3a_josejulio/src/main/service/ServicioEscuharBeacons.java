@@ -20,9 +20,9 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
@@ -588,7 +588,8 @@ public class ServicioEscuharBeacons extends IntentService {
                 crearNotification.initNotificationChannel();
                 crearNotification.initNotification(tittle , message);
 
-                //call to logica method
+                //call to
+                // logica method
                 //callToLogicaToCrearNotificacion(id_user , tittle , message , access_token);
 
                 isErrorSensor = true;

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:text="Prueba"
+    android:fontFamily="@font/montserrat"
     android:maxLines="1"
     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1">
 

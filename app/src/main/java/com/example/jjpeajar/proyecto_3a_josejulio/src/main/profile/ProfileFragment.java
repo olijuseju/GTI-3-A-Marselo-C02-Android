@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
@@ -78,6 +79,10 @@ public class ProfileFragment extends Fragment {
     private ConstraintLayout clInfo;
     private ConstraintLayout btn_cerrar_sesion;
     private ConstraintLayout clConfig;
+    private TextView txt_nombre_user;
+    private TextView txt_rol_user;
+    private String name_user_String;
+    private String role_userString;
     private String access_token;
     //logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
@@ -95,6 +100,8 @@ public class ProfileFragment extends Fragment {
                 , getContext().MODE_PRIVATE);
 
         //si ya ha iniciado sesion
+        name_user_String = (shared.getString("user_name", null));
+        role_userString = (shared.getString("role_id", null));
         access_token = (shared.getString("access_token", null));
 
         //init logica
@@ -102,11 +109,17 @@ public class ProfileFragment extends Fragment {
 
         clRecorrido = v.findViewById(R.id.constraintLayout3);
         clGuiaGases = v.findViewById(R.id.clGases);
+        txt_nombre_user=v.findViewById(R.id.user_name);
+        txt_rol_user=v.findViewById(R.id.user_rol);
         clInfo = v.findViewById(R.id.c5);
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
         btn_cerrar_sesion = v.findViewById(R.id.profile_btn_cerrar_sesion);
         clConfig = v.findViewById(R.id.clConfig);
 
+
+        //set bienvenida text con el nombre del user
+        String userName= name_user_String;
+        txt_nombre_user.setText(userName);
 
         //onclicks
 
