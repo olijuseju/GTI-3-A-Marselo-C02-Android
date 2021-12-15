@@ -31,6 +31,7 @@
 
                     <TextView
                         android:id="@+id/textView40"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -65,6 +66,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/notification_tittle"
+                    android:fontFamily="@font/montserrat"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +87,7 @@
 
                     <TextView
                         android:id="@+id/numCal"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".src.main.profile.gasguide.GasInformationActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
@@ -14,6 +23,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_descrip"
         android:textSize="18sp"
+        android:fontFamily="@font/montserrat"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
 
@@ -23,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginEnd="16dp"
         android:text="@string/gasinfo_txtdescript"
         android:textAlignment="textStart"
@@ -60,6 +71,7 @@
 
     <TextView
         android:id="@+id/textView2"
+        android:fontFamily="@font/montserrat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -113,6 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginTop="24dp"
         android:text="@string/gasinfo_values"
         android:textSize="18sp"
@@ -183,6 +196,7 @@
         android:layout_width="94dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtvalues"
         android:textAlignment="center"
@@ -197,6 +211,7 @@
     <TextView
         android:id="@+id/numDistancia"
         android:layout_width="107dp"
+        android:fontFamily="@font/montserrat"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtinfo"
@@ -214,6 +229,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/gasinfo_txtalert"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -222,5 +238,9 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/numDistancia"
         app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
