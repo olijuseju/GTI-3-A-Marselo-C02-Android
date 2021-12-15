@@ -14,12 +14,12 @@ public class Medicion {
     public double longitude;
     public String type_read;
     public double value;
-    public int date;
+    public String date;
 
     //contructor vacio
     public Medicion(){}
 
-    public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, double value, int date) {
+    public Medicion(int id, int user_id, int device_id, double latitude, double longitude, String type_read, double value, String date) {
         this.id = id;
         this.user_id = user_id;
         this.device_id = device_id;
@@ -30,7 +30,7 @@ public class Medicion {
         this.date = date;
     }
 
-    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, double value, int date) {
+    public Medicion (int user_id, int device_id, double latitude, double longitude, String type_read, double value, String date) {
         this.user_id = user_id;
         this.device_id = device_id;
         this.latitude = latitude;
@@ -107,11 +107,11 @@ public class Medicion {
         this.value = value;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
