@@ -12,7 +12,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationController {
+public class    NotificationController {
 
     private List<Notification> notifications = new ArrayList<Notification>();
     private Notification notification;

@@ -93,6 +93,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.icon.setImageDrawable(context.getDrawable(R.drawable.icons_exclamation));
             holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.rojo_borde));
 
+        }else if( typeNotification.equals("Device")){
+            holder.icon_back.setBackground( context.getDrawable(R.drawable.red_rectangle) );
+            holder.icon.setImageDrawable(context.getDrawable(R.drawable.icons_exclamation));
+            holder.icon.setImageTintList(context.getResources().getColorStateList(R.color.rojo_borde));
         }
 
     }

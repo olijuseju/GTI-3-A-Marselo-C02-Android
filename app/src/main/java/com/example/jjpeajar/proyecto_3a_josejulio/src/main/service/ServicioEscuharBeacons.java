@@ -27,6 +27,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TramaIBeacon;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,7 @@ public class ServicioEscuharBeacons extends IntentService {
     public ArrayList<Integer> beaconsCO2 = new ArrayList<Integer>(); //aca guardamos beacons co2
     public ArrayList<Integer> beaconsTemp = new ArrayList<Integer>(); //aca guardamos beacons temp
     public ArrayList<Integer> beaconsHum = new ArrayList<Integer>(); //aca guardamos becaons hum
+    public ArrayList<Double>  beaconsDistancia = new ArrayList<Double>();
 
     public boolean tamuerto;
     public boolean tatuerto;
@@ -316,6 +318,12 @@ public class ServicioEscuharBeacons extends IntentService {
                     mostrarInformacionDispositivoBTLE(resultado);
                     byte[] bytes = resultado.getScanRecord().getBytes();
                     TramaIBeacon tramaIBeacon = new TramaIBeacon(bytes);
+
+                    //rrsi
+                    int rssi = resultado.getRssi();
+                    //paso el TxPower a
+                    int power = tib.getTxPower();
+
                     int data; // valor del gas
                     int numTipoDato = Utilidades.bytesToInt(tramaIBeacon.getMajor());
                     //tipo de medicion
@@ -353,6 +361,14 @@ public class ServicioEscuharBeacons extends IntentService {
                         // sensor dañado , de mometo nada
                         //---------------------------------------------------------------
 
+                    }
+
+                    //si es alguna medicion
+                    if(numTipoDato == 11 || numTipoDato == 10 || numTipoDato == 12){
+                        //calculo la distancia
+                        double distancia =  calculateDistance(power , rssi);
+                        //guardo en la lista
+                        beaconsDistancia.add(distancia);
                     }
 
                     // algoritmo para sacar la media y guardar la medicion
@@ -457,6 +473,39 @@ public class ServicioEscuharBeacons extends IntentService {
                     //---------------------------------------------------------------
                     //---------------------------------------------------------------
 
+                    Log.d("pepe", "MEDIA DISTANCIA  --> " + beaconsDistancia.size());
+                    //comprobamos si los beacons de un gas llegan al limite de beacons indicado
+                    if(beaconsDistancia.size() == 15){
+
+                        //hacer sumatorio de los valores de temperatura
+                        double sumatorio=0; //sumatorio
+                        double media=0; // media final
+                        int tamanyo= beaconsDistancia.size(); //size lista
+                        //for que recorre cada Integer de la lista
+                        for(double dato: beaconsDistancia){
+                            sumatorio= sumatorio + dato;    // sumatorio
+                            Log.d("pepe", "DATO DISTANCIA  --> " + dato);
+                        }
+
+                        //media de la distancia
+                        media = sumatorio / (double) tamanyo;
+                        // 2 decimales
+                        media=Math.round(media*100.0)/100.0;
+
+                        Log.d("pepe", "MEDIA DISTANCIA  --> " + media);
+
+                        //almacenar distancia en los preferences
+                        //guardar los valores del la distancia en las preferencias
+                        SharedPreferences.Editor editor = shared.edit();
+                        editor.putString("media_distancia", String.valueOf(media));
+                        editor.commit();
+
+                        //limpiamos la lista
+                        beaconsDistancia.clear();
+
+                        Log.d("pepe", "LIMPIAR LISTA DISTANCIA  --> " + beaconsDistancia.size());
+                    }
+
                 }
 
 
@@ -494,9 +543,9 @@ public class ServicioEscuharBeacons extends IntentService {
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
 
-                if(contador >= 25 && isReadBeacons == false){
+                if(contador >= 5 && isReadBeacons == false){
                     //sensor dañado
-                    lanzarNotificacionSensorRoto(id_user , access_token, contador);
+                    lanzarNotificacionSensorRoto(id_user , access_token);
                 }
 
             }
@@ -530,7 +579,7 @@ public class ServicioEscuharBeacons extends IntentService {
         String tittle = "";
         String type = "";
         //datos erroneos
-        if(media >= 2500 || media <= 0){
+        if(media >= 800 || media <= 0){
             if(isErrorSensor == false){
                 //saltar notificacion datos erroneos del sensor
                 message= "El sensor emite datos erróneos o mal calibrados";
@@ -554,9 +603,9 @@ public class ServicioEscuharBeacons extends IntentService {
             //los bool son para no enviar 2 notificacion del mismo tipo
             Log.d("pepe", "NOTIFICACION UMBRAL" + media);
 
-            if(media <= 350 && isInformation == false){
+            if(media <= 35 && isInformation == false){
                 //calidad de aire interior alta
-                message= "La calidad de aire es muy alta";
+                message= "La calidad de aire es buena";
                 tittle= "Información";
                 type= "Information";
                 //crear notificacion
@@ -566,18 +615,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isAlerta = false;
                 isPeligro = false;
                 isSensorRoto= false;
-            }else if(media > 350 && media <= 500  && isInformation == false) {
-                //calidad de aire interior buena
-                message= "La calidad de aire es buena";
-                tittle= "Información";
-                type= "Information";
-                crearNotification.initNotification(tittle , message);
-
-                isInformation = true;
-                isAlerta = false;
-                isPeligro = false;
-                isSensorRoto= false;
-            }else if(media > 500 && media <= 800 && isAlerta == false){
+            }else if(media > 35 && media <= 75 && isAlerta == false){
                 //calidad de aire interior moderada
                 message= "La calidad de aire es moderada";
                 tittle= "Alerta";
@@ -588,7 +626,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isInformation = false;
                 isPeligro = false;
                 isSensorRoto= false;
-            }else if(media > 800 && media <= 1200 && isAlerta == false){
+            }else if(media > 75 && media <= 185 && isAlerta == false){
                 //calidad de aire interior baja
                 message= "La calidad de aire es baja";
                 tittle= "Alerta";
@@ -599,7 +637,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 isInformation = false;
                 isPeligro = false;
                 isSensorRoto= false;
-            }else if(media > 1200 && isPeligro == false){
+            }else if(media > 185 && isPeligro == false){
                 //calidad de aire interior mala
                 message= "La calidad de aire es muy mala";
                 tittle= "Peligro";
@@ -621,10 +659,9 @@ public class ServicioEscuharBeacons extends IntentService {
      *
      * @param id_user , id del usuario
      * @param access_token , token del usuario que ha iniciado sesion
-     * @param contador , contador del tiempo que no se ha recibido beacons
      *
      */
-    private void lanzarNotificacionSensorRoto(int id_user , String access_token, long contador){
+    private void lanzarNotificacionSensorRoto(int id_user , String access_token){
         String message = "";
         String tittle = "";
         String type = "";
@@ -634,13 +671,12 @@ public class ServicioEscuharBeacons extends IntentService {
             CrearNotification crearNotification = new CrearNotification(getApplicationContext());
             crearNotification.initNotificationChannel();
             //sensor roto
-            message= contador + " segundos sin respuesta del sensor";
-            tittle= "Sensor dañado";
-            type= "Pinga";
+            message= "Tiempo maximo alcanzado, sensor sin conexion";
+            tittle= "Sensor sin conexión";
+            type= "Device";
             crearNotification.initNotification(tittle , message);
-
             //call to logica method
-            //callToLogicaToCrearNotificacion(id_user , type , message , access_token);
+            callToLogicaToCrearNotificacion(id_user , type , message , access_token);
 
             //parar busqueda de beacons
             onDestroy();
@@ -739,6 +775,20 @@ public class ServicioEscuharBeacons extends IntentService {
             return true;
         }
         return false;
+    }
+
+    // Usa esto para medir la distancia
+    /**
+     * Descripcion de obtenerLocalizacionActual. Funcion que medir la distancia del sensor a la aplicacion
+     * @return double , distancia del sensor
+     *
+     */
+    public static double calculateDistance(int txPower,int rssi){
+        // La señal vale el valor absoluto.
+        int absRssi = Math.abs(rssi);
+
+        double power = (absRssi - txPower)/(10 * 4.0);
+        return Math.pow(10,power);
     }
 
 } // class

@@ -134,7 +134,7 @@ public class LogicaNegocioNotification {
     public void crearNotificacion( String access_token ,int user_id , String message , String type , CrearNotificacionCallback crearNotificacionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
         //creamos pojo
-        Notification notification= new Notification(user_id,message,type);
+        Notification notification= new Notification(String.valueOf(user_id),message,type);
         //concadenamos los atributos
         String res= notification.toJsonForCreate();
 
@@ -164,7 +164,7 @@ public class LogicaNegocioNotification {
                         crearNotificacionCallback.onFailedCrearNotificacionCallback(true);
                     }
                 }catch (Exception e){
-
+                    Log.d("pepe", "  AAAA ->  ERRRRRRRORRRR ");
                 }
             }
         });
