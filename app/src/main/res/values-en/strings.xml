@@ -29,6 +29,7 @@
     <string name="profile_recorrido">Route</string>
     <string name="profile_info">Edit User</string>
     <string name="profile_link_device">Link device</string>
+    <string name="profile_encontrar_device">Find Device</string>
     <string name="profile_config">Settings</string>
     <string name="profile_logout">Log out</string>
 

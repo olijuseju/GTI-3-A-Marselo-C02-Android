@@ -15,6 +15,8 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 public class LogicaNegocioMediciones {
 
     // URL
@@ -30,6 +32,12 @@ public class LogicaNegocioMediciones {
     public interface PublicarMedicionesCallback{
         void onCompletedPublicarMediciones(int success);
         void onFailedPublicarMediciones(boolean res);
+    }
+    // obtener medicion by id user
+    public interface ObtenerMedicionesByIdUserCallback{
+        void onCompletedObtenerMedicionesByIdUser(double calidadAire , double temp , double hum );
+        void onCompletedObtenerMedicionesVacio(boolean res);
+        void onFailedObtenerMedicionesByIdUser(boolean res);
     }
     //constructor vacío
     public LogicaNegocioMediciones(){
@@ -103,6 +111,90 @@ public class LogicaNegocioMediciones {
                     //error
                     publicarMedicionesCallback.onFailedPublicarMediciones(true);
                 }
+            }
+        });
+    }
+
+    /**
+     * La descripción de obtenerMedicionesByIdUser. Funcion que obtiene las medicionesde un user de la bbdd.
+     *
+     * @param access_token String con el token del usuario
+     * @param obtenerNotificacionesByIdUserCallback Objeto ObtenerNotificacionesByIdUserCallback para poder devolver el cuerpo.
+     *
+     */
+    public void obtenerMedicionesByIdUser(String access_token , ObtenerMedicionesByIdUserCallback obtenerNotificacionesByIdUserCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        Log.d("pepe", " ENTRAAAAAAAAAAA -------------------------------------  ");
+        Log.d("pepe", "  CUERPO ->" + access_token+"");
+
+        //peticion
+        peticionarioRest.realizarPeticion("GET", ADDRESS + "/api/v1/mediciones/user", null , access_token , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+
+                //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
+
+                try{
+                    //convertir de json a POJO
+                    Gson gson= new Gson();
+                    MedicionController medicionController = gson.fromJson(cuerpo, MedicionController.class);
+
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + medicionController.getSuccess()+"");
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    int success= medicionController.getSuccess();
+                    if(success == 1){
+
+                        //conseguir la ultima medicion de cada tipo de medicion (Calidad de aire , temp y hum)
+                        List<Medicion> medicionList = medicionController.getMediciones();
+
+                        //si no esta vacio el array
+                        if(medicionList.size() != 0){
+
+                            //donde vamos a guardar la ultima medicion de cada tipo
+                            Medicion ultimaMedicionCalidadAire= new Medicion();
+                            Medicion ultimaMedicionTemp= new Medicion();
+                            Medicion ultimaMedicionHum= new Medicion();
+                            //recorremos toda la lista
+                            for(Medicion medicion : medicionList){
+                                //si es de un tipo almacenamos en una variable, la ultima almacenada es la ultima que se ha registrado
+                                if(medicion.getType_read().equals("CO2")){
+                                    ultimaMedicionCalidadAire = medicion;
+                                }
+                                if(medicion.getType_read().equals("Humedad")){
+                                    ultimaMedicionHum = medicion;
+                                }
+                                if(medicion.getType_read().equals("Temperatura")){
+                                    ultimaMedicionTemp = medicion;
+                                }
+                            }
+                            //variables donde vamos a almacenar el valor de cada medicion
+                            double calidadAire = ultimaMedicionCalidadAire.getValue();
+                            double temp= ultimaMedicionTemp.getValue();
+                            double hum= ultimaMedicionHum.getValue();
+
+                            //devolver valores
+                            obtenerNotificacionesByIdUserCallback
+                                    .onCompletedObtenerMedicionesByIdUser(calidadAire , temp , hum);
+
+                        }else { //si esta vacio
+                            //devolver respuesta
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesVacio(true);
+                        }
+
+                    }else {
+                        obtenerNotificacionesByIdUserCallback.onFailedObtenerMedicionesByIdUser(true);
+                    }
+                }catch (Exception e){
+                    Log.d("pepe", "  CUERPO ->"+" ERROR  ");
+                }
+
+
+
             }
         });
     }

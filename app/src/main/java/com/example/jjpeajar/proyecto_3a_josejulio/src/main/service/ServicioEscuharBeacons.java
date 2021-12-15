@@ -76,6 +76,7 @@ public class ServicioEscuharBeacons extends IntentService {
     private boolean isPeligro = false;
     private boolean isErrorSensor = false;
     private boolean isSensorRoto = false;
+    private boolean isReadBeacons= false;
 
     //notificaciones
     private PendingIntent pendingIntent;
@@ -299,6 +300,8 @@ public class ServicioEscuharBeacons extends IntentService {
 
                 if (device_id != -1) { // si tiene un dispositivo vinculado
 
+                    isReadBeacons = true;
+
                     // -----------------------------------------------------------------
                     //inicializar el gps par obtener la longitud y la latitud
                     //IMPORTANTE -> Al acceder a su info va a dar null, hay que llamar primero al metodo
@@ -356,7 +359,7 @@ public class ServicioEscuharBeacons extends IntentService {
                     //---------------------------------------------------------------
                     //---------------------------------------------------------------
 
-                    Log.d("pepe", "MEDIA CO2  --> " + beaconsCO2.size());
+                    Log.d("pepe", "SIZE CO2  --> " + beaconsCO2.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
                     if(beaconsCO2.size() == 15){
 
@@ -463,6 +466,7 @@ public class ServicioEscuharBeacons extends IntentService {
             public void onBatchScanResults(List<ScanResult> results) {
                 super.onBatchScanResults(results);
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onBatchScanResults() ");
+                isReadBeacons = false;
 
             }
 
@@ -470,6 +474,7 @@ public class ServicioEscuharBeacons extends IntentService {
             public void onScanFailed(int errorCode) {
                 super.onScanFailed(errorCode);
                 Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanFailed() ");
+                isReadBeacons = false;
 
             }
         };
@@ -489,7 +494,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: tras la espera:  " + contador);
                 contador++;
 
-                if(contador >= 25){
+                if(contador >= 25 && isReadBeacons == false){
                     //sensor dañado
                     lanzarNotificacionSensorRoto(id_user , access_token, contador);
                 }
@@ -547,6 +552,8 @@ public class ServicioEscuharBeacons extends IntentService {
             crearNotification.initNotificationChannel();
             //ifs de los umbrales
             //los bool son para no enviar 2 notificacion del mismo tipo
+            Log.d("pepe", "NOTIFICACION UMBRAL" + media);
+
             if(media <= 350 && isInformation == false){
                 //calidad de aire interior alta
                 message= "La calidad de aire es muy alta";

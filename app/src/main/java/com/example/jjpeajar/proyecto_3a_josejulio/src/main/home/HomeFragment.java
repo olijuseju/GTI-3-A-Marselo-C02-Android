@@ -11,6 +11,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 
@@ -67,10 +70,18 @@ public class HomeFragment extends Fragment {
     private Button conect;
     private TextView txt_bienvenida;
     private String name_user;
+    private String access_token;
     private TextView fragment_home_btn_desconectar;
     private TextView txt_medicion_calidad_aire;
     private TextView txt_medicion_temp;
     private TextView txt_medicion_hum;
+    //logicas
+    private LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
+    // para llamar al metodo de obtener mediciones cada cierto tiempo
+    Handler handler = new Handler();
+    private final int TIEMPO = 5000;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +94,10 @@ public class HomeFragment extends Fragment {
 
         //si ya ha iniciado sesion
         name_user = (shared.getString("user_name", null));
+        access_token = shared.getString("access_token", null);
+
+        //llamar al metodo al principio 1 vez , para que el resultado sea más rapido
+        getUltimasMediciones();
 
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_home, container, false);
@@ -123,6 +138,21 @@ public class HomeFragment extends Fragment {
         String bienvenida= getText(R.string.txt_home_bienvenida) + " " + name_user;
         txt_bienvenida.setText(bienvenida);
 
+        //obtener las ultimas mediciones
+        //llamar al metodo cada 10 segundos
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                //llamar al metodo
+                getUltimasMediciones();
+
+                handler.postDelayed(this , TIEMPO);
+
+            }
+        }, TIEMPO);
+
+
         return v;
     }
 
@@ -151,5 +181,50 @@ public class HomeFragment extends Fragment {
 
         return estimacion;
 
+    }
+    /**
+     * La descripción de getUltimasMediciones. Funcion que llama a la logica de mediciones para
+     * obtener las ultimas mediciones de cada tipo
+     *
+     */
+    private void getUltimasMediciones(){
+        if(access_token != null){
+
+            //llamar a la logica
+            logicaNegocioMediciones.obtenerMedicionesByIdUser(access_token, new LogicaNegocioMediciones.ObtenerMedicionesByIdUserCallback() {
+                @Override
+                public void onCompletedObtenerMedicionesByIdUser(double calidadAire, double temp, double hum) {
+                    Log.d("pepe", "getUltimasMediciones() RESULTADO GUCCI -> " + calidadAire);
+                    //estimar la calidad de aire
+                    String estimacionCalidadAire = estimacionCalidadAire(calidadAire);
+                    //convertir resultado en string
+                    String medicionTemp = String.valueOf(temp) +"°C";
+                    String medicionHum = String.valueOf(hum) +"%";
+
+                    // mostrar en la app
+                    txt_medicion_calidad_aire.setText(estimacionCalidadAire);
+                    txt_medicion_temp.setText(medicionTemp);
+                    txt_medicion_hum.setText(medicionHum);
+
+                }
+
+                @Override
+                public void onCompletedObtenerMedicionesVacio(boolean res) {
+                    Log.d("pepe", "getUltimasMediciones() RESULTADO VACIO -> " + res);
+
+                    // mostrar en la app
+                    String vacio = "Sin datos";
+                    txt_medicion_calidad_aire.setText(vacio);
+                    txt_medicion_temp.setText(vacio);
+                    txt_medicion_hum.setText(vacio);
+                }
+
+                @Override
+                public void onFailedObtenerMedicionesByIdUser(boolean res) {
+                    Log.d("pepe", "getUltimasMediciones() RESULTADO FALLIDO -> " + res);
+                }
+            });
+
+        }
     }
 }
