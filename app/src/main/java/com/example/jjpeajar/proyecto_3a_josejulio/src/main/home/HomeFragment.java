@@ -167,15 +167,13 @@ public class HomeFragment extends Fragment {
         String estimacion = "Sin datos";
 
         //umbrales de la calidad de aire
-        if(media <= 350){
-            estimacion = "Alta";
-        }else if(media > 350 && media <= 500) {
+        if(media <= 35){
             estimacion = "Buena";
-        }else if(media > 500 && media <= 800) {
+        }else if(media > 35 && media <= 75) {
             estimacion = "Moderada";
-        }else if(media > 800 && media <= 1200){
+        }else if(media > 75 && media <= 185){
             estimacion = "Baja";
-        }else if(media > 1200){
+        }else if(media > 185){
             estimacion = "Mala";
         }
 

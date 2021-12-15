@@ -1,8 +1,5 @@
 package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 /**
  * @author Andrey Kuzmin
  * Notification
@@ -14,7 +11,7 @@ import java.text.SimpleDateFormat;
 
 public class Notification {
     private Integer id;
-    private Integer userId;
+    private String user_id;
     private String date;
     private String message;
     private String type;
@@ -24,12 +21,6 @@ public class Notification {
     //contructor vacio
     public Notification() { }
 
-    //contructor para sacar notificaciones en un rv por ejemplo
-    public Notification(String date, String message, String type) {
-        this.date = date;
-        this.message = message;
-        this.type = type;
-    }
     //lo mismo que el anterior pero con el atributo created_at
     public Notification(String date, String message, String type, String created_at) {
         this.date = date;
@@ -39,9 +30,8 @@ public class Notification {
     }
 
     //contructor para crear notificaciones
-    public Notification(Integer userId, String message, String type) {
-        this.userId = userId;
-        this.date = date;
+    public Notification(String user_id, String message, String type) {
+        this.user_id = user_id;
         this.message = message;
         this.type = type;
     }
@@ -53,11 +43,11 @@ public class Notification {
     public void setId(Integer id) {
         this.id = id;
     }
-    public Integer getUserId() {
-        return userId;
+    public String getUser_id() {
+        return user_id;
     }
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
     public String getDate() {
         return date;
@@ -92,7 +82,7 @@ public class Notification {
 
     //concadenar atributos
     public String toJsonForCreate(){
-        return  "user_id="+getUserId()
+        return  "user_id="+ getUser_id()
                 +"&message="+getMessage()
                 +"&type="+getType();
     }
