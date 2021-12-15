@@ -26,6 +26,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Bienvenido, Jose"
+                    android:fontFamily="@font/montserrat"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +34,7 @@
                 <TextView
                     android:id="@+id/textView16"
                     android:layout_width="0dp"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
@@ -72,6 +74,7 @@
 
                     <TextView
                         android:id="@+id/dasa"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -80,8 +83,10 @@
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.507"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/sadad" />
+                        app:layout_constraintTop_toBottomOf="@+id/sadad"
+                        app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,6 +115,7 @@
 
                     <TextView
                         android:id="@+id/aaa"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -149,6 +155,7 @@
 
                     <TextView
                         android:id="@+id/textView17"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -163,6 +170,7 @@
 
                 <TextView
                     android:id="@+id/textView18"
+                    android:fontFamily="@font/montserrat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -194,6 +202,7 @@
 
                     <TextView
                         android:id="@+id/textView20"
+                        android:fontFamily="@font/montserrat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -232,6 +241,7 @@
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/button_primary"
                             android:text="Conectar"
+                            android:fontFamily="@font/montserrat"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -250,6 +260,7 @@
                             android:text="Desconectar"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -298,6 +309,7 @@
                             android:text="Informacion de tu zona"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -310,6 +322,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:text="Municipio"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintEnd_toStartOf="@+id/textView26"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -322,6 +335,7 @@
                             android:text="Teulada"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/textView24"
                             app:layout_constraintStart_toStartOf="@+id/textView24"
@@ -334,6 +348,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginEnd="16dp"
                             android:text="Altitud"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/textView24"
@@ -346,6 +361,7 @@
                             android:text="158 metros"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/textView26"
                             app:layout_constraintStart_toStartOf="@+id/textView26"
@@ -358,6 +374,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             android:text="Zona"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintEnd_toStartOf="@+id/textView31"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
@@ -370,6 +387,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
                             android:text="Media O2"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -383,6 +401,7 @@
                             android:text="Caseta de angle"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/textView30"
@@ -396,6 +415,7 @@
                             android:text="80%"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/textView31"
                             app:layout_constraintStart_toStartOf="@+id/textView31"
@@ -412,6 +432,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="Medición del sensor"
                     android:textSize="16sp"
+                    android:fontFamily="@font/montserrat"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -452,6 +473,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
                             android:text="Sin datos"
+                            android:fontFamily="@font/montserrat"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -465,6 +487,7 @@
                             android:layout_marginBottom="8dp"
                             android:text="Calidad del aire"
                             android:textSize="12sp"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/txt_medicion_calidad_aire"
                             app:layout_constraintTop_toBottomOf="@+id/txt_medicion_calidad_aire" />
@@ -507,6 +530,7 @@
                             android:text="Sin datos"
                             android:textColor="@color/black"
                             android:textSize="16sp"
+                            android:fontFamily="@font/montserrat"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/imageView1602" />
@@ -518,6 +542,7 @@
                             android:layout_marginBottom="8dp"
                             android:text="Humedad"
                             android:textSize="12sp"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/txt_medicion_hum"
                             app:layout_constraintTop_toBottomOf="@+id/txt_medicion_hum" />
@@ -563,6 +588,7 @@
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/imageView16aire" />
 
@@ -573,6 +599,7 @@
                             android:layout_marginBottom="8dp"
                             android:text="Temperatura"
                             android:textSize="12sp"
+                            android:fontFamily="@font/montserrat"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/txt_medicion_temp"
                             app:layout_constraintTop_toBottomOf="@+id/txt_medicion_temp" />

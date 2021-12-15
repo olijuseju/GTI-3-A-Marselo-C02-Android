@@ -26,6 +26,7 @@
 
             <TextView
                 android:id="@+id/textView19"
+                android:fontFamily="@font/montserrat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/profile_config"
