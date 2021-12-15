@@ -231,14 +231,16 @@ public class LogicaNegocioUsarios {
      * @param town Int con el id del municipio del usuario
      * @param usariosCallback UpdateCallback para almacenar la respuesta del cuerpo
      */
-    public void actualizarUsuario(int id, String token, String username, String correo , String password ,int town ,UpdateCallback usariosCallback) {
+    public void actualizarUsuario(int id, String token, String username, String correo , String password ,int town, int role ,UpdateCallback usariosCallback) {
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         //init user Pojo
         User user = new User(username, correo);
         UserInformation userInformation = new UserInformation(id, town);
         //concadenar atributos para el body de la peticion
-        String res = user.toJsonToUpdate(password, town);
+        String res = user.toJsonToUpdate(password, town, role);
+        Log.d("pepeupdate", res);
+
         //peticion
         peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/user/update/" + id, res,token, new PeticionarioRest.RespuestaREST() {
             @Override
