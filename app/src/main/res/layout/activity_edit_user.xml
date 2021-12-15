@@ -114,18 +114,19 @@
             app:tint="@color/check_verde" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/edituser_tittle"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/bt_ok"
-        app:layout_constraintEnd_toStartOf="@+id/bt_ok"
-        app:layout_constraintStart_toEndOf="@+id/bt_back_edit"
-        app:layout_constraintTop_toTopOf="@+id/bt_ok" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/edituser_tittle"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_ok"
+                app:layout_constraintEnd_toStartOf="@+id/bt_ok"
+                app:layout_constraintStart_toEndOf="@+id/bt_back_edit"
+                app:layout_constraintTop_toTopOf="@+id/bt_ok" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_username_edituser"
@@ -139,6 +140,7 @@
         android:hint="@string/edituser_username"
         app:boxStrokeColor="@color/black"
         app:hintTextColor="@color/black"
+        android:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout16">
@@ -147,6 +149,7 @@
             android:id="@+id/username_edituser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -171,6 +174,7 @@
             android:id="@+id/mail_edituser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -196,6 +200,7 @@
             android:id="@+id/password_edituser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -223,6 +228,7 @@
             android:id="@+id/repeatpassword_edituser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -248,7 +254,8 @@
             android:id="@+id/dropDown_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false" />
+            android:enabled="false"
+            android:fontFamily="@font/montserrat" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
