@@ -103,7 +103,6 @@ public class ProfileFragment extends Fragment {
 
         //si ya ha iniciado sesion
         name_user_String = (shared.getString("user_name", null));
-        role_userString = (shared.getString("role_id", null));
         access_token = (shared.getString("access_token", null));
 
         //init logica
