@@ -86,6 +86,7 @@ public class EncontrarDispositivoActivity extends AppCompatActivity {
         //get distance last distance
         //sacamos el id del user
         String distance_coockies = shared.getString("media_distancia", null);
+        progressBar.setMax(250); //maximo valor del progress bar
 
         if(distance_coockies != null){ // si no esta vacío
 
@@ -99,7 +100,6 @@ public class EncontrarDispositivoActivity extends AppCompatActivity {
 
             //set progress bar value
             progressBar.setProgress(currentProgress); //set el valor del progress bar
-            progressBar.setMax(250); //maximo valor del progress bar
 
             Log.d("pepe", "setDistanciaToProgressBar() getProgress -> " + progressBar.getProgress());
 

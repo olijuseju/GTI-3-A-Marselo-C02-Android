@@ -41,9 +41,6 @@
             android:name=".src.main.route.RecorridoActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.MainActivity"
-            android:exported="true" />
-        <activity
             android:name=".src.main.profile.gasguide.GasInformationActivity"
             android:exported="true" />
         <activity
