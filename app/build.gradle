@@ -45,5 +45,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'//añadimos esta libreria para qr
     //libreria para reiniciar la aplicacion
     implementation 'com.jakewharton:process-phoenix:2.1.2'
+    //para insertar foto mediante url
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
