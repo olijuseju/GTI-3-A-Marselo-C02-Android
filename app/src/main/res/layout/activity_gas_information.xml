@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".src.main.gasguide.GasInformationActivity">
+    android:background="@color/blue_background"
+    tools:context=".src.main.profile.gasguide.GasInformationActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
@@ -14,15 +23,17 @@
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_descrip"
         android:textSize="18sp"
+        android:fontFamily="@font/montserrat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/gas_information_values" />
 
     <TextView
-        android:id="@+id/numPasos"
+        android:id="@+id/gas_information_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginEnd="16dp"
         android:text="@string/gasinfo_txtdescript"
         android:textAlignment="textStart"
@@ -59,7 +70,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/gas_information_name"
+        android:fontFamily="@font/montserrat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -84,22 +96,20 @@
         app:layout_constraintBottom_toBottomOf="@+id/machine_item1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/gas_information_name">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView15"
-                android:layout_width="250dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:id="@+id/gas_information_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icons_ozono" />
@@ -113,6 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginTop="24dp"
         android:text="@string/gasinfo_values"
         android:textSize="18sp"
@@ -152,8 +163,8 @@
         android:layout_width="48dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textTitulo"
-        app:layout_constraintStart_toStartOf="@+id/textTitulo"
+        app:layout_constraintEnd_toEndOf="@+id/gas_information_values"
+        app:layout_constraintStart_toStartOf="@+id/gas_information_values"
         app:layout_constraintTop_toBottomOf="@+id/textView16"
         app:srcCompat="@drawable/icons_values" />
 
@@ -162,8 +173,8 @@
         android:layout_width="123dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-        app:layout_constraintEnd_toEndOf="@+id/numDistancia"
-        app:layout_constraintStart_toStartOf="@+id/numDistancia"
+        app:layout_constraintEnd_toEndOf="@+id/gas_information_info"
+        app:layout_constraintStart_toStartOf="@+id/gas_information_info"
         app:layout_constraintTop_toTopOf="@+id/imageView17"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icons_info_blue" />
@@ -173,54 +184,61 @@
         android:layout_width="90dp"
         android:layout_height="45dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-        app:layout_constraintEnd_toEndOf="@+id/textView29"
-        app:layout_constraintStart_toStartOf="@+id/textView29"
+        app:layout_constraintEnd_toEndOf="@+id/gas_information_alert"
+        app:layout_constraintStart_toStartOf="@+id/gas_information_alert"
         app:layout_constraintTop_toTopOf="@+id/imageView18"
         app:srcCompat="@drawable/icons_alert" />
 
     <TextView
-        android:id="@+id/textTitulo"
+        android:id="@+id/gas_information_values"
         android:layout_width="94dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/montserrat"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtvalues"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/numDistancia"
+        app:layout_constraintEnd_toStartOf="@+id/gas_information_info"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
     <TextView
-        android:id="@+id/numDistancia"
+        android:id="@+id/gas_information_info"
         android:layout_width="107dp"
+        android:fontFamily="@font/montserrat"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:text="@string/gasinfo_txtinfo"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView29"
+        app:layout_constraintEnd_toStartOf="@+id/gas_information_alert"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textTitulo"
+        app:layout_constraintStart_toEndOf="@+id/gas_information_values"
         app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/gas_information_alert"
         android:layout_width="94dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/montserrat"
         android:text="@string/gasinfo_txtalert"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/numDistancia"
+        app:layout_constraintStart_toEndOf="@+id/gas_information_info"
         app:layout_constraintTop_toBottomOf="@+id/imageView19" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

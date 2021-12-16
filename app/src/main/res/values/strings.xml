@@ -27,13 +27,14 @@
 
     <!--perfil-->
     <string name="profile_recorrido">Recorrido</string>
-    <string name="profile_info">Información</string>
+    <string name="profile_info">Editar Usuario</string>
     <string name="profile_link_device">Vincular dispositivo</string>
+    <string name="profile_encontrar_device">Encontrar dispositivo</string>
     <string name="profile_config">Configuración</string>
     <string name="profile_logout">Cerrar sesión</string>
 
     <string name="profile_name">Nombre</string>
-    <string name="profile_lastname">Apellido</string>
+    <string name="profile_lastname">Miembro</string>
 
     <!--informacion usuario-->
     <string name="userinfo_button_edit">Editar</string>
@@ -53,7 +54,7 @@
     <string name="edituser_town">Seleccione su municipio</string>
 
     <!--guia de gases-->
-    <string name="gasguide_tittle">Guía de gases</string>
+    <string name="gasguide_tittle">Información adicional</string>
     <string name="gasguide_particulas">Partículas PM</string>
     <string name="gasguide_ozone">Ozono</string>
     <string name="gasguide_no2">Dióxido de nitrógeno</string>
@@ -155,5 +156,19 @@
 
     <!-- pantalla principal -->
     <string name="txt_home_bienvenida">Bienvenido,</string>
+
+
+    <!-- Configuration -->
+    <string name="tema">Tema</string>
+    <string name="notificaciones">Administrar notificaciones</string>
+    <string name="web">Web MarseloO2</string>
+    <string name="comentarios">Enviar Comentarios</string>
+    <string name="politica">Política de privacidad</string>
+    <string name="version">Versión de la aplicación</string>
+
+    <!-- RecyclerView Notifications -->
+    <string name="empty_primary_text">No hay ninguna notificación todavía</string>
+    <string name="empty_secondary_text">Deslice hacia abajo para actualizar la lista</string>
+
 
 </resources>

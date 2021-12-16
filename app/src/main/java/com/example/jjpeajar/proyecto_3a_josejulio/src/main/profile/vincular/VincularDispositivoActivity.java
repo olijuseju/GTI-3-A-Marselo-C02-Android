@@ -98,13 +98,14 @@ public class VincularDispositivoActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        //al pulsar el step1
         step1Card.setOnClickListener(new View.OnClickListener() { //step1 card click
             @Override
             public void onClick(View v) {
                 QrScan();
             }
         });
+        //al pulsar el step3
         step3Card.setOnClickListener(new View.OnClickListener() { //step1 card click
             @Override
             public void onClick(View v) {
@@ -114,13 +115,13 @@ public class VincularDispositivoActivity extends AppCompatActivity {
 
 
 
-
+        //check button
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Log.d("pepe", access_token);
-                int serial;
+                String serial;
 
                 if(isStep1Done  && isStep3Done){ //si todos los pasos estas terminados
                     //guardamos los datos en el objeto machine
@@ -128,13 +129,14 @@ public class VincularDispositivoActivity extends AppCompatActivity {
 
                     try{
 
-                        serial = Integer.parseInt(deviceModel);
+                        serial = deviceModel;
 
                     }catch (Exception e){
-                        serial = 000;
+                        serial = "none";
                     }
 
                     Log.d("pepe",serial+"");
+                    //llamar a la logica
                     logicaNegocioUsarios.vincularDispoitivo(serial, access_token, new LogicaNegocioUsarios.VinculateDeviceCallback() {
                         @Override
                         public void onCompletedVinculateDevice(String serial, int device_id) {
@@ -163,33 +165,47 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         });
     }
 
-    //init qr scan
+    /**
+     * Descripcion de QrScan. Inicia el QR Scan
+     *
+     */
     private void QrScan(){
         IntentIntegrator integrator= new IntentIntegrator(VincularDispositivoActivity.this);
         integrator.setBeepEnabled(false);
-        integrator.setOrientationLocked(false);
+        integrator.setOrientationLocked(true);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt(getResources().getString(R.string.step1Text_newDeviceQR));
         integrator.initiateScan();
     }
 
+    /**
+     * Descripcion de onActivityResult. resultado del qr scan
+     * @param requestCode , codigo de validacion
+     * @param resultCode ,  codigo de resultado
+     * @param data ,    daton que hemos escaneado del qr
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if(result != null) {
-            if(result.getContents() == null) {
+            if(result.getContents() == null) { //si no hemos escaneado nada
                 deviceModel ="";
                 deviceCode ="";
-                step1StateInactive();
-            } else {
-                deviceModel =result.getContents().toString(); //get the machine code
-                step1StateActive();
+                step1StateInactive(); //paso 1 incompleto
+            } else { //si hemos escaneado algo
+                deviceModel =result.getContents().toString(); //get the device code
+                step1StateActive(); //paso 1 completado
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    /**
+     * Descripcion de step1StateActive. Funcion que cambia el estado del Card step1 como activo
+     *
+     */
     private void step1StateActive(){
         step1State.setImageResource(R.drawable.icons_active_state); //change icon to active
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -197,6 +213,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         }
         isStep1Done=true;
     }
+    /**
+     * Descripcion de step1StateInactive. Funcion que cambia el estado del Card step1 como inactivo
+     *
+     */
     private void step1StateInactive(){
         step1State.setImageResource(R.drawable.icons_circle_inactive); //change icon to Inactive
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -206,6 +226,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         //cuando hay 1 paso incompleto el paso 3 automaticamente pasa a incompleto
         step3StateInactive();
     }
+    /**
+     * Descripcion de step3StateActive. Funcion que cambia el estado del Card step3 como activo
+     *
+     */
     private void step3StateActive(){
         step3State.setImageResource(R.drawable.icons_active_state); //change icon to active
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -213,6 +237,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         }
         isStep3Done=true;
     }
+    /**
+     * Descripcion de step3StateInactive. Funcion que cambia el estado del Card step3 como inactivo
+     *
+     */
     private void step3StateInactive(){
         step3State.setImageResource(R.drawable.icons_circle_inactive); //change icon to Inactive
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -221,6 +249,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
         isStep3Done=false;
     }
 
+    /**
+     * Descripcion de ClearAllState. Funcion que limpia todos los atributos que utilizamos
+     *
+     */
     private void ClearAllState(){
         deviceModel =""; //clear el codigo escaneado
         deviceCode =""; //clear el codigo escaneado
@@ -235,7 +267,10 @@ public class VincularDispositivoActivity extends AppCompatActivity {
             step3State.setImageTintList(ColorStateList.valueOf(getColor(R.color.black)));
         }
     }
-
+    /**
+     * Descripcion de initStep3BottomSheet. Funcion que inicia el bottom sheet del paso 3
+     *
+     */
     private void initStep3BottomSheet(){
         //set the bottom sheet
         BottomSheetDialog verificationBottomSheet = new BottomSheetDialog(VincularDispositivoActivity.this);

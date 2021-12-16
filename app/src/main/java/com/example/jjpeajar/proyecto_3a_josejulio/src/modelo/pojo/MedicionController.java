@@ -5,6 +5,9 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
  * @author Andrey Kuzmin
  * MedicionController
  * 2021-10-14
+ *
+ *
+ * Pojo que utilizamos para convertir JSON en esta clase.
  */
 
 
@@ -15,9 +18,12 @@ public class MedicionController {
     public int success;
     public String message;
 
+    //contructor
     public List<Medicion> getMediciones() {
         return mediciones;
     }
+
+    //getters && setters
 
     public void setMediciones(List<Medicion> mediciones) {
         this.mediciones = mediciones;

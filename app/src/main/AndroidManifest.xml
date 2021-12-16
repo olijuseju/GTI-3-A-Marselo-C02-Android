@@ -20,6 +20,18 @@
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".src.main.profile.encontrar.EncontrarDispositivoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".src.main.profile.config.ConfigurationNotificationsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".src.main.profile.config.ConfigurationThemeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".src.main.profile.config.ConfigurationActivity"
+            android:exported="true" />
+        <activity
             android:name=".src.main.profile.vincular.VincularDispositivoActivity"
             android:exported="true" />
         <activity
@@ -29,14 +41,10 @@
             android:name=".src.main.route.RecorridoActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.MainActivity"
+            android:name=".src.main.profile.gasguide.GasInformationActivity"
             android:exported="true" />
         <activity
-            android:name=".src.main.gasguide.GasInformationActivity"
-            android:exported="true">
-        </activity>
-        <activity
-            android:name=".src.main.gasguide.GasGuideActivity"
+            android:name=".src.main.profile.gasguide.GasGuideActivity"
             android:exported="true" />
         <activity
             android:name=".src.main.profile.editar.EditUserActivity"

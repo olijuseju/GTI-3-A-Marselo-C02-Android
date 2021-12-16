@@ -4,6 +4,8 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
  * @author Andrey Kuzmin
  * LoginActivity
  * 2021-11-23
+ *
+ * Pojo que utilizamos para convertir el JSON.
  */
 
 public class UserController {

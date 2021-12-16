@@ -40,6 +40,7 @@
                 android:hint="@string/login_txt_mail"
                 app:boxStrokeColor="@color/black"
                 app:hintTextColor="@color/black"
+                android:fontFamily="@font/montserrat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -47,6 +48,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_editText_mail"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoCorrect|textEmailAddress" />
 
@@ -64,6 +66,7 @@
                 android:hint="@string/register_password"
                 app:boxStrokeColor="@color/black"
                 app:endIconMode="password_toggle"
+                android:fontFamily="@font/montserrat"
                 app:hintTextColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +75,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_editText_password"
                     android:layout_width="match_parent"
+                    android:fontFamily="@font/montserrat"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
 
@@ -82,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_marginBottom="8dp"
                 android:text="@string/login_subtxt"
                 app:layout_constraintBottom_toTopOf="@+id/login_register_txt"
@@ -93,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="24dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/login_txt_register"
                 android:textColor="@color/color_principal"
                 android:textSize="16sp"
@@ -102,6 +108,7 @@
             <Button
                 android:id="@+id/btn_iniciar_sesion"
                 android:layout_width="0dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
@@ -116,6 +123,7 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/login_btn"

@@ -102,6 +102,7 @@ public class EditUserActivity extends AppCompatActivity {
                 editor.putString("user_name", userController.getUser().getName());
                 editor.putString("user_email", userController.getUser().getEmail());
                 editor.putInt("town_id", userController.getUserInformation().getTown_id());
+                editor.putInt("role_id", userController.getUserInformation().getRole_id());
                 editor.putString("user_id", String.valueOf( (int) userController.getUser().getId() ));
                 editor.apply();
 
@@ -176,19 +177,25 @@ public class EditUserActivity extends AppCompatActivity {
     /**
      * Descripcion de editarUsuario. Editamos el usuario cuando hace click en el boton de arriba a la derecha
      *
-     * @param id
-     * @param token
+     * @param id . id del user
+     * @param token , access_token del user registrado
      */
     private void editarUsuario(String id, String token){
+
+        SharedPreferences shared= getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+
 
         townName = dropdowntxt.getText().toString();
         if(!townName.isEmpty()) {
             //Obtenemos el id de la town del bottomsheet
             int pos = adapter.getPosition(townName);
             int idTown = ListTowns.get(pos).getId();
+            int role = shared.getInt("role_id", -1);
 
             //Actualizamos usuario
-            logicaNegocioUsarios.actualizarUsuario(Integer.parseInt(id), token, username_edituser.getText().toString(), mail_edituser.getText().toString(), password_edituser.getText().toString(), idTown, new LogicaNegocioUsarios.UpdateCallback() {
+            logicaNegocioUsarios.actualizarUsuario(Integer.parseInt(id), token, username_edituser.getText().toString(), mail_edituser.getText().toString(), password_edituser.getText().toString(), idTown, role, new LogicaNegocioUsarios.UpdateCallback() {
                 @Override
                 public void onCompletedUpdateUsuario(UserController userController) {
 
@@ -197,7 +204,8 @@ public class EditUserActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("com.example.jjpeajar.proyecto_3a_josejulio", MODE_PRIVATE).edit();
                     editor.putString("user_name", userController.getUser().getName());
                     editor.putString("user_email", userController.getUser().getEmail());
-                    editor.putInt("town_id", userController.getUserInformation().getTown_id());
+                    editor.putInt("town", userController.getUserInformation().getTown_id());
+                    editor.putInt("role", userController.getUserInformation().getRole_id());
                     editor.putString("user_id", String.valueOf((int) userController.getUser().getId()));
                     editor.apply();
 

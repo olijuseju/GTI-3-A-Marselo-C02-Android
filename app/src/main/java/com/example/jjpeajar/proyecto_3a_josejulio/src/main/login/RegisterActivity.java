@@ -34,8 +34,8 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     // Atributos
-    private TextInputLayout txtInputLayout;
-    private AutoCompleteTextView dropdowntxt;
+    //private TextInputLayout txtInputLayout;
+    //private AutoCompleteTextView dropdowntxt;
     private TextInputLayout layout_nombreusuario;
     private TextInputLayout layout_correo;
     private TextInputLayout layout_password;
@@ -51,15 +51,12 @@ public class RegisterActivity extends AppCompatActivity {
     private String password;
     private String town;
     private String repeatpassword;
-    private List<String> nameTowns = new ArrayList<String>();
-    private List<Town> Towns = new ArrayList<Town>();
-
-
-
+    //private List<String> nameTowns = new ArrayList<String>();
+    //private List<Town> Towns = new ArrayList<Town>();
 
     // Logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
-    private LogicaNegocioTowns logicaNegocioTowns;
+    //private LogicaNegocioTowns logicaNegocioTowns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +65,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         // logica negocio
         logicaNegocioUsarios = new LogicaNegocioUsarios();
-        logicaNegocioTowns = new LogicaNegocioTowns();
+        //logicaNegocioTowns = new LogicaNegocioTowns();
 
         // FindViewById
-        txtInputLayout = findViewById(R.id.register_input_town);
-        dropdowntxt = findViewById(R.id.dropDown_txt_register);
+        // txtInputLayout = findViewById(R.id.register_input_town);
+        // dropdowntxt = findViewById(R.id.dropDown_txt_register);
         layout_nombreusuario = findViewById(R.id.register_input_username);
         layout_correo = findViewById(R.id.register_input_mail);
         layout_password = findViewById(R.id.register_input_password);
@@ -85,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         editText_repeatpassword = findViewById(R.id.password_repeatregister);
 
 
-        logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
+        /*logicaNegocioTowns.obtenerTown(new LogicaNegocioTowns.ObtenerTownsCallback() {
             @Override
             public void onCompletedObtenerTowns(List<Town> towns) {
                 Towns=towns;
@@ -115,6 +112,8 @@ public class RegisterActivity extends AppCompatActivity {
         // Le asocio al input el adapter
         dropdowntxt.setAdapter(adapter);
 
+         */
+
 
 
         // Onclick boton que lleva al login
@@ -136,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity {
                 correo = editText_correo.getText().toString();
                 username = editText_username.getText().toString();
                 password = editText_password.getText().toString();
-                town = dropdowntxt.getText().toString();
+                //town = dropdowntxt.getText().toString();
                 repeatpassword = editText_repeatpassword.getText().toString();
 
                 // Compruebo si los campos están vacíos para que si lo están lance un mensaje de error
@@ -180,27 +179,29 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 // Comprobamos si el campo municipio está vacío
-                if(town.isEmpty()){
+                /*if(town.isEmpty()){
                     txtInputLayout.setErrorEnabled(true);
                     txtInputLayout.setError(getText(R.string.register_introduce_town));
                 }else{
                     txtInputLayout.setErrorEnabled(false);
                 }
 
+                 */
+
 
 
                 // SI en todos los inputs hay datos
-                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !town.isEmpty() && !repeatpassword.isEmpty() && password.length()>=6){
+                if(!correo.isEmpty() && !username.isEmpty() && !password.isEmpty() && !repeatpassword.isEmpty() && password.length()>=6){
 
                     // Verifica si es un correo mediante el metodo
                     if(isValidEmail(correo)){
 
                         // Obtenemos la posición del municipio que ha pulsado
-                        int pos = adapter.getPosition(town);
-                        int idTown = Towns.get(pos).getId();
+                        //int pos = adapter.getPosition(town);
+                        //int idTown = Towns.get(pos).getId();
 
                         // Llamamos a registrar usuario
-                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, idTown , 5, new LogicaNegocioUsarios.RegistroCallback() {
+                        logicaNegocioUsarios.registrarUsario(username, correo, password, repeatpassword, 1 , 5, new LogicaNegocioUsarios.RegistroCallback() {
                             @Override
                             public void onCompletedRegistrarUsario(int success) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

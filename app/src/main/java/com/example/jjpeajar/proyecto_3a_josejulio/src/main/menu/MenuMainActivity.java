@@ -41,6 +41,7 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.NotificationFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.ProfileFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -154,35 +155,10 @@ public class MenuMainActivity extends AppCompatActivity {
     }
 
 
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Noticacion";
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-    }
-
-    private void createNotification(String titulo , String message){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.icons_exclamation);
-        builder.setContentTitle(titulo);
-        builder.setContentText(message);
-        builder.setColor(Color.BLUE);
-        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        builder.setLights(Color.MAGENTA, 1000, 1000);
-        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-        builder.setGroup("GROUP_KEY_WORK_EMAIL");
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
-    }
-
-
     /**
+     *  botonBuscarNuestroDispositivoBTLEPulsado , boton conectar llama a esta funcion
      *
-     *
-     */
+     *  */
     public void botonBuscarNuestroDispositivoBTLEPulsado() {
         Log.d(ETIQUETA_LOG, " boton nuestro dispositivo BTLE Pulsado" );
         //this.buscarEsteDispositivoBTLE( Utilidades.stringToUUID( "EPSG-GTI-PROY-3A" ) );
@@ -241,7 +217,7 @@ public class MenuMainActivity extends AppCompatActivity {
 
 
     /**
-     *
+     * funcion que llama el boton de desconectar
      */
     public void botonDetenerBusquedaDispositivosBTLEPulsado() {
         Log.d("pepe", " boton detener busqueda dispositivos BTLE Pulsado" );

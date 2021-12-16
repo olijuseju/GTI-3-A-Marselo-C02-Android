@@ -44,6 +44,8 @@ public class Town {
         this.name = name;
     }
 
+    //getters && setters
+
     public Integer getId() {
         return id;
     }

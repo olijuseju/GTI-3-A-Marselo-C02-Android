@@ -27,13 +27,14 @@
 
     <!--perfil-->
     <string name="profile_recorrido">Route</string>
-    <string name="profile_info">Info</string>
+    <string name="profile_info">Edit User</string>
     <string name="profile_link_device">Link device</string>
+    <string name="profile_encontrar_device">Find Device</string>
     <string name="profile_config">Settings</string>
     <string name="profile_logout">Log out</string>
 
     <string name="profile_name">Name</string>
-    <string name="profile_lastname">Lastname</string>
+    <string name="profile_lastname">Member</string>
 
 
     <!--informacion usuario-->
@@ -54,7 +55,7 @@
     <string name="edituser_town">Select your town</string>
 
     <!--guia de gases-->
-    <string name="gasguide_tittle">Gas guide</string>
+    <string name="gasguide_tittle">Additional Info</string>
     <string name="gasguide_particulas">PM Particles</string>
     <string name="gasguide_ozone">Ozone</string>
     <string name="gasguide_no2">Nitrogen dioxide</string>
@@ -132,4 +133,19 @@
 
     <!-- pantalla principal -->
     <string name="txt_home_bienvenida">Welcome</string>
+
+
+    <!-- Configuration -->
+    <string name="tema">Theme</string>
+    <string name="notificaciones">Manage notifications</string>
+    <string name="web">Web MarseloO2</string>
+    <string name="comentarios">Send Comments</string>
+    <string name="politica">Polícy privacy</string>
+    <string name="version">App Version</string>
+
+    <!-- RecyclerView Notifications -->
+    <string name="empty_primary_text">No notification yet</string>
+    <string name="empty_secondary_text">Swipe down to refresh the list</string>
+
+
 </resources>

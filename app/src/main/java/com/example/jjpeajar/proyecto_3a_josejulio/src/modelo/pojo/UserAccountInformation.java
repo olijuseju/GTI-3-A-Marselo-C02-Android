@@ -16,6 +16,7 @@ public class UserAccountInformation {
     public String created_at;
     public String updated_at;
 
+    //constructor
     public UserAccountInformation(){}
 
     public UserAccountInformation(int id, int user_id, int email_verified, String access_token, String created_at, String updated_at) {
@@ -27,7 +28,7 @@ public class UserAccountInformation {
         this.updated_at = updated_at;
     }
 
-
+    //getters && setters
     public int getId() {
         return id;
     }

@@ -6,7 +6,6 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile;
  * 2021-11-12
  */
 
-import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,24 +18,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.login.LoginActivity;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.encontrar.EncontrarDispositivoActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.gasguide.GasGuideActivity;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.config.ConfigurationActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.editar.EditUserActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.route.RecorridoActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
-import java.lang.invoke.ConstantCallSite;
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -82,8 +76,15 @@ public class ProfileFragment extends Fragment {
     //atributos
     private ConstraintLayout btn_vincular;
     private ConstraintLayout clRecorrido;
+    private ConstraintLayout clGuiaGases;
     private ConstraintLayout clInfo;
     private ConstraintLayout btn_cerrar_sesion;
+    private ConstraintLayout btn_distancia;
+    private ConstraintLayout clConfig;
+    private TextView txt_nombre_user;
+    private TextView txt_rol_user;
+    private String name_user_String;
+    private String role_userString;
     private String access_token;
     //logica
     private LogicaNegocioUsarios logicaNegocioUsarios;
@@ -101,17 +102,31 @@ public class ProfileFragment extends Fragment {
                 , getContext().MODE_PRIVATE);
 
         //si ya ha iniciado sesion
+        name_user_String = (shared.getString("user_name", null));
+        role_userString = (shared.getString("role_id", null));
         access_token = (shared.getString("access_token", null));
 
         //init logica
         logicaNegocioUsarios = new LogicaNegocioUsarios();
 
         clRecorrido = v.findViewById(R.id.constraintLayout3);
+        clGuiaGases = v.findViewById(R.id.clGases);
+        txt_nombre_user=v.findViewById(R.id.user_name);
+        txt_rol_user=v.findViewById(R.id.user_rol);
         clInfo = v.findViewById(R.id.c5);
         btn_vincular = v.findViewById(R.id.profile_btn_vincular);
         btn_cerrar_sesion = v.findViewById(R.id.profile_btn_cerrar_sesion);
+        clConfig = v.findViewById(R.id.clConfig);
+        btn_distancia= v.findViewById(R.id.profile_btn_distancia);
+
+
+        //set bienvenida text con el nombre del user
+        String userName= name_user_String;
+        txt_nombre_user.setText(userName);
 
         //onclicks
+
+        //inicia la actividad de vincular
         btn_vincular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +135,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //encontrar dispositivo actiivty
+        btn_distancia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), EncontrarDispositivoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //inicia la actividad de recorrido
         clRecorrido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,11 +152,28 @@ public class ProfileFragment extends Fragment {
                 startActivity(i);
             }
         });
-
+        //inicia la actividad de informacion
         clInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), EditUserActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //inicia la actividad de guia de gases
+        clGuiaGases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), GasGuideActivity.class);
+                startActivity(i);
+            }
+        });
+        //inicia la actividad de guia de configuracion
+        clConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), ConfigurationActivity.class);
                 startActivity(i);
             }
         });

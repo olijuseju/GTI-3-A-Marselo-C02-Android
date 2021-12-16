@@ -5,6 +5,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
  * @author Jose Julio Peñaranda
  * UserInformation
  * 2021-10-23
+ *
  */
 
 
@@ -19,6 +20,7 @@ public class UserInformation {
     private String created_at;
     private String updated_at;
 
+    //constructores
     public UserInformation(){}
 
     public UserInformation(int user_id) {
@@ -39,6 +41,8 @@ public class UserInformation {
         this.created_at = created_at;
         this.updated_at = updated_at;
     }
+
+    //getters && setters
 
     public int getId() {
         return id;
@@ -96,7 +100,7 @@ public class UserInformation {
         this.updated_at = updated_at;
     }
 
-    public String SerialToJson(int serial){
+    public String SerialToJson(String serial){
         return  "serial="+serial;
     }
 }

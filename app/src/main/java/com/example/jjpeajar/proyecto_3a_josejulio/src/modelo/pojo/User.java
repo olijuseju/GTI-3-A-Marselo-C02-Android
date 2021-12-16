@@ -81,6 +81,7 @@ public class User {
         this.updated_at = updated_at;
     }
 
+    //concadenar atributos
     public String toJsonWithPassword(String password){
         String mail= getEmail();
         return "email="+mail+"&password="+password;
@@ -96,11 +97,12 @@ public class User {
                 +"&town_id="+town_id;
     }
 
-    public String toJsonToUpdate(String password , int town_id){
+    public String toJsonToUpdate(String password , int town_id, int role){
         String mail= getEmail();
         return  "name="+getName()
                 +"&email="+mail
                 +"&password="+password
-                +"&town_id="+town_id;
+                +"&town="+town_id
+                +"&role="+role;
     }
 }

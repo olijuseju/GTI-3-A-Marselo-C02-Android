@@ -4,13 +4,15 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo;
  * @author Andrey Kuzmin
  * NotificationController
  * 2021-11-24
+ *
+ * Pojo que utilizamos para convertir el JSON.
  */
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationController {
+public class    NotificationController {
 
     private List<Notification> notifications = new ArrayList<Notification>();
     private Notification notification;
