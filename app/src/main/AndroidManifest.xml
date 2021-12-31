@@ -20,6 +20,9 @@
         android:theme="@style/Theme.Proyecto_3A_JoseJulio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".src.main.map.MapActivity"
+            android:exported="true" />
+        <activity
             android:name=".src.main.profile.encontrar.EncontrarDispositivoActivity"
             android:exported="true" />
         <activity
