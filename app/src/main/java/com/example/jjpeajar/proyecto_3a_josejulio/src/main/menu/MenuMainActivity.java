@@ -38,12 +38,15 @@ import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.graphic.GraphicFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.home.HomeFragment;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.map.MapActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.notification.NotificationFragment;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.ProfileFragment;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.main.profile.vincular.VincularDispositivoActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.service.ServicioEscuharBeacons;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.NotificationController;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuMainActivity extends AppCompatActivity {
 
@@ -63,6 +66,9 @@ public class MenuMainActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "NOTIFICACION";
     private final static int NOTIFICACION_ID = 0;
+
+    //btn mapas
+    private FloatingActionButton btn_mapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +92,17 @@ public class MenuMainActivity extends AppCompatActivity {
 
         //findById
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        btn_mapa=findViewById(R.id.fab);
 
         //actions
+
+        btn_mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuMainActivity.this, MapActivity.class);
+                startActivity(i);
+            }
+        });
 
         //set menu navigation
         bottomNavigationView.setBackground(null); //le quito el borde ya que se ve unas lineas de fondo , nuse porque
