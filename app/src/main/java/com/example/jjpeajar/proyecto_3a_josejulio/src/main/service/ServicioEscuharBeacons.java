@@ -280,6 +280,29 @@ public class ServicioEscuharBeacons extends IntentService {
 
         long contador = 1;
 
+
+
+        //----------------------------------------------------
+        //LLAMADA DE PRUEBA A LA ESTACIÓN OFICIAL
+        //----------------------------------------------------
+
+        /*logicaNegocio.obtenerMedicionesEstacionOficial(latitud, longitud, new LogicaNegocioMediciones.ObtenerMedicionesEstacionCallback(){
+
+            @Override
+            public void onCompletedObtenerMedicionesEstacion(double calidadAire, double temp, double hum) {
+                Log.d("pepe", "publicarMedicion()  ->" +"calidadAire -> " + calidadAire);
+                Log.d("pepe", "publicarMedicion()  ->" +"temp -> " + temp);
+                Log.d("pepe", "publicarMedicion()  ->" +"hum -> " + hum);
+
+            }
+
+            @Override
+            public void onFailedObtenerMedicionesEstacion(boolean res) {
+                Log.d("pepe", "publicarMedicion()  ->" +"resultado FALLIDO -> " + res);
+            }
+        });*/
+
+
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
         //init preferences
@@ -370,6 +393,12 @@ public class ServicioEscuharBeacons extends IntentService {
                         //guardo en la lista
                         beaconsDistancia.add(distancia);
                     }
+
+
+
+
+
+
 
                     // algoritmo para sacar la media y guardar la medicion
                     //---------------------------------------------------------------
@@ -747,6 +776,28 @@ public class ServicioEscuharBeacons extends IntentService {
                 }
             });
 
+            double dist = distance(latitud, longitud, 39, -0.19, 'K');
+
+            if (dist<20){
+                Log.d("pepe", "obtenerMedidaOficial()  ->" +"ENTROOO siu");
+
+                logicaNegocio.obtenerMedicionesEstacionOficial(latitud, longitud, new LogicaNegocioMediciones.ObtenerMedicionesEstacionCallback(){
+
+                    @Override
+                    public void onCompletedObtenerMedicionesEstacion(double calidadAire, double temp, double hum) {
+                        Log.d("pepe", "publicarMedicion()  ->" +"calidadAire -> " + calidadAire);
+                        Log.d("pepe", "publicarMedicion()  ->" +"temp -> " + temp);
+                        Log.d("pepe", "publicarMedicion()  ->" +"hum -> " + hum);
+
+                    }
+
+                    @Override
+                    public void onFailedObtenerMedicionesEstacion(boolean res) {
+                        Log.d("pepe", "publicarMedicion()  ->" +"resultado FALLIDO -> " + res);
+                    }
+                });
+            }
+
         }else{
             Toast toast = Toast.makeText(getApplicationContext(), "Asegúrese de activar el gps", Toast.LENGTH_LONG); // initiate the Toast with context, message and duration for the Toast
             toast.show(); // display the Toast
@@ -790,6 +841,35 @@ public class ServicioEscuharBeacons extends IntentService {
 
         double power = (absRssi - txPower)/(10 * 4.0);
         return Math.pow(10,power);
+    }
+
+
+    private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == 'K') {
+            dist = dist * 1.609344;
+        } else if (unit == 'N') {
+            dist = dist * 0.8684;
+        }
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 
 } // class
