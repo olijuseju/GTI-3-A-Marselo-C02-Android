@@ -9,6 +9,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 import android.util.Log;
 
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.DataEstacion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
@@ -38,6 +39,11 @@ public class LogicaNegocioMediciones {
         void onCompletedObtenerMedicionesByIdUser(double calidadAire , double temp , double hum );
         void onCompletedObtenerMedicionesVacio(boolean res);
         void onFailedObtenerMedicionesByIdUser(boolean res);
+    }
+    // obtener medicion by id user
+    public interface ObtenerMedicionesEstacionCallback{
+        void onCompletedObtenerMedicionesEstacion(double calidadAire , double temp , double hum );
+        void onFailedObtenerMedicionesEstacion(boolean res);
     }
     //constructor vacío
     public LogicaNegocioMediciones(){
@@ -197,5 +203,38 @@ public class LogicaNegocioMediciones {
 
             }
         });
+    }
+
+
+
+    public void obtenerMedicionesEstacionOficial(double lat, double lon, ObtenerMedicionesEstacionCallback obtenerMedicionesEstacionCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        //peticion REST
+        peticionarioRest.realizarPeticion("GET", "http://api.airvisual.com/v2/nearest_city?lat="+ lat+ "&lon="+ lon+ "&key=e88b27dd-b65c-4eb6-a258-4b161fa20949", null , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                try {
+                    //convertir de json  a POJO
+                    Gson gson= new Gson();
+                    DataEstacion dataEstacion= gson.fromJson(cuerpo, DataEstacion.class);
+                    Log.d("pepelu", "  RECIBIDO -------------------------------------  ");
+                    Log.d("pepelu", "  CUERPO ->" + dataEstacion.status);
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    String  success= dataEstacion.status;
+                    if(success.equals("success")){
+                        obtenerMedicionesEstacionCallback.onCompletedObtenerMedicionesEstacion(dataEstacion.data.current.pollution.aqius,dataEstacion.data.current.weather.tp,dataEstacion.data.current.weather.hu);
+                    }else{
+                        obtenerMedicionesEstacionCallback.onFailedObtenerMedicionesEstacion(true);
+
+                    }
+                }catch (Exception e){
+                    Log.d("Error", " Error");
+                }
+            }
+        });
+
     }
 }
