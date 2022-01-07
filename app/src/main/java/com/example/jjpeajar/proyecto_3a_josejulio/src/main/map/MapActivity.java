@@ -19,7 +19,7 @@ public class MapActivity extends AppCompatActivity {
 
         myWebView = findViewById(R.id.webview);
         myWebView.setWebViewClient(new WebViewClient());
-        myWebView.loadUrl("http://vmi621282.contaboserver.net/index.html");
+        myWebView.loadUrl("http://vmi621282.contaboserver.net/mapa");
 
     }
 }
