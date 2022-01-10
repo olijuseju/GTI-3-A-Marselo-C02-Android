@@ -24,6 +24,12 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMedici
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -151,7 +157,6 @@ public class HomeFragment extends Fragment {
 
             }
         }, TIEMPO);
-
 
         return v;
     }

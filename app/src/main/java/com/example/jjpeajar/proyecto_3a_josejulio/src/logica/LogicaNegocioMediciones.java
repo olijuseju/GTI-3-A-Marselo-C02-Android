@@ -16,6 +16,9 @@ import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.google.gson.Gson;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogicaNegocioMediciones {
@@ -162,26 +165,78 @@ public class LogicaNegocioMediciones {
                         if(medicionList.size() != 0){
 
                             //donde vamos a guardar la ultima medicion de cada tipo
-                            Medicion ultimaMedicionCalidadAire= new Medicion();
-                            Medicion ultimaMedicionTemp= new Medicion();
-                            Medicion ultimaMedicionHum= new Medicion();
+                            //Medicion ultimaMedicionCalidadAire= new Medicion();
+                            List<Medicion> medicionesCalidadAireDeHoy = new ArrayList<>();
+                            //Medicion ultimaMedicionTemp= new Medicion();
+                            List<Medicion> medicionesTempDeHoy = new ArrayList<>();
+                            //Medicion ultimaMedicionHum= new Medicion();
+                            List<Medicion> medicionesHumDeHoy = new ArrayList<>();
                             //recorremos toda la lista
                             for(Medicion medicion : medicionList){
                                 //si es de un tipo almacenamos en una variable, la ultima almacenada es la ultima que se ha registrado
                                 if(medicion.getType_read().equals("CO2")){
-                                    ultimaMedicionCalidadAire = medicion;
+
+                                    //comprobamos si la medicion es de hoy llamando a un metodo
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //guardamos la medicion
+                                        //ultimaMedicionCalidadAire = medicion;
+                                        medicionesCalidadAireDeHoy.add(medicion);
+                                    }
                                 }
                                 if(medicion.getType_read().equals("Humedad")){
-                                    ultimaMedicionHum = medicion;
+
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //ultimaMedicionHum = medicion;
+                                        medicionesHumDeHoy.add(medicion);
+
+                                    }
                                 }
                                 if(medicion.getType_read().equals("Temperatura")){
-                                    ultimaMedicionTemp = medicion;
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //ultimaMedicionTemp = medicion;
+                                        medicionesTempDeHoy.add(medicion);
+                                    }
                                 }
                             }
-                            //variables donde vamos a almacenar el valor de cada medicion
-                            double calidadAire = ultimaMedicionCalidadAire.getValue();
-                            double temp= ultimaMedicionTemp.getValue();
-                            double hum= ultimaMedicionHum.getValue();
+                            //variables donde vamos a almacenar el valor de cada media de medicion
+                            double calidadAire;
+                            double sumatorioCalidad=0;
+                            double temp;
+                            double sumatorioHum=0;
+                            double hum;
+                            double sumatorioTemp=0;
+
+                            //media de cada tipo de medicion de hoy
+
+                            //-------------------------
+                            //calidad de aire
+                            for (Medicion medicion: medicionesCalidadAireDeHoy) {
+                                sumatorioCalidad = sumatorioCalidad + medicion.getValue();
+                            }
+                            //media
+                            calidadAire = sumatorioCalidad / medicionesCalidadAireDeHoy.size();
+                            // 2 decimales
+                            calidadAire=Math.round(calidadAire*100.0)/100.0;
+                            //-------------------------
+                            //hum
+                            for (Medicion medicion: medicionesHumDeHoy) {
+                                sumatorioHum = sumatorioHum + medicion.getValue();
+                            }
+                            //media
+                            hum = sumatorioHum / medicionesHumDeHoy.size();
+                            // 2 decimales
+                            hum=Math.round(hum*100.0)/100.0;
+                            //-------------------------
+                            //temp
+                            for (Medicion medicion: medicionesTempDeHoy) {
+                                sumatorioTemp = sumatorioTemp + medicion.getValue();
+                            }
+                            //media
+                            temp = sumatorioTemp / medicionesTempDeHoy.size();
+                            // 2 decimales
+                            temp=Math.round(temp*100.0)/100.0;
+
+                            Log.d("pepe", "  putaaaaaaaaaaaa ->"+" " + calidadAire+" " + hum+" " + temp);
 
                             //devolver valores
                             obtenerNotificacionesByIdUserCallback
@@ -203,6 +258,31 @@ public class LogicaNegocioMediciones {
 
             }
         });
+    }
+
+    private Boolean isMedicionOfToday( String fechaInicio){
+
+        LocalDate dateObj = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dateObj = LocalDate.now();
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        }
+        String date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = dateObj.format(formatter);
+        }
+        Log.d("pepe", " Fecha de AHORA -> " + date);
+
+        if(fechaInicio.equals(date)){
+            Log.d("pepe", "La medicion es DE HOY -> ");
+            return true;
+        }else{
+            Log.d("pepe", "La medicion NO ES DE HOY -> ");
+            return false;
+        }
     }
 
 
