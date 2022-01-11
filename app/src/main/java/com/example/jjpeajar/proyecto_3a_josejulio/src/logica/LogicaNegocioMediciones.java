@@ -259,7 +259,13 @@ public class LogicaNegocioMediciones {
             }
         });
     }
-
+    /**
+     * La descripción de isMedicionOfToday. Comprueba si la fecha que le pasamos es la actual
+     *
+     * @param fechaInicio Fecha en formato yyyy-dd-MM
+     * @return boolean True si es de hoy y false si no lo es.
+     *
+     */
     private Boolean isMedicionOfToday( String fechaInicio){
 
         LocalDate dateObj = null;
@@ -286,7 +292,14 @@ public class LogicaNegocioMediciones {
     }
 
 
-
+    /**
+     * La descripción de obtenerMedicionesEstacionOficial. Funcion que obtiene las mediciones de la estacion oficial
+     *
+     * @param lat latitud de la estacion
+     * @param lon longitud de la estacion
+     * @param obtenerMedicionesEstacionCallback Objeto ObtenerMedicionesEstacionCallback para poder devolver el cuerpo.
+     *
+     */
     public void obtenerMedicionesEstacionOficial(double lat, double lon, ObtenerMedicionesEstacionCallback obtenerMedicionesEstacionCallback){
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
