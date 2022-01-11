@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
     private LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
     // para llamar al metodo de obtener mediciones cada cierto tiempo
     Handler handler = new Handler();
-    private final int TIEMPO = 5000;
+    private final int TIEMPO = 10000;
 
 
 

@@ -280,13 +280,13 @@ public class LogicaNegocioMediciones {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             date = dateObj.format(formatter);
         }
-        Log.d("pepe", " Fecha de AHORA -> " + date);
+        //Log.d("pepe", " Fecha de AHORA -> " + date);
 
         if(fechaInicio.equals(date)){
-            Log.d("pepe", "La medicion es DE HOY -> ");
+            //Log.d("pepe", "La medicion es DE HOY -> ");
             return true;
         }else{
-            Log.d("pepe", "La medicion NO ES DE HOY -> ");
+            //Log.d("pepe", "La medicion NO ES DE HOY -> ");
             return false;
         }
     }

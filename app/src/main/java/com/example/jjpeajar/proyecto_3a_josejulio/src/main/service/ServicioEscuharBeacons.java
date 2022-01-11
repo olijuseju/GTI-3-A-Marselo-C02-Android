@@ -406,7 +406,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "SIZE CO2  --> " + beaconsCO2.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsCO2.size() == 15){
+                    if(beaconsCO2.size() == 25){
 
                         //hacer sumatorio de los valores de CO2
                         int sumatorio=0; //sumatorio
@@ -441,7 +441,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA TEMPERATURA  --> " + beaconsTemp.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsTemp.size() == 15){
+                    if(beaconsTemp.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         int sumatorio=0; //sumatorio
@@ -472,7 +472,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA HUMEDAD  --> " + beaconsHum.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsHum.size() == 15){
+                    if(beaconsHum.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         int sumatorio=0; //sumatorio
@@ -504,7 +504,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA DISTANCIA  --> " + beaconsDistancia.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsDistancia.size() == 15){
+                    if(beaconsDistancia.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         double sumatorio=0; //sumatorio
