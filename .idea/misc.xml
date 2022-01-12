@@ -38,8 +38,12 @@
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Jose/Documents/GTI/Tercero/1semestre/proyecto/Proyecto_Personal/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/bc_profile_info.xml" value="0.2703125" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/bc_profile_qr_db.xml" value="0.2703125" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/blue_rectangle.xml" value="0.2703125" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/button_checked.xml" value="0.2703125" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/button_primary.xml" value="0.2703125" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/button_unchecked.xml" value="0.2703125" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/custom_progress_bg.xml" value="0.2703125" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/ic_profile_ajustes_bc.xml" value="0.2703125" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/drawable/ic_profile_button_flecha.xml" value="0.2703125" />
@@ -54,12 +58,13 @@
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_menu_main.xml" value="0.1" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_profile_fragment.xml" value="0.4742468415937804" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_recorrido.xml" value="0.23143115942028986" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_recorrido_bottomsheet.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_register.xml" value="0.2208955223880597" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_user_information.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_vincular_dispositivo.xml" value="0.264" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/activity_vincular_dispositivo_step3.xml" value="0.264" />
-        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_graphic.xml" value="0.14764492753623187" />
-        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_graphic.xml" value="0.4742468415937804" />
+        <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_home.xml" value="0.34673366834170855" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_notification.xml" value="0.4" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_notification_rv_item.xml" value="0.536" />
         <entry key="..\:/Users/javi-/StudioProjects/GTI-3-A-Marselo-C02-Android/app/src/main/res/layout/fragment_profile.xml" value="0.4" />

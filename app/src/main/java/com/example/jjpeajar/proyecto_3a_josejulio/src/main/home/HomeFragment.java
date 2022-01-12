@@ -252,6 +252,21 @@ public class HomeFragment extends Fragment {
                 public void onFailedObtenerMedicionesByIdUser(boolean res) {
                     Log.d("pepe", "getUltimasMediciones() RESULTADO FALLIDO -> " + res);
                 }
+
+                @Override
+                public void onCompletedObtenerMedicionesDeCalidadAire(List<Medicion> medicionesCalidadAire) {
+
+                }
+
+                @Override
+                public void onCompletedObtenerMedicionesDeTemperatura(List<Medicion> medicionesTemperatura) {
+
+                }
+
+                @Override
+                public void onCompletedObtenerMedicionesDeHumedad(List<Medicion> medicionesHumedad) {
+
+                }
             });
 
         }

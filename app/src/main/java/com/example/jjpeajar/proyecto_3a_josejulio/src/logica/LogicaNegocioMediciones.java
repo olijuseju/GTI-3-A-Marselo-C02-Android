@@ -41,6 +41,10 @@ public class LogicaNegocioMediciones {
         void onCompletedObtenerMedicionesDiarias( List<Medicion> mediciones );
         void onCompletedObtenerMedicionesVacio(boolean res);
         void onFailedObtenerMedicionesByIdUser(boolean res);
+
+        void onCompletedObtenerMedicionesDeCalidadAire( List<Medicion> medicionesCalidadAire);
+        void onCompletedObtenerMedicionesDeTemperatura( List<Medicion> medicionesTemperatura);
+        void onCompletedObtenerMedicionesDeHumedad( List<Medicion> medicionesHumedad);
     }
     // obtener medicion by id user
     public interface ObtenerMedicionesEstacionCallback{
@@ -172,6 +176,12 @@ public class LogicaNegocioMediciones {
                             // todas las mediciones diarias
                             List<Medicion> medicionesDeHoy = new ArrayList<>();
 
+
+                            //array de todas las mediciones del user de cada tipo
+                            List<Medicion> medicionesDeCalidad = new ArrayList<>();
+                            List<Medicion> medicionesDeTemperatura = new ArrayList<>();
+                            List<Medicion> medicionesDeHumedad = new ArrayList<>();
+
                             //recorremos toda la lista
                             for(Medicion medicion : medicionList){
                                 //si es de un tipo almacenamos en una variable, la ultima almacenada es la ultima que se ha registrado
@@ -186,6 +196,8 @@ public class LogicaNegocioMediciones {
                                         //almaceno la medicion diaria
                                         medicionesDeHoy.add(medicion);
                                     }
+
+                                    medicionesDeCalidad.add(medicion);
                                 }
                                 if(medicion.getType_read().equals("Humedad")){
 
@@ -196,6 +208,8 @@ public class LogicaNegocioMediciones {
                                         //almaceno la medicion diaria
                                         medicionesDeHoy.add(medicion);
                                     }
+
+                                    medicionesDeHumedad.add(medicion);
                                 }
                                 if(medicion.getType_read().equals("Temperatura")){
                                     if(isMedicionOfToday(medicion.getDate())){
@@ -205,6 +219,8 @@ public class LogicaNegocioMediciones {
                                         //almaceno la medicion diaria
                                         medicionesDeHoy.add(medicion);
                                     }
+
+                                    medicionesDeTemperatura.add(medicion);
                                 }
                             }
                             //variables donde vamos a almacenar el valor de cada media de medicion
@@ -258,6 +274,15 @@ public class LogicaNegocioMediciones {
                             // devolver el array de las mediciones diarias
                             obtenerNotificacionesByIdUserCallback
                                     .onCompletedObtenerMedicionesDiarias(medicionesDeHoy);
+
+                            //devolver las todas las mediciones de cada tipo
+
+                            //CO
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeCalidadAire(medicionesDeCalidad);
+                            //hum
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeHumedad(medicionesDeHumedad);
+                            //temp
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeTemperatura(medicionesDeTemperatura);
 
                         }else { //si esta vacio
                             //devolver respuesta
