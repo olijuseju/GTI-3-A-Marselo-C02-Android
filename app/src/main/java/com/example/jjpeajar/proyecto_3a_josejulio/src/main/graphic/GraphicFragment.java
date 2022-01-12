@@ -129,7 +129,7 @@ public class GraphicFragment extends Fragment {
             public void onClick(View view) {
 
                 //cambiamos txt
-                txt_nivel.setText("Nivel de C.aire de las últimas 20 mediciones");
+                txt_nivel.setText("Nivel de CO de las últimas 20 mediciones");
                 //Creamos series
                 LineGraphSeries<DataPoint> series =
                         new LineGraphSeries<>();
@@ -200,7 +200,7 @@ public class GraphicFragment extends Fragment {
 
                         initGrafica(medicionesCalidadAire , series);
                     }else{
-                        txt_nivel.setText("Sin datos de C.aire");
+                        txt_nivel.setText("Sin datos de CO");
                         graphView.removeAllSeries();
                     }
                 }
