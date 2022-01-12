@@ -214,6 +214,8 @@ public class HomeFragment extends Fragment {
                     String medicionTemp = String.valueOf(temp) +"°C";
                     String medicionHum = String.valueOf(hum) +"%";
 
+                    // si no hay mediciones diarias mostrar Sin datos
+
                     // mostrar en la app
                     txt_medicion_calidad_aire.setText(estimacionCalidadAire);
                     txt_medicion_temp.setText(medicionTemp);
@@ -223,11 +225,15 @@ public class HomeFragment extends Fragment {
 
                 @Override
                 public void onCompletedObtenerMedicionesDiarias(List<Medicion> mediciones) {
-                    Log.d("pepe", " MEDICIONES DIARIAS SIZE -> " + mediciones.size());
+                    Log.d("pepe", "onCompletedObtenerMedicionesDiarias() array -> " + mediciones.size());
                     //comprobamos que la lista no esta vacía
                     if(mediciones.size() != 0){
                         //le pasamos el array al metodo que calcula la distancia , pasos y cal.
                         obtenerActividadDiariaDelUser(mediciones);
+                    }else{
+                        txt_distancia_diaria.setText("Sin datos");
+                        txt_pasos_diaria.setText("Sin datos");
+                        txt_cal_diaria.setText("Sin datos");
                     }
                 }
 

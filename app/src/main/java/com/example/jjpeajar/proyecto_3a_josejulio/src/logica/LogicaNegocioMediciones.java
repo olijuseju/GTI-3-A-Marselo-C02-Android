@@ -142,8 +142,6 @@ public class LogicaNegocioMediciones {
             public void callback(int codigo, String cuerpo) {
 
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
-                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
 
                 try{
                     //convertir de json a POJO
@@ -170,6 +168,10 @@ public class LogicaNegocioMediciones {
                             List<Medicion> medicionesTempDeHoy = new ArrayList<>();
                             //Medicion ultimaMedicionHum= new Medicion();
                             List<Medicion> medicionesHumDeHoy = new ArrayList<>();
+
+                            // todas las mediciones diarias
+                            List<Medicion> medicionesDeHoy = new ArrayList<>();
+
                             //recorremos toda la lista
                             for(Medicion medicion : medicionList){
                                 //si es de un tipo almacenamos en una variable, la ultima almacenada es la ultima que se ha registrado
@@ -180,6 +182,9 @@ public class LogicaNegocioMediciones {
                                         //guardamos la medicion
                                         //ultimaMedicionCalidadAire = medicion;
                                         medicionesCalidadAireDeHoy.add(medicion);
+
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
                                     }
                                 }
                                 if(medicion.getType_read().equals("Humedad")){
@@ -188,12 +193,17 @@ public class LogicaNegocioMediciones {
                                         //ultimaMedicionHum = medicion;
                                         medicionesHumDeHoy.add(medicion);
 
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
                                     }
                                 }
                                 if(medicion.getType_read().equals("Temperatura")){
                                     if(isMedicionOfToday(medicion.getDate())){
                                         //ultimaMedicionTemp = medicion;
                                         medicionesTempDeHoy.add(medicion);
+
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
                                     }
                                 }
                             }
@@ -235,15 +245,19 @@ public class LogicaNegocioMediciones {
                             // 2 decimales
                             temp=Math.round(temp*100.0)/100.0;
 
-                            Log.d("pepe", "  putaaaaaaaaaaaa ->"+" " + calidadAire+" " + hum+" " + temp);
-
-                            //devolver  medias de mediciones
-                            obtenerNotificacionesByIdUserCallback
-                                    .onCompletedObtenerMediasDeMedicionesDiarias(calidadAire , temp , hum);
+                            //si hay mediciones diarias
+                            if(medicionesDeHoy.size() != 0){
+                                //devolver  medias de mediciones
+                                obtenerNotificacionesByIdUserCallback
+                                        .onCompletedObtenerMediasDeMedicionesDiarias(calidadAire , temp , hum);
+                            }else{ // si no hay mediciones diarias
+                                //devolver respuesta
+                                obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesVacio(true);
+                            }
 
                             // devolver el array de las mediciones diarias
                             obtenerNotificacionesByIdUserCallback
-                                    .onCompletedObtenerMedicionesDiarias(medicionList);
+                                    .onCompletedObtenerMedicionesDiarias(medicionesDeHoy);
 
                         }else { //si esta vacio
                             //devolver respuesta
