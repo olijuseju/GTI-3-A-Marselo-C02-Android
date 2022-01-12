@@ -346,7 +346,7 @@ public class LogicaNegocioMediciones {
         PeticionarioRest peticionarioRest = new PeticionarioRest();
 
         //peticion REST
-        peticionarioRest.realizarPeticion("GET", "http://api.airvisual.com/v2/nearest_city?lat="+ lat+ "&lon="+ lon+ "&key=e88b27dd-b65c-4eb6-a258-4b161fa20949", null , new PeticionarioRest.RespuestaREST() {
+        peticionarioRest.realizarPeticion("GET", "http://api.airvisual.com/v2/nearest_city?lat="+ lat+ "&lon="+ lon+ "&key=031171a8-454b-4821-8671-a6dd79e477a4", null , new PeticionarioRest.RespuestaREST() {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
