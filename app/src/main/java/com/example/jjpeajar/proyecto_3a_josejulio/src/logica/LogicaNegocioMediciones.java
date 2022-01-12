@@ -12,8 +12,6 @@ import android.util.Log;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.DataEstacion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionController;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
@@ -39,7 +37,8 @@ public class LogicaNegocioMediciones {
     }
     // obtener medicion by id user
     public interface ObtenerMedicionesByIdUserCallback{
-        void onCompletedObtenerMedicionesByIdUser(double calidadAire , double temp , double hum );
+        void onCompletedObtenerMediasDeMedicionesDiarias(double calidadAire , double temp , double hum );
+        void onCompletedObtenerMedicionesDiarias( List<Medicion> mediciones );
         void onCompletedObtenerMedicionesVacio(boolean res);
         void onFailedObtenerMedicionesByIdUser(boolean res);
     }
@@ -238,9 +237,13 @@ public class LogicaNegocioMediciones {
 
                             Log.d("pepe", "  putaaaaaaaaaaaa ->"+" " + calidadAire+" " + hum+" " + temp);
 
-                            //devolver valores
+                            //devolver  medias de mediciones
                             obtenerNotificacionesByIdUserCallback
-                                    .onCompletedObtenerMedicionesByIdUser(calidadAire , temp , hum);
+                                    .onCompletedObtenerMediasDeMedicionesDiarias(calidadAire , temp , hum);
+
+                            // devolver el array de las mediciones diarias
+                            obtenerNotificacionesByIdUserCallback
+                                    .onCompletedObtenerMedicionesDiarias(medicionList);
 
                         }else { //si esta vacio
                             //devolver respuesta
@@ -330,4 +333,5 @@ public class LogicaNegocioMediciones {
         });
 
     }
+
 }

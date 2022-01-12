@@ -73,13 +73,12 @@
                         app:tint="@color/azul_borde" />
 
                     <TextView
-                        android:id="@+id/dasa"
-                        android:fontFamily="@font/montserrat"
+                        android:id="@+id/distancia_diaria"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="4 KM"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -114,13 +113,12 @@
                         app:tint="@color/naranja_borde" />
 
                     <TextView
-                        android:id="@+id/aaa"
-                        android:fontFamily="@font/montserrat"
+                        android:id="@+id/pasos_diarios"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="2000 pasos"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -154,13 +152,12 @@
                         app:tint="@color/rojo_borde" />
 
                     <TextView
-                        android:id="@+id/textView17"
-                        android:fontFamily="@font/montserrat"
+                        android:id="@+id/cal_diarias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="100 cal"
+                        android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

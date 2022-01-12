@@ -7,6 +7,7 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.main.home;
  */
 
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -23,11 +24,13 @@ import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -81,6 +84,10 @@ public class HomeFragment extends Fragment {
     private TextView txt_medicion_calidad_aire;
     private TextView txt_medicion_temp;
     private TextView txt_medicion_hum;
+
+    private TextView txt_distancia_diaria;
+    private TextView txt_pasos_diaria;
+    private TextView txt_cal_diaria;
     //logicas
     private LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
     // para llamar al metodo de obtener mediciones cada cierto tiempo
@@ -115,6 +122,9 @@ public class HomeFragment extends Fragment {
         txt_medicion_calidad_aire=v.findViewById(R.id.txt_medicion_calidad_aire);
         txt_medicion_temp= v.findViewById(R.id.txt_medicion_temp);
         txt_medicion_hum= v.findViewById(R.id.txt_medicion_hum);
+        txt_distancia_diaria = v.findViewById(R.id.distancia_diaria);
+        txt_pasos_diaria = v.findViewById(R.id.pasos_diarios);
+        txt_cal_diaria = v.findViewById(R.id.cal_diarias);
 
         //onclick
         conect.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +206,7 @@ public class HomeFragment extends Fragment {
             //llamar a la logica
             logicaNegocioMediciones.obtenerMedicionesByIdUser(access_token, new LogicaNegocioMediciones.ObtenerMedicionesByIdUserCallback() {
                 @Override
-                public void onCompletedObtenerMedicionesByIdUser(double calidadAire, double temp, double hum) {
+                public void onCompletedObtenerMediasDeMedicionesDiarias(double calidadAire, double temp, double hum) {
                     Log.d("pepe", "getUltimasMediciones() RESULTADO GUCCI -> " + calidadAire);
                     //estimar la calidad de aire
                     String estimacionCalidadAire = estimacionCalidadAire(calidadAire);
@@ -209,6 +219,16 @@ public class HomeFragment extends Fragment {
                     txt_medicion_temp.setText(medicionTemp);
                     txt_medicion_hum.setText(medicionHum);
 
+                }
+
+                @Override
+                public void onCompletedObtenerMedicionesDiarias(List<Medicion> mediciones) {
+                    Log.d("pepe", " MEDICIONES DIARIAS SIZE -> " + mediciones.size());
+                    //comprobamos que la lista no esta vacía
+                    if(mediciones.size() != 0){
+                        //le pasamos el array al metodo que calcula la distancia , pasos y cal.
+                        obtenerActividadDiariaDelUser(mediciones);
+                    }
                 }
 
                 @Override
@@ -228,6 +248,64 @@ public class HomeFragment extends Fragment {
                 }
             });
 
+        }
+    }
+
+    /**
+     * La descripción de obtenerActividadDiariaDelUser. Funcion que mediante la lista de mediciones del user calcula la
+     *  distancia recorrida , los pasos y las cal.
+     *
+     * @param mediciones lista de mediciones diarias del usario
+     */
+    private void obtenerActividadDiariaDelUser(List<Medicion> mediciones){
+
+        int distancia = 0;
+        //Sacamos la distancia total
+        for (int i = 0 ; i< mediciones.size() - 1 ;i++) {
+            Location locationA = new Location("punto A");
+
+            locationA.setLatitude(mediciones.get(i).getLatitude());
+            locationA.setLongitude(mediciones.get(i).getLongitude());
+
+            Location locationB = new Location("punto B");
+
+            locationB.setLatitude(mediciones.get(i+1).getLatitude());
+            locationB.setLongitude(mediciones.get(i+1).getLongitude());
+
+            distancia += locationA.distanceTo(locationB);
+
+
+        }
+
+        double distanciaKm = 0.0;
+
+        distanciaKm = (float) distancia/ 1000;
+        // pum 2 decimales
+        distanciaKm=Math.round(distanciaKm*100.0)/100.0;
+
+        //Obtenemos pasos y kcal por medio de la distancia
+        int pasos = (int) (distanciaKm*717.77203560149);
+        int kcalorias = (int) (40*distanciaKm);
+
+        //comprobamos si esta vacio
+        // si hay datos convertimos en string
+        if(distanciaKm <= 0){
+            txt_distancia_diaria.setText("Sin datos");
+        }else{
+            String distanciaString = distanciaKm + " km";
+            txt_distancia_diaria.setText(distanciaString);
+        }
+        if(pasos <= 0){
+            txt_pasos_diaria.setText("Sin datos");
+        }else{
+            String pasosString = pasos + " pasos";
+            txt_pasos_diaria.setText(pasosString);
+        }
+        if(kcalorias <= 0){
+            txt_cal_diaria.setText("Sin datos");
+        }else{
+            String kcaloriasString = kcalorias + " cal";
+            txt_cal_diaria.setText(kcaloriasString);
         }
     }
 }
