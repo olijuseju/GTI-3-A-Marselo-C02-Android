@@ -9,7 +9,6 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.TownController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserInformation;
@@ -62,6 +61,13 @@ public class LogicaNegocioUsarios {
 
         void onCompletedCerrarSesion(String message);
         void onFailedCerrarSesion(boolean resultado);
+    }
+
+    //obtener user activity
+    public interface CrearActividadUsarioCallback {
+
+        void onCompletedObtenerActividadUsario(String message);
+        void onFailedObtenerActividadUsario(boolean resultado);
     }
 
 
@@ -342,6 +348,42 @@ public class LogicaNegocioUsarios {
                     //error
                     cerrarSesionCallback.onFailedCerrarSesion(true);
                 }
+            }
+        });
+    }
+
+    /**
+     * La descripción de obtenerActividadUsario. Funcion que te da dengue del usuario
+     *
+     * @param idUser int
+     * @param timeActivity int
+     * @param distanceTraveled double
+     * @param crearActividadUsarioCallback CrearActividadUsarioCallback para almacenar el cuerpo
+     *
+     * @return int
+     *
+     */
+    public void crearActividadUsario(String access_token , int idUser, int timeActivity , double distanceTraveled, CrearActividadUsarioCallback crearActividadUsarioCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        String res = "user_id="+idUser+"&time_activity="+timeActivity+"&distance_traveled="+distanceTraveled;
+        //peticion
+        peticionarioRest.realizarPeticion("POST", ADDRESS + "/api/v1/useractivities/create", res , access_token , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                // elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                try {
+
+                    Log.d("pepe", " RRECIBIDO -------------------------------------  ");
+                    Log.d("pepe", "  CUERPO ->" + codigo +" cuerpo : " + cuerpo);
+
+                    crearActividadUsarioCallback.onCompletedObtenerActividadUsario("funciona");
+
+                }catch (Exception e){
+                    crearActividadUsarioCallback.onFailedObtenerActividadUsario(true);
+                    Log.d("Error", "Error");
+                }
+
             }
         });
     }

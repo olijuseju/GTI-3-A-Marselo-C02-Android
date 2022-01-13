@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.jjpeajar.proyecto_3a_josejulio.R;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioUsarios;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.main.menu.MenuMainActivity;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
@@ -84,15 +85,21 @@ public class HomeFragment extends Fragment {
     private TextView txt_medicion_calidad_aire;
     private TextView txt_medicion_temp;
     private TextView txt_medicion_hum;
+    private TextView txt_calidad_municipio;
 
     private TextView txt_distancia_diaria;
     private TextView txt_pasos_diaria;
     private TextView txt_cal_diaria;
     //logicas
     private LogicaNegocioMediciones logicaNegocioMediciones = new LogicaNegocioMediciones();
+    private LogicaNegocioUsarios logicaNegocioUsarios = new LogicaNegocioUsarios();
     // para llamar al metodo de obtener mediciones cada cierto tiempo
     Handler handler = new Handler();
     private final int TIEMPO = 10000;
+    private String time_active;
+    private String user_id;
+
+    private SharedPreferences shared;
 
 
 
@@ -101,13 +108,15 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         //get access_token from signed user
         //cockies
-        SharedPreferences shared= this.getActivity().getSharedPreferences(
+        shared= this.getActivity().getSharedPreferences(
                 "com.example.jjpeajar.proyecto_3a_josejulio"
                 , getContext().MODE_PRIVATE);
 
         //si ya ha iniciado sesion
+        time_active = (shared.getString("time_active", null));
         name_user = (shared.getString("user_name", null));
         access_token = shared.getString("access_token", null);
+        user_id = shared.getString("user_id", null);
 
         //llamar al metodo al principio 1 vez , para que el resultado sea más rapido
         getUltimasMediciones();
@@ -125,6 +134,7 @@ public class HomeFragment extends Fragment {
         txt_distancia_diaria = v.findViewById(R.id.distancia_diaria);
         txt_pasos_diaria = v.findViewById(R.id.pasos_diarios);
         txt_cal_diaria = v.findViewById(R.id.cal_diarias);
+        txt_calidad_municipio= v.findViewById(R.id.txt_calidad_municipio);
 
         //onclick
         conect.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +231,8 @@ public class HomeFragment extends Fragment {
                     txt_medicion_temp.setText(medicionTemp);
                     txt_medicion_hum.setText(medicionHum);
 
+                    txt_calidad_municipio.setText(estimacionCalidadAire);
+
                 }
 
                 @Override
@@ -234,6 +246,10 @@ public class HomeFragment extends Fragment {
                         txt_distancia_diaria.setText("Sin datos");
                         txt_pasos_diaria.setText("Sin datos");
                         txt_cal_diaria.setText("Sin datos");
+
+                        //reiniciar userActivity
+                        borrarTimeActive();
+                        Log.d("timeDengue", " morir tiem_active " + time_active);
                     }
                 }
 
@@ -246,6 +262,10 @@ public class HomeFragment extends Fragment {
                     txt_medicion_calidad_aire.setText(vacio);
                     txt_medicion_temp.setText(vacio);
                     txt_medicion_hum.setText(vacio);
+                    txt_calidad_municipio.setText(vacio);
+                    txt_distancia_diaria.setText("Sin datos");
+                    txt_pasos_diaria.setText("Sin datos");
+                    txt_cal_diaria.setText("Sin datos");
                 }
 
                 @Override
@@ -272,6 +292,18 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
+    private void borrarTimeActive(){
+        //guardar los valores del user registrado en las preferencias
+        SharedPreferences shared= this.getActivity().getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putString("time_active", null);
+        editor.commit();
+
+    }
+
     /**
      * La descripción de obtenerActividadDiariaDelUser. Funcion que mediante la lista de mediciones del user calcula la
      *  distancia recorrida , los pasos y las cal.
@@ -279,6 +311,7 @@ public class HomeFragment extends Fragment {
      * @param mediciones lista de mediciones diarias del usario
      */
     private void obtenerActividadDiariaDelUser(List<Medicion> mediciones){
+
 
         int distancia = 0;
         //Sacamos la distancia total
@@ -328,5 +361,46 @@ public class HomeFragment extends Fragment {
             String kcaloriasString = kcalorias + " cal";
             txt_cal_diaria.setText(kcaloriasString);
         }
+
+        //actividad de usario
+        int tiempo = 10;
+        if(time_active != null){
+            Log.d("timeDengue", " Antes -> HAY DATOS DE TIME_ACTIVE " + time_active);
+
+            int dengue = Integer.valueOf(time_active) + tiempo;
+
+            time_active = String.valueOf(dengue);
+
+            //guardar los valores del user registrado en las preferencias
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("time_active", String.valueOf( time_active));
+            editor.commit();
+
+            Log.d("timeDengue", "  HAY DATOS DE TIME_ACTIVE " + time_active);
+        }else{
+
+            //guardar los valores del user registrado en las preferencias
+            SharedPreferences.Editor editor = shared.edit();
+            editor.putString("time_active", String.valueOf( (int) tiempo ));
+            editor.commit();
+
+            time_active = String.valueOf(tiempo);
+
+            Log.d("timeDengue", "  No hay datos de time active " + time_active);
+        }
+
+        //almacenar el usrActivity en la bd
+        logicaNegocioUsarios.crearActividadUsario(access_token , Integer.valueOf(user_id),Integer.valueOf(time_active), distanciaKm*1000, new LogicaNegocioUsarios.CrearActividadUsarioCallback() {
+            @Override
+            public void onCompletedObtenerActividadUsario(String message) {
+                Log.d("pepe", "  userActivity " + message);
+            }
+
+            @Override
+            public void onFailedObtenerActividadUsario(boolean resultado) {
+                Log.d("pepe", "  userActivity " + resultado);
+            }
+        });
+
     }
 }
