@@ -362,6 +362,8 @@ public class HomeFragment extends Fragment {
             txt_cal_diaria.setText(kcaloriasString);
         }
 
+        Log.d("actividad", " cosas " + distanciaKm + " : " + pasos + " :"+ kcalorias);
+
         //actividad de usario
         int tiempo = 10;
         if(time_active != null){
