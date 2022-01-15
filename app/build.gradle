@@ -47,5 +47,8 @@ dependencies {
     implementation 'com.jakewharton:process-phoenix:2.1.2'
     //para insertar foto mediante url
     implementation 'com.squareup.picasso:picasso:2.71828'
+    // Mapa
+    implementation 'org.osmdroid:osmdroid-android:6.0.3'
+
 
 }

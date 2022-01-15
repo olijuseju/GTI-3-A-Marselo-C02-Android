@@ -9,12 +9,14 @@ package com.example.jjpeajar.proyecto_3a_josejulio.src.logica;
 
 import android.util.Log;
 
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.DataEstacion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.MedicionController;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.User;
-import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.UserController;
 import com.google.gson.Gson;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogicaNegocioMediciones {
@@ -35,9 +37,19 @@ public class LogicaNegocioMediciones {
     }
     // obtener medicion by id user
     public interface ObtenerMedicionesByIdUserCallback{
-        void onCompletedObtenerMedicionesByIdUser(double calidadAire , double temp , double hum );
+        void onCompletedObtenerMediasDeMedicionesDiarias(double calidadAire , double temp , double hum );
+        void onCompletedObtenerMedicionesDiarias( List<Medicion> mediciones );
         void onCompletedObtenerMedicionesVacio(boolean res);
         void onFailedObtenerMedicionesByIdUser(boolean res);
+
+        void onCompletedObtenerMedicionesDeCalidadAire( List<Medicion> medicionesCalidadAire);
+        void onCompletedObtenerMedicionesDeTemperatura( List<Medicion> medicionesTemperatura);
+        void onCompletedObtenerMedicionesDeHumedad( List<Medicion> medicionesHumedad);
+    }
+    // obtener medicion by id user
+    public interface ObtenerMedicionesEstacionCallback{
+        void onCompletedObtenerMedicionesEstacion(double calidadAire , double temp , double hum );
+        void onFailedObtenerMedicionesEstacion(boolean res);
     }
     //constructor vacío
     public LogicaNegocioMediciones(){
@@ -134,8 +146,6 @@ public class LogicaNegocioMediciones {
             public void callback(int codigo, String cuerpo) {
 
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
-                Log.d("pepe", " RRECIBIDO -------------------------------------  ");
-                Log.d("pepe", "  CUERPO ->" + cuerpo+"");
 
                 try{
                     //convertir de json a POJO
@@ -156,30 +166,123 @@ public class LogicaNegocioMediciones {
                         if(medicionList.size() != 0){
 
                             //donde vamos a guardar la ultima medicion de cada tipo
-                            Medicion ultimaMedicionCalidadAire= new Medicion();
-                            Medicion ultimaMedicionTemp= new Medicion();
-                            Medicion ultimaMedicionHum= new Medicion();
+                            //Medicion ultimaMedicionCalidadAire= new Medicion();
+                            List<Medicion> medicionesCalidadAireDeHoy = new ArrayList<>();
+                            //Medicion ultimaMedicionTemp= new Medicion();
+                            List<Medicion> medicionesTempDeHoy = new ArrayList<>();
+                            //Medicion ultimaMedicionHum= new Medicion();
+                            List<Medicion> medicionesHumDeHoy = new ArrayList<>();
+
+                            // todas las mediciones diarias
+                            List<Medicion> medicionesDeHoy = new ArrayList<>();
+
+
+                            //array de todas las mediciones del user de cada tipo
+                            List<Medicion> medicionesDeCalidad = new ArrayList<>();
+                            List<Medicion> medicionesDeTemperatura = new ArrayList<>();
+                            List<Medicion> medicionesDeHumedad = new ArrayList<>();
+
                             //recorremos toda la lista
                             for(Medicion medicion : medicionList){
                                 //si es de un tipo almacenamos en una variable, la ultima almacenada es la ultima que se ha registrado
                                 if(medicion.getType_read().equals("CO2")){
-                                    ultimaMedicionCalidadAire = medicion;
+
+                                    //comprobamos si la medicion es de hoy llamando a un metodo
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //guardamos la medicion
+                                        //ultimaMedicionCalidadAire = medicion;
+                                        medicionesCalidadAireDeHoy.add(medicion);
+
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
+                                    }
+
+                                    medicionesDeCalidad.add(medicion);
                                 }
                                 if(medicion.getType_read().equals("Humedad")){
-                                    ultimaMedicionHum = medicion;
+
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //ultimaMedicionHum = medicion;
+                                        medicionesHumDeHoy.add(medicion);
+
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
+                                    }
+
+                                    medicionesDeHumedad.add(medicion);
                                 }
                                 if(medicion.getType_read().equals("Temperatura")){
-                                    ultimaMedicionTemp = medicion;
+                                    if(isMedicionOfToday(medicion.getDate())){
+                                        //ultimaMedicionTemp = medicion;
+                                        medicionesTempDeHoy.add(medicion);
+
+                                        //almaceno la medicion diaria
+                                        medicionesDeHoy.add(medicion);
+                                    }
+
+                                    medicionesDeTemperatura.add(medicion);
                                 }
                             }
-                            //variables donde vamos a almacenar el valor de cada medicion
-                            double calidadAire = ultimaMedicionCalidadAire.getValue();
-                            double temp= ultimaMedicionTemp.getValue();
-                            double hum= ultimaMedicionHum.getValue();
+                            //variables donde vamos a almacenar el valor de cada media de medicion
+                            double calidadAire;
+                            double sumatorioCalidad=0;
+                            double temp;
+                            double sumatorioHum=0;
+                            double hum;
+                            double sumatorioTemp=0;
 
-                            //devolver valores
+                            //media de cada tipo de medicion de hoy
+
+                            //-------------------------
+                            //calidad de aire
+                            for (Medicion medicion: medicionesCalidadAireDeHoy) {
+                                sumatorioCalidad = sumatorioCalidad + medicion.getValue();
+                            }
+                            //media
+                            calidadAire = sumatorioCalidad / medicionesCalidadAireDeHoy.size();
+                            // 2 decimales
+                            calidadAire=Math.round(calidadAire*100.0)/100.0;
+                            //-------------------------
+                            //hum
+                            for (Medicion medicion: medicionesHumDeHoy) {
+                                sumatorioHum = sumatorioHum + medicion.getValue();
+                            }
+                            //media
+                            hum = sumatorioHum / medicionesHumDeHoy.size();
+                            // 2 decimales
+                            hum=Math.round(hum*100.0)/100.0;
+                            //-------------------------
+                            //temp
+                            for (Medicion medicion: medicionesTempDeHoy) {
+                                sumatorioTemp = sumatorioTemp + medicion.getValue();
+                            }
+                            //media
+                            temp = sumatorioTemp / medicionesTempDeHoy.size();
+                            // 2 decimales
+                            temp=Math.round(temp*100.0)/100.0;
+
+                            //si hay mediciones diarias
+                            if(medicionesDeHoy.size() != 0){
+                                //devolver  medias de mediciones
+                                obtenerNotificacionesByIdUserCallback
+                                        .onCompletedObtenerMediasDeMedicionesDiarias(calidadAire , temp , hum);
+                            }else{ // si no hay mediciones diarias
+                                //devolver respuesta
+                                obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesVacio(true);
+                            }
+
+                            // devolver el array de las mediciones diarias
                             obtenerNotificacionesByIdUserCallback
-                                    .onCompletedObtenerMedicionesByIdUser(calidadAire , temp , hum);
+                                    .onCompletedObtenerMedicionesDiarias(medicionesDeHoy);
+
+                            //devolver las todas las mediciones de cada tipo
+
+                            //CO
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeCalidadAire(medicionesDeCalidad);
+                            //hum
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeHumedad(medicionesDeHumedad);
+                            //temp
+                            obtenerNotificacionesByIdUserCallback.onCompletedObtenerMedicionesDeTemperatura(medicionesDeTemperatura);
 
                         }else { //si esta vacio
                             //devolver respuesta
@@ -198,4 +301,77 @@ public class LogicaNegocioMediciones {
             }
         });
     }
+    /**
+     * La descripción de isMedicionOfToday. Comprueba si la fecha que le pasamos es la actual
+     *
+     * @param fechaInicio Fecha en formato yyyy-dd-MM
+     * @return boolean True si es de hoy y false si no lo es.
+     *
+     */
+    private Boolean isMedicionOfToday( String fechaInicio){
+
+        LocalDate dateObj = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            dateObj = LocalDate.now();
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        }
+        String date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = dateObj.format(formatter);
+        }
+        //Log.d("pepe", " Fecha de AHORA -> " + date);
+
+        if(fechaInicio.equals(date)){
+            //Log.d("pepe", "La medicion es DE HOY -> ");
+            return true;
+        }else{
+            //Log.d("pepe", "La medicion NO ES DE HOY -> ");
+            return false;
+        }
+    }
+
+
+    /**
+     * La descripción de obtenerMedicionesEstacionOficial. Funcion que obtiene las mediciones de la estacion oficial
+     *
+     * @param lat latitud de la estacion
+     * @param lon longitud de la estacion
+     * @param obtenerMedicionesEstacionCallback Objeto ObtenerMedicionesEstacionCallback para poder devolver el cuerpo.
+     *
+     */
+    public void obtenerMedicionesEstacionOficial(double lat, double lon, ObtenerMedicionesEstacionCallback obtenerMedicionesEstacionCallback){
+        PeticionarioRest peticionarioRest = new PeticionarioRest();
+
+        //peticion REST
+        peticionarioRest.realizarPeticion("GET", "http://api.airvisual.com/v2/nearest_city?lat="+ lat+ "&lon="+ lon+ "&key=031171a8-454b-4821-8671-a6dd79e477a4", null , new PeticionarioRest.RespuestaREST() {
+            @Override
+            public void callback(int codigo, String cuerpo) {
+                //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+                try {
+                    //convertir de json  a POJO
+                    Gson gson= new Gson();
+                    DataEstacion dataEstacion= gson.fromJson(cuerpo, DataEstacion.class);
+                    Log.d("pepelu", "  RECIBIDO -------------------------------------  ");
+                    Log.d("pepelu", "  CUERPO ->" + dataEstacion.status);
+
+                    //comprobamos si esta registrado en nuestra bbdd o no
+                    String  success= dataEstacion.status;
+                    if(success.equals("success")){
+                    }else{
+                        obtenerMedicionesEstacionCallback.onFailedObtenerMedicionesEstacion(true);
+
+                    }
+                }catch (Exception e){
+                    Log.d("ERROR AirVisualApi", e.getMessage());
+                    obtenerMedicionesEstacionCallback.onCompletedObtenerMedicionesEstacion(0,0,0);
+
+                }
+            }
+        });
+
+    }
+
 }

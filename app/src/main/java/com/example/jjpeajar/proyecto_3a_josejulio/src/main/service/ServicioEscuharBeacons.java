@@ -18,9 +18,12 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioDevice;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioMediciones;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.logica.LogicaNegocioNotification;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.CrearNotification;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Device;
+import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.DeviceController;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.GPSTracker;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.otro.Utilidades;
 import com.example.jjpeajar.proyecto_3a_josejulio.src.modelo.pojo.Medicion;
@@ -57,6 +60,7 @@ public class ServicioEscuharBeacons extends IntentService {
     private long tiempoDeEspera = 10000;
     private String dispositivoBuscado = null;
     private LogicaNegocioMediciones logicaNegocio = new LogicaNegocioMediciones();
+    private LogicaNegocioDevice logicaNegocioDevice = new LogicaNegocioDevice();
     //arrays
     public ArrayList<Medicion> mediciones = new ArrayList<Medicion>(); //aca guardamos mediciones
     public ArrayList<Integer> beaconsCO2 = new ArrayList<Integer>(); //aca guardamos beacons co2
@@ -78,12 +82,32 @@ public class ServicioEscuharBeacons extends IntentService {
     private boolean isPeligro = false;
     private boolean isErrorSensor = false;
     private boolean isSensorRoto = false;
-    private boolean isReadBeacons= false;
+    private boolean isReadBeacons = false;
 
     //notificaciones
     private PendingIntent pendingIntent;
     private final static String CHANNEL_ID = "NOTIFICACION";
     private final static int NOTIFICACION_ID = 0;
+
+
+    //ubicacion de las estaciones
+    private double[] estacion1 = {40.136944, 0.165555};
+    private double[] estacion2 = {38.67194, 0.0358333};
+    private double[] estacion3 = {39.950277, -1.108888};
+    private double[] estacion4 = {39.950277, -0.035833};
+    private double[] estacion5 = {38.00833, -0.658611};
+    ArrayList estaciones = new ArrayList<double[]>();
+
+
+    //Flag de calibración
+    private boolean calibracion = true;
+    //Delta
+    private double delta=0;
+    //Mediciones de la estación
+    double humedad;
+    double temperatura;
+    double cAire;
+
 
     public TramaIBeacon tib;
 
@@ -118,7 +142,6 @@ public class ServicioEscuharBeacons extends IntentService {
     /**
      * inicializarBlueTooth()
      * Inicializamos el escaner Bluetooth
-     *
      */
     private void inicializarBlueTooth() {
         Log.d(ETIQUETA_LOG, " inicializarBlueTooth(): obtenemos adaptador BT ");
@@ -150,6 +173,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
     /**
      * Mostramos la informacion del resultado del escaneo
+     *
      * @param resultado Resultado del escaneo Bluetooth
      */
 
@@ -204,8 +228,8 @@ public class ServicioEscuharBeacons extends IntentService {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     *  parar()
-     *  Paramos el servicio
+     * parar()
+     * Paramos el servicio
      */
     public void parar() {
 
@@ -224,8 +248,8 @@ public class ServicioEscuharBeacons extends IntentService {
         //---------------------------------------------
         //---------------------------------------------
         //parar busqueda gps
-        if(gpsTracker != null){
-            if(gpsTracker.getIsGPSTrackingEnabled()){ //comprobar si esta activo
+        if (gpsTracker != null) {
+            if (gpsTracker.getIsGPSTrackingEnabled()) { //comprobar si esta activo
                 gpsTracker.updateGPSCoordinates(); //actualizar localizacion
                 gpsTracker.stopUsingGPS(); //detener busqueda
                 Log.d("pepe", "GPSTracking DETENIDO --> STOP SUCCEFUL");
@@ -263,11 +287,11 @@ public class ServicioEscuharBeacons extends IntentService {
      * stops the service, as appropriate.
      */
     /**
-     *
      * @param intent Actividad de la que obtenemos el contexto y el tiempo de espera
      */
     @Override
     protected void onHandleIntent(Intent intent) {
+
 
         inicializarBlueTooth();
 
@@ -279,6 +303,28 @@ public class ServicioEscuharBeacons extends IntentService {
         // esto lo ejecuta un WORKER THREAD !
 
         long contador = 1;
+
+
+        //----------------------------------------------------
+        //LLAMADA DE PRUEBA A LA ESTACIÓN OFICIAL
+        //----------------------------------------------------
+
+        /*logicaNegocio.obtenerMedicionesEstacionOficial(latitud, longitud, new LogicaNegocioMediciones.ObtenerMedicionesEstacionCallback(){
+
+            @Override
+            public void onCompletedObtenerMedicionesEstacion(double calidadAire, double temp, double hum) {
+                Log.d("pepe", "publicarMedicion()  ->" +"calidadAire -> " + calidadAire);
+                Log.d("pepe", "publicarMedicion()  ->" +"temp -> " + temp);
+                Log.d("pepe", "publicarMedicion()  ->" +"hum -> " + hum);
+
+            }
+
+            @Override
+            public void onFailedObtenerMedicionesEstacion(boolean res) {
+                Log.d("pepe", "publicarMedicion()  ->" +"resultado FALLIDO -> " + res);
+            }
+        });*/
+
 
         Log.d(ETIQUETA_LOG, " ServicioEscucharBeacons.onHandleIntent: empieza : thread=" + Thread.currentThread().getId());
 
@@ -294,6 +340,20 @@ public class ServicioEscuharBeacons extends IntentService {
         //sacamos el id del user
         int id_user = Integer.parseInt(shared.getString("user_id", null));
 
+
+        logicaNegocioDevice.obtenerDevice(device_id, new LogicaNegocioDevice.ObtenerDeviceCallback() {
+            @Override
+            public void onCompletedObtenerDevice(Device device) {
+                delta=device.delta;
+            }
+
+            @Override
+            public void onFailedObtenerDevice(boolean res) {
+                delta=0;
+            }
+        });
+
+
         //si detecta el beacon indicado ejecuta ->
         this.callbackDelEscaneo = new ScanCallback() {
             @Override
@@ -308,7 +368,7 @@ public class ServicioEscuharBeacons extends IntentService {
                     //inicializar el gps par obtener la longitud y la latitud
                     //IMPORTANTE -> Al acceder a su info va a dar null, hay que llamar primero al metodo
                     // ---> gpsTracker.updateGPSCoordinates();
-                    gpsTracker=  new GPSTracker(getApplicationContext());
+                    gpsTracker = new GPSTracker(getApplicationContext());
                     // -----------------------------------------------------------------
 
                     //---------------------------------------------------------------
@@ -364,12 +424,13 @@ public class ServicioEscuharBeacons extends IntentService {
                     }
 
                     //si es alguna medicion
-                    if(numTipoDato == 11 || numTipoDato == 10 || numTipoDato == 12){
+                    if (numTipoDato == 11 || numTipoDato == 10 || numTipoDato == 12) {
                         //calculo la distancia
-                        double distancia =  calculateDistance(power , rssi);
+                        double distancia = calculateDistance(power, rssi);
                         //guardo en la lista
                         beaconsDistancia.add(distancia);
                     }
+
 
                     // algoritmo para sacar la media y guardar la medicion
                     //---------------------------------------------------------------
@@ -377,7 +438,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "SIZE CO2  --> " + beaconsCO2.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsCO2.size() == 15){
+                    if(beaconsCO2.size() == 25){
 
                         //hacer sumatorio de los valores de CO2
                         int sumatorio=0; //sumatorio
@@ -412,7 +473,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA TEMPERATURA  --> " + beaconsTemp.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsTemp.size() == 15){
+                    if(beaconsTemp.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         int sumatorio=0; //sumatorio
@@ -443,7 +504,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA HUMEDAD  --> " + beaconsHum.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsHum.size() == 15){
+                    if(beaconsHum.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         int sumatorio=0; //sumatorio
@@ -475,7 +536,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
                     Log.d("pepe", "MEDIA DISTANCIA  --> " + beaconsDistancia.size());
                     //comprobamos si los beacons de un gas llegan al limite de beacons indicado
-                    if(beaconsDistancia.size() == 15){
+                    if(beaconsDistancia.size() == 25){
 
                         //hacer sumatorio de los valores de temperatura
                         double sumatorio=0; //sumatorio
@@ -546,6 +607,10 @@ public class ServicioEscuharBeacons extends IntentService {
                 if(contador >= 15 && isReadBeacons == false){
                     //sensor dañado
                     lanzarNotificacionSensorRoto(id_user , access_token);
+                }
+
+                if (contador>1000){
+                    calibracion=true;
                 }
 
             }
@@ -706,6 +771,7 @@ public class ServicioEscuharBeacons extends IntentService {
                 .crearNotificacion(access_token, user_id, message, type, new LogicaNegocioNotification.CrearNotificacionCallback() {
                     @Override
                     public void onCompletedCrearNotificacionCallback(NotificationController notificationController) {
+
                     }
 
                     @Override
@@ -729,6 +795,12 @@ public class ServicioEscuharBeacons extends IntentService {
     private void guardarMedicion(int id_user , String access_token , int device_id , String tipo , double media ){
         Log.d("pepe", "guardarMedicion  ->" +"ENTROOO");
 
+        SharedPreferences shared = getSharedPreferences(
+                "com.example.jjpeajar.proyecto_3a_josejulio"
+                , MODE_PRIVATE);
+        String serial = shared.getString("serial_device", null);
+
+        media+=delta;
         //obtener la latitud y la longitud
         if(obtenerLocalizacionActual()){ // si se ha obtenido la latitud y longitud
             Log.d("pepe", "obtenerLocalizacionActual()  ->" +"ENTROOO y da TRUEEE");
@@ -747,7 +819,88 @@ public class ServicioEscuharBeacons extends IntentService {
                 }
             });
 
-        }else{
+
+
+
+            double dist1 = distance(latitud, longitud, estacion1[0], estacion1[1], 'K');
+            double dist2 = distance(latitud, longitud, estacion2[0], estacion2[1], 'K');
+            double dist3 = distance(latitud, longitud, estacion3[0], estacion3[1], 'K');
+            double dist4 = distance(latitud, longitud, estacion4[0], estacion4[1], 'K');
+            double dist5 = distance(latitud, longitud, estacion5[0], estacion5[1], 'K');
+
+            double[] numeros = {dist1, dist2, dist3, dist4, dist5};
+
+            double dist = numeros[0];
+            for (int x = 1; x < numeros.length; x++) {
+                Log.d("pepe", "Distancia()  ->" + "distancia -> " + numeros[x]);
+
+                if (numeros[x] < dist) {
+                    dist = numeros[x];
+
+                }
+            }
+
+
+            Log.d("pepe", "Distancia()  ->" + "distancia qlo -> " + dist);
+
+
+            if (dist < 2) {
+                Log.d("pepe", "obtenerMedidaOficial()  ->" + "ENTROOO siu");
+
+                double finalMedia = media;
+                if (calibracion){
+                    Log.d("pepe", "calibracion()  ->" + "ENTROO AUSIAS");
+                    logicaNegocio.obtenerMedicionesEstacionOficial(latitud, longitud, new LogicaNegocioMediciones.ObtenerMedicionesEstacionCallback() {
+
+                        @Override
+                        public void onCompletedObtenerMedicionesEstacion(double calidadAire, double temp, double hum) {
+                            Log.d("pepe", "publicarMedicion()  ->" + "calidadAire -> " + calidadAire);
+                            Log.d("pepe", "publicarMedicion()  ->" + "temp -> " + temp);
+                            Log.d("pepe", "publicarMedicion()  ->" + "hum -> " + hum);
+
+                            cAire=calidadAire;
+                            humedad=hum;
+                            temperatura=temp;
+
+                            calibracion = false;
+
+                        }
+
+                        @Override
+                        public void onFailedObtenerMedicionesEstacion(boolean res) {
+                            Log.d("pepe", "publicarMedicion()  ->" + "resultado FALLIDO -> " + res);
+                        }
+                    });
+                }
+
+
+                double diferencia = cAire - finalMedia;
+
+                Log.d("pepe", "publicarMedicion()  ->" + "diferencia -> " + diferencia);
+                if (diferencia>20 || diferencia<-20){
+                    Log.d("pepe", "publicarMedicion()  ->" + "ENTRA SIU");
+
+                    delta=cAire-finalMedia-delta;
+                    logicaNegocioDevice.actualizarDevice(device_id,access_token,serial,diferencia, new LogicaNegocioDevice.UpdateCallback() {
+                        @Override
+                        public void onCompletedUpdateDevice(DeviceController deviceController) {
+                            Log.d("Update", "actualizarDevice()  ->" + "calidadAire -> " + deviceController.message);
+                        }
+
+                        @Override
+                        public void onFailedUpdateDevice(boolean resultado) {
+                            Log.d("pepe", "actualizarDevice()  ->" + "NO SE PUDO BURRO");
+
+                        }
+                    });
+                }
+
+
+
+            }
+
+
+        } else {
             Toast toast = Toast.makeText(getApplicationContext(), "Asegúrese de activar el gps", Toast.LENGTH_LONG); // initiate the Toast with context, message and duration for the Toast
             toast.show(); // display the Toast
         }
@@ -756,6 +909,7 @@ public class ServicioEscuharBeacons extends IntentService {
 
     /**
      * Descripcion de obtenerLocalizacionActual. Funcion que consigue los datos del gps del usario
+     *
      * @return boolean , bool que define si se ha podido localizar o no
      *
      */
@@ -790,6 +944,36 @@ public class ServicioEscuharBeacons extends IntentService {
 
         double power = (absRssi - txPower)/(10 * 4.0);
         return Math.pow(10,power);
+    }
+
+
+    private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        if (unit == 'K') {
+            dist = dist * 1.609344;
+        } else if (unit == 'N') {
+            dist = dist * 0.8684;
+        }
+        Log.d("DISTANCIA", String.valueOf(dist));
+        return (dist);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 
 } // class
