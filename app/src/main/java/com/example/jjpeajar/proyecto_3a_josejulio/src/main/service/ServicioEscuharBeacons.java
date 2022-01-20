@@ -844,7 +844,7 @@ public class ServicioEscuharBeacons extends IntentService {
             Log.d("pepe", "Distancia()  ->" + "distancia qlo -> " + dist);
 
 
-            if (dist < 2) {
+            if (dist < 0.02) {
                 Log.d("pepe", "obtenerMedidaOficial()  ->" + "ENTROOO siu");
 
                 double finalMedia = media;
