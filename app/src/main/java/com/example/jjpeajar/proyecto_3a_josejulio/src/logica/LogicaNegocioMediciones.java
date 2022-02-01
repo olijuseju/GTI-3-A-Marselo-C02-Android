@@ -350,6 +350,9 @@ public class LogicaNegocioMediciones {
             @Override
             public void callback(int codigo, String cuerpo) {
                 //elTexto.setText ("cdigo respuesta: " + codigo + " <-> \n" + cuerpo);
+
+
+
                 try {
                     //convertir de json  a POJO
                     Gson gson= new Gson();
@@ -360,6 +363,8 @@ public class LogicaNegocioMediciones {
                     //comprobamos si esta registrado en nuestra bbdd o no
                     String  success= dataEstacion.status;
                     if(success.equals("success")){
+                        obtenerMedicionesEstacionCallback.onCompletedObtenerMedicionesEstacion(dataEstacion.data.current.pollution.aqius,  dataEstacion.data.current.weather.tp,dataEstacion.data.current.weather.hu);
+
                     }else{
                         obtenerMedicionesEstacionCallback.onFailedObtenerMedicionesEstacion(true);
 

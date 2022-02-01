@@ -348,8 +348,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="16dp"
-                            android:text="Media O2"
                             android:fontFamily="@font/montserrat"
+                            android:text="Media CO"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -423,7 +423,7 @@
                             android:layout_height="28dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="8dp"
-                            android:src="@drawable/icons_co2"
+                            android:src="@drawable/icons_cloud"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:tint="@color/rojo_borde" />
